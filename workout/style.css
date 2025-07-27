@@ -1,3 +1,73 @@
 .nav-link{
     color: black;
+    
 }
+#navbarNav {
+    background-color: rgba(0, 0, 128, 0.452);
+}
+.nav-link:hover {
+    color: white;
+    background-color: salmon;
+}
+.nav-link:focus {
+    color: white;
+    background-color: salmon;
+}
+.navbar-nav {
+    display: flex;
+    gap: 20px;
+}
+.navbar-brand {
+    color: powderblue;
+    background-color: antiquewhite;
+}
+a{
+    color: white;
+    background-color: blue;
+}
+.table-sm{
+    color:aqua
+}
+.col{
+    color: blueviolet;
+}
+.Indn{
+    background-color: burlywood;
+    color: rgb(55, 139, 139);
+}
+.card-text{
+    color: purple;
+    background-color: rgb(162, 216, 178);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
