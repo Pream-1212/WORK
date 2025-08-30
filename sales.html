@@ -1,143 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sales Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
- <header>
-  <div>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"><b>MWF</b></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item">
-        <a clss="nav-link" href="users.html">Get us</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="dashboard.html">viewport</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="sales.html">Sales</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="suppliers.html">supply</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-    </div> 
- </header>
- 
-<h1>Sales Information</h1>
-<p><i>Welcome to our sales page!</i> Here you will find our latest offers.</p>
-<table class="table table-sm table-success my-4 mx-auto w-75" border="5">
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Customers</th>
-      <th scope="col">Products</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Payment Type(Amount)</th>
-      <th scope="col">sales agent</th>
-      <th scope="col">Delivery used</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="table-danger">
-      <th scope="row">01/07/2025</th>
-      <td>John Mark</td>
-      <td><ul><li>Dottie Grey cup board-Up to 6metres wide, 2.6metres height</li></ul></td>
-      <td>1</td>
-      <td>cheque-787,500 UGX</td>
-      <td>Jimmy</td>
-      <td>1-2 weeks delivery</td>
-    </tr>
-    <tr> 
-      <th scope="row">17/07/2025</th>
-      <td>Jacob Kimala</td>
-      <td><ul><li>Modern L shop d sofa</li>
-        <li>Affordable seater driver</li></ul>
-      </td>
-      <td>2</td>
-      <td>cash in hand-1,942,500 UGX</td>
-      <td>Daniel</td>
-      <td>1-2 weeks delivery</td>
-    </tr>
-    <tr class="table-danger">
-      <th scope="row">19/07/2025</th>
-      <td colspan="">Larry the Bird</td>
-      <td><ul><li>Piper Trends L sofa</li></ul></td>
-      <td>2</td>
-      <td>invoice-1,732,500 UGX</td>
-      <td>Ruth</td>
-      <td>1-2 weeks delivery</td>
-    </tr>
-    <tr>
-        <th scope="row">24/07/2025</th>
-        <td >Bigirwa Mudondo Sam</td>
-        <td><ul><li>Uweze Leta Bed</li></ul></td>
-        <td>3</td>
-        <td>overdraft-3,118,500 UGX</td>
-        <td>Kenneth</td>
-        <td>1-2 weeks delivery</td>
-        <tr class="table-danger">
-            <th scope="row">27/07/2025</th>
-            <td>Walabyeki Deno</td>
-            <td><ul><li>Leo Single chair</li></ul></td>
-            <td>1</td>
-            <td>bank transfer- 350,000 UGX</td>
-            <td>Jimmy</td>
-            <td>self delivered</td>
+          <a class="navbar-brand" href="#"><b>MWF</b></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a clss="nav-link" href="users.html">Get us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="dash.html">viewport</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="g.html">Customer</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sales.html">Sales</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="suppliers.html">supply</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <h1>Sales Information</h1>
+    <p>
+      <i>Welcome to our sales page!</i> Here you will find our latest offers.
+    </p>
+    <h3>Add New Sale</h3>
+
+    <form id="addSaleForm" class="mb-4">
+      <div class="mb-2">
+        <label for="saleDate">Date:</label>
+        <input type="date" id="saleDate" class="form-control" required />
+      </div>
+      <div class="mb-2">
+        <label for="customer">Customer Name:</label>
+        <input
+          type="text"
+          id="customer"
+          class="form-control"
+          placeholder="Customer Name"
+          required
+        />
+      </div>
+      <div class="mb-2">
+        <label for="product">Product:</label>
+        <input
+          type="text"
+          id="product"
+          class="form-control"
+          placeholder="Product Name"
+          required
+        />
+      </div>
+      <div class="mb-2">
+        <label for="quantity">Quantity:</label>
+        <input
+          type="number"
+          id="quantity"
+          class="form-control"
+          placeholder="Quantity"
+          required
+        />
+      </div>
+      <div class="mb-2">
+        <label for="payment">Payment Type & Amount:</label>
+        <input
+          type="text"
+          id="payment"
+          class="form-control"
+          placeholder="Payment Type & Amount"
+          required
+        />
+      </div>
+      <div class="mb-2">
+        <label for="agent">Sales Agent:</label>
+        <input
+          type="text"
+          id="agent"
+          class="form-control"
+          placeholder="Sales Agent"
+          required
+        />
+      </div>
+      <div class="mb-2">
+        <label for="delivery">Delivery Method:</label>
+        <input
+          type="text"
+          id="delivery"
+          class="form-control"
+          placeholder="Delivery Method"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-success mt-2">Add Sale</button>
+    </form>
+
+    <table
+      id="salesTable"
+      class="table table-sm table-success my-4 mx-auto w-75"
+      border="5"
+    >
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Customers</th>
+          <th>Products</th>
+          <th>Quantity</th>
+          <th>Payment Type(Amount)</th>
+          <th>sales agent</th>
+          <th>Delivery used</th>
         </tr>
+      </thead>
 
-    </tr>
-  </tbody>
-</table>
-<div class="container">
-  <div class="row">
-    <div class="col order-last">
-      <h3><i>Possible payment types</i></h3>
-     <p>Pay card(cheque) at our office.
-        Pay with cash at our office.
-        Pay us on internet via our banking service(bank overdraft) and transfer account to invoice.
-        By card on our website or via our PayPal.
-     </p>
-    </div>
-    <div class="col">
-      <h3>Returns</h3>
-      <p>These are allowed only after 14 days.Should be under the same conditions as before purchase.
-        No damages should be on the furniture.
-        Should be stored properly.
-        To make returns pass via email :mwfco.org with subject:<i>Returns</i> 
-      </p>
-    </div>
-    <div class="col order-first">
-     <h3><i>Customers are highly considered</i></h3>
-      <p>We offer transport to our customers.
-        Customers pay 5% + total price.
-        <i>Some of our products are imported from US, China and Denmark</i> 
-      </p>
-    </div>
-  </div>
-</div>
+      <tbody></tbody>
+    </table>
 
+    <div class="container">
+      <div class="row">
+        <div class="col order-last">
+          <h3><i>Possible payment types</i></h3>
+          <p>
+            Pay card(cheque) at our office. Pay with cash at our office. Pay us
+            on internet via our banking service(bank overdraft) and transfer
+            account to invoice. By card on our website or via our PayPal.
+          </p>
+        </div>
+        <div class="col">
+          <h3>Returns</h3>
+          <p>
+            To make returns pass via email :mwfco.org ,with subject:
+            <u><i>Returns</i></u>
+          </p>
+        </div>
+        <button id="returnsBtn" class="btn btn-warning">
+          View Returns Policy
+        </button>
 
- <img src="image.png" width="300px" height="200px" alt="Dashboard Image" class="img-fluid mx-auto d-block" style="margin-top: 20px;">
+        <div class="col order-first">
+          <h3><i>Customers are highly considered</i></h3>
+          <p>
+            We offer transport to our customers. Customers pay 5% + total price.
+            <i>Some of our products are imported from US, China and Denmark</i>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <img
+      src="image.png"
+      width="300px"
+      height="200px"
+      alt="Dashboard Image"
+      class="img-fluid mx-auto d-block"
+      style="margin-top: 20px"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
- <footer>
-<footer class="bg-dark text-white text-center py-3">
+    <footer class="bg-dark text-white text-center py-3">
       <p>&copy; 2025 MWF Ltd. All rights reserved.</p>
- </footer>   
-</body>
+    </footer>
+    <script src="stable.js"></script>
+  </body>
 </html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MWF Manager Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="stable.js"></script>
+  </head>
+  <body>
+    <header>
+      <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#"><b>MWF</b></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="users.html">Get us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="dash.html">viewport</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="g.html">Customer</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sales.html">Sales</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="suppliers.html">supply</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container-fluid p-4">
+      <h2 class="text-center mb-4">📊 MWF Manager Dashboard</h2>
+
+      <!-- Overview Cards -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-3">
+          <div class="card p-3">
+            <h5>Suppliers</h5>
+            <p>12 Active Suppliers</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card p-3">
+            <h5>Customers</h5>
+            <p>100+ Companies</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card p-3">
+            <h5>Stock Cost</h5>
+            <p>UGX 120,000,000</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card p-3">
+            <h5>Stock Price</h5>
+            <p>UGX 180,000,000</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphs Section -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="card p-3">
+            <h5>Sales Trend</h5>
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card p-3">
+            <h5>Product Distribution</h5>
+            <canvas id="productChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue Per Product & Margins -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="card p-3">
+            <h5>Revenue Per Product</h5>
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card p-3">
+            <h5>Profit Margins (%)</h5>
+            <canvas id="marginChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Orders Table -->
+      <div class="card p-3 mb-5">
+        <h5>Recent Customer Orders</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Total Price (UGX)</th>
+              <th>Payment Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ABC Constructions</td>
+              <td>Timber</td>
+              <td>200</td>
+              <td>1,000,000</td>
+              <td>Cash</td>
+            </tr>
+            <tr>
+              <td>XYZ Furnishers</td>
+              <td>Sofa Set</td>
+              <td>5</td>
+              <td>600,000</td>
+              <td>Cheque</td>
+            </tr>
+            <tr>
+              <td>Elite Builders Ltd</td>
+              <td>Poles</td>
+              <td>300</td>
+              <td>900,000</td>
+              <td>Bank Transfer</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // Sales Trend (Line Chart)
+      new Chart(document.getElementById("salesChart"), {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Sales (UGX)",
+              data: [
+                12000000, 15000000, 13000000, 17000000, 19000000, 22000000,
+              ],
+              borderColor: "blue",
+              backgroundColor: "lightblue",
+              tension: 0.4,
+            },
+          ],
+        },
+      });
+
+      // Product Distribution (Pie Chart)
+      new Chart(document.getElementById("productChart"), {
+        type: "pie",
+        data: {
+          labels: ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"],
+          datasets: [
+            {
+              data: [25, 15, 20, 10, 20, 10],
+              backgroundColor: [
+                "#007bff",
+                "#28a745",
+                "#ffc107",
+                "#dc3545",
+                "#17a2b8",
+                "#6f42c1",
+              ],
+            },
+          ],
+        },
+      });
+
+      // Revenue Per Product (Bar Chart)
+      new Chart(document.getElementById("revenueChart"), {
+        type: "bar",
+        data: {
+          labels: ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"],
+          datasets: [
+            {
+              label: "Revenue (UGX)",
+              data: [5000000, 3000000, 7000000, 4000000, 4500000, 2500000],
+              backgroundColor: "#17a2b8",
+            },
+          ],
+        },
+      });
+
+      // Product Margins (Bar Chart)
+      new Chart(document.getElementById("marginChart"), {
+        type: "bar",
+        data: {
+          labels: ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"],
+          datasets: [
+            {
+              label: "Profit Margin (%)",
+              data: [20, 15, 35, 25, 30, 18],
+              backgroundColor: "#28a745",
+            },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>
