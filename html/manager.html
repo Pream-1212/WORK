@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="stable.js"></script>
+    <link rel="stylesheet" href="../public/css/style.css" />
   </head>
   <body>
     <header>
@@ -39,7 +39,7 @@
                 <a class="nav-link" href="dash.html">viewport</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="g.html">Customer</a>
+                <a class="nav-link" href="general.html">Customer</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="sales.html">Sales</a>
@@ -117,9 +117,86 @@
       </div>
 
       <!-- Customer Orders Table -->
+      <h1>Orders Information</h1>
+      <p>
+        <i>Welcome,You may order NOW!</i>
+      </p>
+      <h3>Add New Order</h3>
+
+      <form id="addOrderForm" class="mb-4">
+        <div class="mb-2">
+          <label for="orderDate">Date:</label>
+          <input
+            type="date"
+            id="orderDate"
+            name="date"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="mb-2">
+          <label for="customer">Customer Name:</label>
+          <input
+            type="text"
+            id="customer"
+            name="name"
+            class="form-control"
+            placeholder="Customer Name"
+            required
+          />
+        </div>
+        <div class="mb-2">
+          <label for="product">Product:</label>
+          <input
+            type="text"
+            id="product"
+            name="product"
+            class="form-control"
+            placeholder="Product Name"
+            required
+          />
+        </div>
+        <div class="mb-2">
+          <label for="quantity">Quantity:</label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            class="form-control"
+            placeholder="Quantity"
+            required
+          />
+        </div>
+        <div class="mb-2">
+          <label for="price">Total Price:UGX</label>
+          <input
+            type="text"
+            id="price"
+            name="price"
+            class="form-control"
+            placeholder="Total price"
+            required
+          />
+        </div>
+
+        <div class="mb-2">
+          <label for="payment">Payment Type:</label>
+          <input
+            type="text"
+            id="payment"
+            name="payment"
+            class="form-control"
+            placeholder="Payment Type"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-success mt-2">Add Order</button>
+      </form>
+
       <div class="card p-3 mb-5">
         <h5>Recent Customer Orders</h5>
-        <table class="table table-striped">
+        <table id="salesOrders" class="table table-striped">
           <thead>
             <tr>
               <th>Customer</th>
@@ -130,7 +207,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <!-- <tr>
               <td>ABC Constructions</td>
               <td>Timber</td>
               <td>200</td>
@@ -150,82 +227,12 @@
               <td>300</td>
               <td>900,000</td>
               <td>Bank Transfer</td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <script>
-      // Sales Trend (Line Chart)
-      new Chart(document.getElementById("salesChart"), {
-        type: "line",
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-          datasets: [
-            {
-              label: "Sales (UGX)",
-              data: [
-                12000000, 15000000, 13000000, 17000000, 19000000, 22000000,
-              ],
-              borderColor: "blue",
-              backgroundColor: "lightblue",
-              tension: 0.4,
-            },
-          ],
-        },
-      });
-
-      // Product Distribution (Pie Chart)
-      new Chart(document.getElementById("productChart"), {
-        type: "pie",
-        data: {
-          labels: ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"],
-          datasets: [
-            {
-              data: [25, 15, 20, 10, 20, 10],
-              backgroundColor: [
-                "#007bff",
-                "#28a745",
-                "#ffc107",
-                "#dc3545",
-                "#17a2b8",
-                "#6f42c1",
-              ],
-            },
-          ],
-        },
-      });
-
-      // Revenue Per Product (Bar Chart)
-      new Chart(document.getElementById("revenueChart"), {
-        type: "bar",
-        data: {
-          labels: ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"],
-          datasets: [
-            {
-              label: "Revenue (UGX)",
-              data: [5000000, 3000000, 7000000, 4000000, 4500000, 2500000],
-              backgroundColor: "#17a2b8",
-            },
-          ],
-        },
-      });
-
-      // Product Margins (Bar Chart)
-      new Chart(document.getElementById("marginChart"), {
-        type: "bar",
-        data: {
-          labels: ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"],
-          datasets: [
-            {
-              label: "Profit Margin (%)",
-              data: [20, 15, 35, 25, 30, 18],
-              backgroundColor: "#28a745",
-            },
-          ],
-        },
-      });
-    </script>
+    <script src="../public/js/manager.js"></script>
   </body>
 </html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend with Dear Irene</title>
+     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/main.css" rel="stylesheet" />
+</head>
+<body>
+    
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">FORMS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="man.html">Manager</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="sagt.html">Sales Agent</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="stock.html">Stock</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <form action="/stock" method ="post" id="stock">
+    <div class="form-wrapper">
+  <div class="form-container">
+    <h2>Stock Entry</h2>      
+      <div class="card-body">
+        
+          <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="productName" name="productName" required>
+          </div>
+        </div>
+          <div class="mb-3">
+            <label class="form-label">Product Type</label>
+            <select class="form-control" id="productType" name="productType" required>
+              <option value="Wood">Wood</option>
+              <option value="Furniture">Furniture</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Cost Price</label>
+            <input type="number" class="form-control" id="costPrice" name="costPrice" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Selling Price</label>
+            <input type="number" class="form-control" id="sellPrice" name="sellPrice" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity" name="quantity"  required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Supplier Name</label>
+            <input type="text" class="form-control" id="supplierName" name="supplierName" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Quality</label>
+            <input type="text" class="form-control" id="quality" name="quality">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Color (optional)</label>
+            <input type="text" class="form-control" id="color" name="color">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Measurements (optional)</label>
+            <input type="text" class="form-control" id="measurements" name="measurements">
+          </div>
+          <button type="submit" class="btn btn-warning">Add Stock</button>
+        
+      </div>
+    </div>
+  </div>
+  </form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+ <script src ="about.js"></script>
+</body>
+</html>

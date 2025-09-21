@@ -1,0 +1,39 @@
+extends layout 
+block content
+    form#stock(action=`/editstock/${item._id}`, method='post')
+        .form-wrapper
+            .form-container
+                h2 Edit stock form
+                .card-body
+                    .mb-3
+                    label.form-label Product Name
+                    input#productName.form-control(type='text' name='productName', value=`${item.productName}`, required='')
+                .mb-3
+                    label.form-label Product Type
+                    select#productType.form-control(name='productType' value=`${item.productType}`, required='')
+                        option(value='Wood') Wood
+                        option(value='Furniture') Furniture
+                .mb-3
+                    label.form-label Cost Price
+                    input#costPrice.form-control(type='number' name='costPrice' value=`${item.costPrice}`, required='')
+                .mb-3
+                    label.form-label Selling Price
+                    input#sellPrice.form-control(type='number' name='sellPrice' value=`${item.sellPrice}`, required='')
+                .mb-3
+                    label.form-label Quantity
+                    input#quantity.form-control(type='number' name='quantity' value=`${item.quantity}`, required='')
+                .mb-3
+                    label.form-label Supplier Name
+                    input#supplierName.form-control(type='text' name='supplierName' value=`${item.supplierName}`, required='')
+                .mb-3
+                    label.form-label Quality
+                    input#quality.form-control(type='text' name='quality' value=`${item.quality}`)
+                .mb-3
+                    label.form-label Color (optional)
+                    input#color.form-control(type='text' name='color' value=`${item.color}`)
+                .mb-3
+                    label.form-label Measurements (optional)
+                    input#measurements.form-control(type='text' name='measurements' value=`${item.measurements}`)
+                button.btn.btn-warning(type='submit') Update Stock
+            script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js')
+           

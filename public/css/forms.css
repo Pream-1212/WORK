@@ -1,0 +1,53 @@
+/* General body style */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+/* Form container */
+form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Inputs */
+input.form-control {
+  border-radius: 8px;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  transition: border 0.3s;
+}
+
+input.form-control:focus {
+  border-color: #2575fc;
+  box-shadow: 0 0 8px rgba(37, 117, 252, 0.3);
+}
+
+/* Help text */
+#emailHelp {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+}

@@ -1,0 +1,81 @@
+extends layout 
+block content
+    h1 Our Movements
+    main.container
+      h1 Sales Information
+      p
+        i Welcome to our sales page!
+        |  Here you will find our latest offers.
+
+      h3 Edit sale form
+      form#addSaleForm.mb-4(action=`/editsales/${item._id}`, method='post')
+        .mb-2
+          label(for="saleDate") Date:
+          input#saleDate.form-control(type="date", name="date", required)
+        .mb-2
+          label(for="customer") Customer Name:
+          input#customer.form-control(type="text", placeholder="Customer Name", name="name", value=`${item.name}`, required)
+        .mb-2
+          label(for="product") Product:
+          input#product.form-control(type="text", placeholder="Product Name", name="product", value=`${item.product}`, required)
+        .mb-2
+          label(for="quantity") Quantity:
+          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity",value=`${item.quantity}`, required)
+        .mb-2
+          label(for="price") Total Price: UGX
+          input#price.form-control(type="text", placeholder="Total price", name="price", value=`${item.price}`, required)
+        .mb-2
+          label.payment Payment Type:
+          select.form-control#paymentType(name="payment", value=`${item.payment}`, required)
+            option(value="cheque") Cheque
+            option(value="cash") Cash
+            option(value="bankoverdraft") Bank Overdraft
+            option(value="banktransfer") Bank Transfer
+            option(value="paypal") PayPal
+        .mb-2
+          label(for="agent") Sales Agent:
+          input#agent.form-control(type="text", placeholder="Sales Agent", name="agent", value=`${item.agent}`, required)
+        .mb-2
+          label(for="delivery") Delivery Method:
+          input#delivery.form-control(type="text", placeholder="Delivery Method", name="delivery", value=`${item.delivery}`, required)
+        button.btn.btn-warning(type="submit") Update Sales
+
+     
+      .row
+        .col.order-last
+          h3
+            i Possible payment types
+          p.
+            Pay card (cheque) at our office. Pay with cash at our office. 
+            Pay us on internet via our banking service (bank overdraft) and transfer account to invoice. 
+            Via our PayPal.
+
+        .col
+          h3 Returns
+          p
+            | To make returns pass via email: mwfco.org, with subject:
+            u
+              i Returns
+          button#returnsBtn.btn.btn-warning View Returns Policy
+
+        .col.order-first
+          h3
+            i Customers are highly considered
+          p
+            | We offer transport to our customers. Customers pay 5% + total price.
+            i Some of our products are imported from US, China and Denmark
+
+      img.img-fluid.mx-auto.d-block(
+        src="image.png",
+        width="300px",
+        height="200px",
+        alt="Dashboard Image",
+        style="margin-top: 20px"
+      )
+
+    footer.bg-dark.text-white.text-center.py-3
+      p © 2025 MWF Ltd. All rights reserved.
+
+    // Scripts
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js")
+    //- script(src="/js/stable.js")

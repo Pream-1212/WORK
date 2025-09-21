@@ -1,0 +1,97 @@
+/* General body and font */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #333;
+}
+
+/* Form controls */
+.form-control {
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: black;
+}
+
+
+
+/* Footer */
+footer {
+  background-color: #212529;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Image styling */
+img.img-fluid {
+  display: block;
+  margin: 20px auto;
+}
+
+/* Optional: responsive container */
+main.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.form-card {
+  border: 2px solid #0d6efd; /* Bootstrap primary blue */
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f8f9fa; /* light gray background */
+}
+.form-card {
+  border: 2px solid #0d6efd; /* Bootstrap primary blue */
+  border-radius: 12px;
+  padding: 20px 25px;
+  background-color: #ffffff; /* white background */
+  width: 100%;
+  max-width: 500px; /* control form width */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+
+.nav-link {
+  color: black;
+}
+#navbarNav {
+  background-color: rgba(0, 0, 128, 0.452);
+}
+.nav-link:hover {
+  color: white;
+  background-color: salmon;
+}
+.nav-link:focus {
+  color: white;
+  background-color: salmon;
+}
+.navbar-nav {
+  display: flex;
+  gap: 20px;
+}
+.navbar-brand {
+  color: powderblue;
+  background-color: antiquewhite;
+}
+a {
+  color: white;
+  background-color: blue;
+}

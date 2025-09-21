@@ -1,0 +1,33 @@
+ body {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .signup-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 450px;
+    }
+    .form-control, .form-select {
+      border-radius: 12px;
+    }
+    .btn-custom {
+      background: #4facfe;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn-custom:hover {
+      background: #00c6ff;
+      transform: scale(1.03);
+    }
+
+
+
+    

@@ -1,0 +1,53 @@
+// Table for displaying stock records
+doctype html
+html 
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Our Sales
+    link(href='/css/stocktable.css' rel='stylesheet')
+
+  body
+    .container.mt-5
+      h3.mb-3 Sales Records
+
+      table.table.table-bordered.table-striped
+        thead.table-dark
+          tr
+            th Date
+            th Customer Name
+            th Product
+            th Quantity
+            th Total Price
+            th Payment Type
+            th Sales Agent
+            th Delivery Method
+            if currentUser.role === 'manager'
+              th Update
+              th Delete
+        tbody
+          if sales && sales.length
+            each sale in sales
+              tr
+                td #{sale.datebought}
+                td #{sale.name}
+                td #{sale.product}
+                td #{sale.quantity}
+                td #{sale.price}
+                td #{sale.payment}
+                td #{sale.agent.name}
+                td #{sale.delivery}
+                if currentUser.role === 'manager'
+                  td
+                    a.btn.btn-warning.btn-sm(href=`/editsales/${sale._id}`) Edit
+                  td
+                    form(method='post', action='/deletesales')
+                      input(type='hidden', name='id', value=sale._id)
+                      button.btn.btn-danger.btn-sm(type='submit') Delete
+            else
+            tr
+                td(colspan="10").text-center No sales available
+
+  // Add sales button (placed below table)
+  a.btn.btn-success(href='/Addsale') Add Sales
+  script (src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')

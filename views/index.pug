@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  #splash-card.card.bg-dark.text-white
+    img.card-img(src='images/curtain.jpg' alt='Background' width='300' height='500')
+    .card-img-overlay
+      h5.card-title It is Right Here
+      p.card-text BELIEVE IN THAT FIRST STEP
+      p.card-text LET&apos;S MOVE TOGETHER
+
+  a(href='/login')
+    img.tap(src='/images/ARROW.png' alt='Arrow' width='30' height='20')
+
+  // Link to Bootstrap JavaScript bundle (Popper included)
+  script(src="/js/stable.js")
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')

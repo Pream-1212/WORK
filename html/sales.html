@@ -9,7 +9,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../public/css/main.css" />
   </head>
   <body>
     <header>
@@ -33,13 +33,13 @@
                 <a class="nav-link" href="index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a clss="nav-link" href="users.html">Get us</a>
+                <a class="nav-link" href="users.html">Get us</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="dash.html">viewport</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="g.html">Customer</a>
+                <a class="nav-link" href="general.html">Customer</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="sales.html">Sales</a>
@@ -62,13 +62,20 @@
     <form id="addSaleForm" class="mb-4">
       <div class="mb-2">
         <label for="saleDate">Date:</label>
-        <input type="date" id="saleDate" class="form-control" required />
+        <input
+          type="date"
+          id="saleDate"
+          name="date"
+          class="form-control"
+          required
+        />
       </div>
       <div class="mb-2">
         <label for="customer">Customer Name:</label>
         <input
           type="text"
           id="customer"
+          name="name"
           class="form-control"
           placeholder="Customer Name"
           required
@@ -79,6 +86,7 @@
         <input
           type="text"
           id="product"
+          name="product"
           class="form-control"
           placeholder="Product Name"
           required
@@ -89,26 +97,44 @@
         <input
           type="number"
           id="quantity"
+          name="quantity"
           class="form-control"
           placeholder="Quantity"
           required
         />
       </div>
       <div class="mb-2">
-        <label for="payment">Payment Type & Amount:</label>
+        <label for="price">Total Price:UGX</label>
         <input
           type="text"
-          id="payment"
+          id="price"
+          name="price"
           class="form-control"
-          placeholder="Payment Type & Amount"
+          placeholder="Total price"
           required
         />
+      </div>
+      <div class="mb-2">
+        <label class="payment">Payment Type:</label>
+        <select
+          class="form-control"
+          id="paymentType"
+          name="productType"
+          required
+        >
+          <option value="cheque">Cheque</option>
+          <option value="cash">Cash</option>
+          <option value="bankoverdraft">Bank Overdraft</option>
+          <option value="banktransfer">Bank Transfer</option>
+          <option value="paypal">PayPal</option>
+        </select>
       </div>
       <div class="mb-2">
         <label for="agent">Sales Agent:</label>
         <input
           type="text"
           id="agent"
+          name="agent"
           class="form-control"
           placeholder="Sales Agent"
           required
@@ -119,6 +145,7 @@
         <input
           type="text"
           id="delivery"
+          name="delivery"
           class="form-control"
           placeholder="Delivery Method"
           required
@@ -130,7 +157,6 @@
     <table
       id="salesTable"
       class="table table-sm table-success my-4 mx-auto w-75"
-      border="5"
     >
       <thead>
         <tr>
@@ -138,7 +164,8 @@
           <th>Customers</th>
           <th>Products</th>
           <th>Quantity</th>
-          <th>Payment Type(Amount)</th>
+          <th>Total Price:UGX</th>
+          <th>Payment Type</th>
           <th>sales agent</th>
           <th>Delivery used</th>
         </tr>
@@ -154,7 +181,7 @@
           <p>
             Pay card(cheque) at our office. Pay with cash at our office. Pay us
             on internet via our banking service(bank overdraft) and transfer
-            account to invoice. By card on our website or via our PayPal.
+            account to invoice. Via our PayPal.
           </p>
         </div>
         <div class="col">
@@ -187,10 +214,10 @@
       style="margin-top: 20px"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <footer class="bg-dark text-white text-center py-3">
       <p>&copy; 2025 MWF Ltd. All rights reserved.</p>
     </footer>
-    <script src="stable.js"></script>
+    <script src="../js/stable.js"></script>
   </body>
 </html>

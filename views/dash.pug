@@ -1,0 +1,112 @@
+meta(charset="UTF-8")
+meta(name="viewport", content="width=device-width,initial-scale=1")
+title MWF Public Dashboard
+link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css", rel="stylesheet")
+script(src="https://cdn.jsdelivr.net/npm/chart.js")
+link(rel="stylesheet", href="../public/css/style.css")
+header
+  div
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href="#")
+        b MWF
+      button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.ms-auto
+          li.nav-item.active
+            a.nav-link(href="index.html") Home
+          li.nav-item
+            a.nav-link(href="users.html") Get us
+          li.nav-item
+            a.nav-link(href="dash.html") viewport
+          li.nav-item
+            a.nav-link(href="general.html") Customer
+          li.nav-item
+            a.nav-link(href="sales.html") Sales
+          li.nav-item
+            a.nav-link(href="suppliers.html") supply
+h1 Our Movements
+p.
+  
+  We started in 2009 as a small project .We have been importing finished furniture from European countries like Germany,Denmark.We also import our finished furniture in neighboring countries like Kenya, Burundi.Local customers are among our interests.Furniture is stocked and together with our stable suppliers from around Uganda.For this reason we are the potential company to design your office,home,dinning halls,hotels etc.
+  
+h3 some of our details
+pre.
+        Mayondo Wood and Furniture (MWF) Ltd operates under a registered license Board. 
+        We are still under a tax holiday which will be terminated next year in May.
+      The top selling products are the office furniture , beds and cupboards. 
+      
+//  Overview Section 
+section#overview.container.my-5.text-center
+  h2.mb-4 MWF at a Glance
+  .row.g-4
+    .col-md-3
+      .card.p-3
+        h5 Products
+        p 50+ items
+    .col-md-3
+      .card.p-3
+        h5 Categories
+        p Wood & Furniture
+    .col-md-3
+      .card.p-3
+        h5 Suppliers
+        p Upcountry Partners
+    .col-md-3
+      .card.p-3
+        h5 Clients Served
+        p 100+ Companies
+//  Products Section 
+section#products.container.my-5
+  h2.mb-4.text-center Featured Products
+  .row.g-4
+    .col-md-4
+      .card.feature-card
+        img.card-img-top(src="https://elhelow.com/wp-content/uploads/2023/04/WOODEN_MANAGER-removebg-preview.png", alt="Office Furniture")
+        .card-body.text-center
+          h5.card-title Office Furniture
+          p.card-text High-quality desks and chairs
+    .col-md-4
+      .card.feature-card
+        img.card-img-top(src="images/stocking hall.webp", alt="Warehouse")
+        .card-body.text-center
+          h5.card-title Storage Solutions
+          p.card-text Poles, timber, and raw materials
+    .col-md-4
+      .card.feature-card
+        img.card-img-top(src="images/image.png", alt="Furniture")
+        .card-body.text-center
+          h5.card-title Home Furniture
+          p.card-text Sofas, beds, dining sets
+//  Gallery Section 
+section#gallery.container.my-5
+  h2.mb-4.text-center Gallery
+  .row.g-3
+    .col-md-3
+      img.gallery-img.rounded(src="images/IMG-20170802-WA0010_edited.jpg", alt="Warehouse")
+    //  <div class="col-md-3"><img src="our video.mp4" class="gallery-img rounded" alt="Furniture"></div> 
+    .col-md-3
+      video.gallery-img.rounded(controls)
+        source(src="images/our video.mp4", type="video/mp4")
+        | 
+Your browser does not support the video tag.
+
+    .col-md-3
+      img.gallery-img.rounded(src="images/room.avif", alt="Office")
+    .col-md-3
+      img.gallery-img.rounded(src="images/WhatsApp Image 2023-10-24 at 12.18_edited.jpg", alt="Warehouse")
+section#dashboard.container.my-5
+  h2.mb-4.text-center MWF Dashboard
+  .row
+    //  Sales Trends 
+    .col-md-6.mb-4
+      canvas#salesChart
+    //  Product Distribution 
+    .col-md-6.mb-4
+      canvas#productChart
+//  Footer 
+footer.bg-dark.text-white.text-center.py-3
+  p © 2025 MWF Ltd. All rights reserved.
+//  <script src ="stable.js"></script> 
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js")
+script(src="../public/js/charts.js")

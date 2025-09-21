@@ -1,0 +1,39 @@
+// Table for displaying stock records
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Backend with Dear Irene
+  link(href='/css/stocktable.css' rel='stylesheet')
+
+.container.mt-5
+  h3.mb-3 User Records
+  table.table.table-bordered.table-striped
+    thead.table-dark
+      tr
+        th Name 
+        th Email
+        th Tel
+        th Role
+        th Update
+        th Delete
+    tbody
+      if items && items.length
+        each item in items
+          tr
+            td #{item.name}
+            td #{item.email}
+            td #{item.tel}
+            td #{item.role}
+            td
+              a.btn.btn-warning(href=`/edituser/${item._id}`) Edit
+            td
+              form(method='post', action='/deleteuser')
+                input(type='hidden', name='id', value=item._id)
+                button.btn.btn-danger.btn-block(type='submit') Delete
+      else
+        tr
+          td(colspan="6").text-center Not available
+
+  // Add user button (placed below table)
+  a.btn.btn-warning.mt-3(href='/rights1') Add User
