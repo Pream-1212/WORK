@@ -2,35 +2,29 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
-// const multer = require("multer");
-// const {ensureAuthenticated, ensureManager} = require("../middleware/auth.js");
+
 
 const StockModel = require("../models/stockModel");
 const addsalesModel = require("../models/addsalesModel");
 
-// // image upload configs
-// let storage = multer.diskStorage({
-//     destination: (req,file,cb) => {
-//       cb(null, 'public/uploads/')
-//     },
-//     filename: (req,file,cb) => {
-//       cb(null, Date.now() + '-' + file.originalname)
-//     }
-//   });
-//   const upload = multer({storage: storage});
-//   //ensureaunthenticated, ensureManager
 
-router.get("/stock", (req, res) => {
-  res.render("stock");
+router.get("/stock", async (req, res) => {
+  try {
+    const stocks = await StockModel.find();
+    res.render("stocks", { stocks }); //  You must pass { stocks }
+  } catch (error) {
+    console.error(error.message);
+    res.render("stocks", { stocks: [] }); // fallback so pug doesn't break
+  }
 });
 
 router.post("/stock", async (req, res) => {
-  // this route helps to post data in the terminal
+   
   try {
-    const stock = new StockModel(req.body);
-    // Save the file path to the database
+    const stocks = new StockModel(req.body);
+     
     console.log(req.body);
-    await stock.save();
+    await stocks.save();
     res.redirect("/stocklist");
   } catch (error) {
     console.error(error);
@@ -38,7 +32,7 @@ router.post("/stock", async (req, res) => {
   }
 });
 
-//getting stock from the database
+ 
 
 router.get("/manager", async (req, res) => {
   try {
@@ -126,6 +120,7 @@ router.get("/manager", async (req, res) => {
     console.error("Aggregate Error:", error.message);
   }
 });
+
 router.get("/stocklist", async (req, res) => {
   try {
     let items = await StockModel.find().sort({ $natural: -1 });
@@ -138,6 +133,10 @@ router.get("/stocklist", async (req, res) => {
 
 //updating stock
 router.get("/editstock/:id", async (req, res) => {
+  if (!req.session.user || req.session.user.role !== "manager") {
+    return res.status(403).send("Forbidden: Only manager can edit stock");
+  }
+
   let item = await StockModel.findById(req.params.id);
   // console.log(item)
   res.render(`editstock`, { item });
@@ -170,6 +169,9 @@ router.post("/editstock/:id", async (req, res) => {
 //      }
 // });
 router.post("/deletestock", async (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'manager') {
+    return res.status(403).send('Forbidden: Only manager can delete stock');
+  }
   try {
     await StockModel.deleteOne({ _id: req.body.id });
     res.redirect("stocklist");

@@ -54,60 +54,49 @@
     </header>
 
     <!-- Header -->
-    <div class="header">
+    <div class="header text-center my-4">
       <h1>Mayondo Wood & Furniture Ltd</h1>
-      <p>Market Statistics & Customer Insights</p>
+      <p>Marketing & Customer Insights</p>
     </div>
 
-    <div class="container">
-      <div class="row mb-4">
-        <!-- Popular Products -->
-        <div class="col-md-4 mb-3">
-          <div class="card shadow-sm p-3">
-            <h5>Most Popular Product</h5>
-            <p class="fs-4">Dining Tables</p>
-          </div>
-        </div>
-        <!-- Customer Base -->
-        <div class="col-md-4 mb-3">
-          <div class="card shadow-sm p-3">
-            <h5>Customer Base</h5>
-            <p class="fs-4">Construction Companies & Dealers</p>
-          </div>
-        </div>
-        <!-- Growth -->
-        <div class="col-md-4 mb-3">
-          <div class="card shadow-sm p-3">
-            <h5>Market Growth</h5>
-            <p class="fs-4 text-success">+12% (This Year)</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Graphs Section -->
-      <div class="row">
-        <!-- Sales Trend -->
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm p-4">
-            <h5 class="mb-3">Sales Trend (2025)</h5>
-            <canvas id="salesTrend"></canvas>
-          </div>
-        </div>
-        <!-- Product Category Breakdown -->
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm p-4">
-            <h5 class="mb-3">Products Sold (Wood vs Furniture)</h5>
-            <canvas id="categoryBreakdown"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- Demand Insights -->
-      <div class="card shadow-sm p-4 mb-5">
-        <h5 class="mb-3">Top 5 Products in Demand</h5>
-        <canvas id="topProducts"></canvas>
-      </div>
+    
+    <div class="container my-5">
+  <div class="row g-4">
+<div class="col-md-4 mb-3">
+  <a href="contact.html" class="text-decoration-none">
+    <div class="card shadow-sm p-3">
+      <h5>About us</h5>
+      <p id="marketGrowth" class="fs-4 text-success">Since 2009(Till this Year)</p>
     </div>
+  </a>
+</div>
+
+<!-- Most Popular Product -->
+<div class="col-md-4 mb-3">
+  <a href="products.html" class="text-decoration-none">
+    <div class="card shadow-sm p-3">
+      <h5>Most Popular Product Ever</h5>
+      <pre class="fs-4">Dining Tables
+School Desks
+Chairs
+
+
+      </pre>
+    </div>
+  </a>
+</div>
+
+<!-- Customer Base -->
+<div class="col-md-4 mb-3">
+  <a href="" class="text-decoration-none">
+    <div class="card shadow-sm p-3">
+      <h5>Customer Base</h5>
+      <p class="fs-4">Construction Companies & Dealers</p>
+    </div>
+  </a>
+</div>
+</div>
+</div>
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3">
@@ -117,8 +106,8 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Chart.js -->
-    <script src="../js/charts.js"></script>
+   
+    <script src="/public/js/general.js"></script>
 
    
   </body>

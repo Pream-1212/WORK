@@ -16,11 +16,12 @@ html
           tr
             th Date
             th Customer Name
-            th Product
+            th Product Name
+            th Product Type
             th Quantity
-            th Total Price
+            th Unit Price
+            th Sales agent
             th Payment Type
-            th Sales Agent
             th Delivery Method
             if currentUser.role === 'manager'
               th Update
@@ -29,13 +30,14 @@ html
           if sales && sales.length
             each sale in sales
               tr
-                td #{sale.datebought}
+                td #{sale.date}
                 td #{sale.name}
-                td #{sale.product}
+                td #{sale.productName}
+                td #{sale.productType}
                 td #{sale.quantity}
-                td #{sale.price}
+                td #{sale.unitPrice}
+                td #{sale.agent ? sale.agent.name : "N/A"}
                 td #{sale.payment}
-                td #{sale.agent.name}
                 td #{sale.delivery}
                 if currentUser.role === 'manager'
                   td
@@ -44,10 +46,10 @@ html
                     form(method='post', action='/deletesales')
                       input(type='hidden', name='id', value=sale._id)
                       button.btn.btn-danger.btn-sm(type='submit') Delete
-            else
+          else
             tr
-                td(colspan="10").text-center No sales available
+              td(colspan="10").text-center No sales available
 
-  // Add sales button (placed below table)
-  a.btn.btn-success(href='/Addsale') Add Sales
-  script (src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
+      // Add sales button (placed below table)
+      a.btn.btn-success.mt-3(href='/Addsale') Add Sales
+      script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')

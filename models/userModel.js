@@ -5,31 +5,47 @@ const registrationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  country: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  village: {
+    type: String,
+    required: true,
+  },
+  nin: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
     unique: true,
     trim: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
+  // password: {
+  //   type: String,
+  //   required: true,
+  // },
   tel: {
     type: String,
     required: true,
     trim: true,
   },
-  confirm: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  showPassword: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+  // confirm: {
+  //   type: String,
+  //   required: true,
+  //   trim: true,
+  // },
+  
   role: {
     type: String,
     required: true,

@@ -11,9 +11,14 @@ head
   table.table.table-bordered.table-striped
     thead.table-dark
       tr
-        th Name 
-        th Email
-        th Tel
+        th Fullname
+        th Country 
+        th City/Region
+        th Village
+        th National Identification Number 
+        th Gender
+        th Email address
+        th Phone Number
         th Role
         th Update
         th Delete
@@ -22,6 +27,11 @@ head
         each item in items
           tr
             td #{item.name}
+            td #{item.country}
+            td #{item.city}
+            td #{item.village}
+            td #{item.nin}
+            td #{item.gender}
             td #{item.email}
             td #{item.tel}
             td #{item.role}

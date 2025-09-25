@@ -14,22 +14,29 @@ link(href="css/style.css", rel="stylesheet")
       .mb-3
         label.form-label Email Address
         input.form-control#email(type="email", name="email", value=`${item.email}`, required='')
+        .mb-3
+        label.form-label Password
+        input.form-control#password(type="password", name="password", value=`${item.password}`, required='')
       .mb-3
         label.form-label Phone Number
         input.form-control#phone(type="tel", name="tel", value=`${item.tel}`, required='')
       .mb-3
-        label.form-label Password
-        input.form-control#password(type="password", name="password", value=`${item.password}`, required='')
+      label.form-label(for="confirmPassword") Confirm Password
+      input.form-control#confirmPassword(type="password",name="confirm", placeholder="Confirm password", required)
+      .form-check.mb-3
+      input.form-check-input#showPassword(type="checkbox", name="showPassword")
+      label.form-check-label(for="showPassword").
+        Show Password
       .mb-3
         label.form-label Role
         select.form-select#role(required name="role", value=`${item.role}`)
           option(value, disabled, selected) -- Select Role --
-          option(value="customer") Customer
-          option(value="supplier") Supplier
           option(value="manager") Manager
-          option(value="attendant") Attendant
+          option(value="attendant") Attendant 
+          
       //  Role-Specific Fields 
       #extraFields
       //  Submit 
       button.btn.btn-primary.w-100(type="submit")  Update User
-script(src="../public/js/rights.js")
+script(src="../js/registration.js")
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js")

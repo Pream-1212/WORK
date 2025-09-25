@@ -1,3 +1,7 @@
+// --------------------------
+// Charts Initialization
+// --------------------------
+
 // Sales Trend (Line Chart)
 const salesChart = new Chart(document.getElementById("salesChart"), {
   type: "line",
@@ -13,26 +17,9 @@ const salesChart = new Chart(document.getElementById("salesChart"), {
       },
     ],
   },
-});
-
-// Product Distribution (Pie Chart)
-const productChart = new Chart(document.getElementById("productChart"), {
-  type: "pie",
-  data: {
-    labels: [],
-    datasets: [
-      {
-        data: [],
-        backgroundColor: [
-          "#007bff",
-          "#28a745",
-          "#ffc107",
-          "#dc3545",
-          "#17a2b8",
-          "#6f42c1",
-        ],
-      },
-    ],
+  options: {
+    responsive: true,
+    plugins: { legend: { display: true } },
   },
 });
 
@@ -40,7 +27,7 @@ const productChart = new Chart(document.getElementById("productChart"), {
 const revenueChart = new Chart(document.getElementById("revenueChart"), {
   type: "bar",
   data: {
-    labels: [],
+    labels: ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"],
     datasets: [
       {
         label: "Revenue (UGX)",
@@ -49,123 +36,96 @@ const revenueChart = new Chart(document.getElementById("revenueChart"), {
       },
     ],
   },
-});
-
-// Product Margins (Bar Chart)
-new Chart(document.getElementById("marginChart"), {
-  type: "bar",
-  data: {
-    labels: [],
-    datasets: [
-      {
-        label: "Profit Margin (%)",
-        data: [],
-        backgroundColor: "#28a745",
-      },
-    ],
+  options: {
+    responsive: true,
+    plugins: { legend: { display: true } },
   },
 });
 
-// Form + table
-
+// --------------------------
+// Orders Handling
+// --------------------------
 const orderForm = document.getElementById("addOrderForm");
+const ordersTableBody = document.querySelector("#salesOrders tbody");
 
-const ordersTableBody = document.querySelector("#ordersTable tbody");
-
+// Load existing orders from localStorage
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
-orders.forEach((order) => {
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <th scope="row">${order.orderDate}</th>
-    <td>${order.customer}</td>
-    <td>${order.product}</td>
-    <td>${order.quantity}</td>
-    <td>${order.price}</td>
-    <td>${order.payment}</td>
-    
-  `;
-  ordersTableBody.appendChild(row);
-});
 
+// Render existing orders
+orders.forEach((order) => appendOrderRow(order));
+
+// Update charts on page load
+updateCharts();
+
+// --------------------------
+// Form Submission
+// --------------------------
 orderForm.addEventListener("submit", function (event) {
-  event.preventDefault(); // stop page reload
+  event.preventDefault();
 
-  // Read values
+  // Read form values
   const orderDate = document.getElementById("orderDate").value;
   const customer = document.getElementById("customer").value;
   const product = document.getElementById("product").value;
-  const quantity = document.getElementById("quantity").value;
-  const price = document.getElementById("price").value;
+  const quantity = parseInt(document.getElementById("quantity").value);
+  const price = parseFloat(document.getElementById("price").value);
   const payment = document.getElementById("payment").value;
 
-  // Save array to localStorage
-  // localStorage.setItem("sales", JSON.stringify(#salesTable tbody));
-
-  // Basic validation (optional)
   if (!orderDate || !customer || !product || !quantity || !price || !payment) {
     alert("Please fill in all fields.");
     return;
   }
 
-  // Build row
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-      <th scope="row">${orderDate}</th>
-      <td>${customer}</td>
-      <td>${product}</td>
-      <td>${quantity}</td>
-      <td>${price}</td>
-      <td>${payment}</td>
-      
-    `;
+  const newOrder = { orderDate, customer, product, quantity, price, payment };
 
-  // Append
-  ordersTableBody.appendChild(newRow);
-
-  // Save new sale to array and localStorage
-  orders.push({
-    orderDate,
-    customer,
-    product,
-    quantity,
-    price,
-    payment,
-  });
+  // Add to orders array & localStorage
+  orders.push(newOrder);
   localStorage.setItem("orders", JSON.stringify(orders));
 
-  // Clear form
+  // Add to table
+  appendOrderRow(newOrder);
+
+  // Update charts
+  updateCharts();
+
+  // Reset form
   orderForm.reset();
 });
 
+// --------------------------
+// Helper Functions
+// --------------------------
+function appendOrderRow(order) {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+      <th scope="row">${order.orderDate}</th>
+      <td>${order.customer}</td>
+      <td>${order.product}</td>
+      <td>${order.quantity}</td>
+      <td>${order.price}</td>
+      <td>${order.payment}</td>
+  `;
+  ordersTableBody.appendChild(row);
+}
+
+// --------------------------
+// Update Charts Function
+// --------------------------
 function updateCharts() {
-  // Sales Trend (by date)
+  // Sales Trend
   const dates = orders.map((o) => o.orderDate);
   const totals = orders.map((o) => o.quantity * o.price);
-
   salesChart.data.labels = dates;
   salesChart.data.datasets[0].data = totals;
   salesChart.update();
 
-  // Product Distribution & Revenue per Product
-  const products = ["Timber", "Poles", "Sofas", "Beds", "Tables", "Cupboards"];
-  const productCounts = products.map(
-    (p) => orders.filter((o) => o.product === p).length
-  );
-  const revenuePerProduct = products.map((p) =>
+  // Revenue per Product
+  const productLabels = revenueChart.data.labels;
+  const revenuePerProduct = productLabels.map((p) =>
     orders
       .filter((o) => o.product === p)
       .reduce((sum, o) => sum + o.quantity * o.price, 0)
   );
-
-  productChart.data.datasets[0].data = productCounts;
-  productChart.update();
-
   revenueChart.data.datasets[0].data = revenuePerProduct;
   revenueChart.update();
-
-  // Product Margins (dummy formula: profit margin = revenue / 100000)
-  marginChart.data.datasets[0].data = revenuePerProduct.map((rev) =>
-    rev > 0 ? Math.round((rev / 100000) % 100) : 0
-  );
-  marginChart.update();
 }

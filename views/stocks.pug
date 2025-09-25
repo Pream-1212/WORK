@@ -1,0 +1,92 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title MAYONDO WOOD FACTORY
+    // Bootstrap CSS
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet')
+    // Your custom CSS
+    link(href='/css/main.css' rel='stylesheet')
+
+  body
+    // Navbar
+    nav.navbar.navbar-expand-lg.bg-body-tertiary
+      .container-fluid
+        // Brand
+        a.navbar-brand(href='/') 
+          img(src='/images/Download Wooden House Logo design for free.jpg' alt='Company Logo' width='80' height='80')
+        // Toggler button
+        button.navbar-toggler(
+          type='button',
+          data-bs-toggle='collapse',
+          data-bs-target='#navbarNav',
+          aria-controls='navbarNav',
+          aria-expanded='false',
+          aria-label='Toggle navigation'
+        )
+          span.navbar-toggler-icon
+        // Navbar items
+        #navbarNav.collapse.navbar-collapse
+          ul.navbar-nav.ms-auto
+            li.nav-item
+              a.nav-link(href='/') Home
+            li.nav-item
+              a.nav-link(href='/login') Sign in
+            li.nav-item
+              a.nav-link(href='/stock') Stock
+            li.nav-item
+              a.nav-link(href='/Addsale') Sales
+
+    // Main content
+    main.container
+      .form-card.card.shadow.mx-auto.mb-4(style="max-width:500px")
+        form#stock(action='/stock', method='post')
+          .form-wrapper
+            .form-container
+              h2 Stock Entry
+              .card-body
+                .mb-3
+                  label.form-label Product Name
+                  select#productName.form-control(type="text", name='productName', required='')
+                    option(value='') -- Select Product --
+                    option(value="Officefurniture") Officefurniture
+                    option(value="Softwood") Softwood
+                    option(value="Cupboards") Cupboards
+                    option(value="Hardwood") Hardwood
+                    option(value="Beds") Beds
+                .mb-3
+                  label.form-label Product Type
+                  select#productType.form-control(name='productType', required='')
+                    option(value='') -- Select Product --
+                    option(value='Wood') Wood
+                    option(value='Furniture') Furniture
+                .mb-3
+                  label.form-label Cost Price
+                  input#costPrice.form-control(type='number', name='costPrice', required='')
+                .mb-3
+                  label.form-label Selling Price
+                  input#sellPrice.form-control(type='number', name='sellPrice', required='')
+                .mb-3
+                  label.form-label Quantity
+                  input#quantity.form-control(type='number', name='quantity', required='')
+                .mb-3
+                  label.form-label Supplier Name
+                  input#supplierName.form-control(type='text', name='supplierName', required='')
+                .mb-3
+                  label.form-label Quality
+                  select#productType.form-control(name='quality', required='')
+                    option(value='') -- Select Product --
+                    option(value='Low') Low 
+                    option(value='High') High
+                .mb-3
+                  label.form-label Color (optional)
+                  input#color.form-control(type='text', name='color')
+                .mb-3
+                  label.form-label Measurements (optional)
+                  input#measurements.form-control(type='text', name='measurements')
+                button.btn.btn-warning(type='submit') Add Stock
+
+    // Scripts at the end
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js')
+    script(src='../js/about.js')

@@ -1,33 +1,46 @@
- body {
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .signup-card {
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      padding: 2rem;
-      width: 100%;
-      max-width: 450px;
-    }
-    .form-control, .form-select {
-      border-radius: 12px;
-    }
-    .btn-custom {
-      background: #4facfe;
-      border: none;
-      border-radius: 12px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .btn-custom:hover {
-      background: #00c6ff;
-      transform: scale(1.03);
-    }
+body {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  min-height: 100vh;
+  display: block; /* stop flex centering */
+  padding: 20px; /* optional, give some top space */
+}
 
+.signup-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto; /* center horizontally */
+  overflow-y: auto; /* allow scrolling if content is taller than viewport */
+}
 
+/* optional: form controls and buttons stay the same */
+.form-control, .form-select {
+  border-radius: 12px;
+}
 
-    
+.btn-custom {
+  background: #4facfe;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn-custom:hover {
+  background: #00c6ff;
+  transform: scale(1.03);
+}
+
+.cancelbtn {
+  background-color: #f44336; /* red */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.cancelbtn:hover {
+  background-color: #da190b;
+}

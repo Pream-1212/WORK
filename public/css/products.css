@@ -1,0 +1,13 @@
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-text {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  align-self: flex-start; /* keeps button aligned nicely */
+}

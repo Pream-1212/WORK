@@ -21,13 +21,21 @@ router.post("/registration", async (req, res) => {
 
     // create new user
     const newUser = new UserModel({
-      username: req.body.username, // required by passport-local-mongoose
+      // username: req.body.email, // required by passport-local-mongoose
       email: req.body.email,
       role: req.body.role,
+      name: req.body.name,
+      country: req.body.country,
+      city: req.body.city,
+      village: req.body.village,
+      nin: req.body.nin,
+      gender: req.body.gender,
+      tel: req.body.tel,
     });
 
+
     const user = new UserModel(req.body);
-    UserModel.register(user, req.body.password, (error) => {
+    UserModel.register(newUser, req.body.password, (error, user) => {
       if (error) {
         return res.status(400).send("Please just try again!");
       }
@@ -49,8 +57,8 @@ router.post(
   passport.authenticate("local", { failureRedirect: "/login" }),
   (req, res) => {
     req.session.user = req.user;
-    if (req.user.role === "Manager") {
-      res.redirect("/main");
+    if (req.user.role === "manager") {
+      res.redirect("/manager");
     } else if (req.user.role === "attendant") {
       res.redirect("/Addsale");
     } else res.redirect("nonuser");
@@ -68,13 +76,6 @@ router.get("/logout", (req, res) => {
   }
 });
 
-// router.post("/logout", (req, res) =>{
-//  req.logout((error)=>{
-//   if (error){
-//     return res.status(500).send('Error loggingout')
-//   }
-//   res.redirect('/')
-// })
-//  });
+
 
 module.exports = router;

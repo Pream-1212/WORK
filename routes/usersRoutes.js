@@ -1,26 +1,98 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const UserModel = require("../models/userModel");
 
 // Get Routes
 router;
 
-router.get("/registration", (req, res) => {
-  res.render("registration");
+// GET signup form (only for managers)
+router.get("/registration1", (req, res) => {
+  if (!req.session.user || req.session.user.role !== "manager") {
+    return res.status(403).send("Access denied. Only the manager can register users.");
+  }
+  res.render("registration", { currentUser});
 });
 
-router.post("/registration", async (req, res) => {
+// POST registration form (manager only)
+router.post("/registration1", async (req, res) => {
+  const currentUser = req.session.user;
+    if (!currentUser || currentUser.role !== "manager") {
+      return res
+        .status(403)
+        .send("Access denied: Only managers can register users.");
+    }
+
+    try {
+      const {
+        name,
+        email,
+        password,
+        role,
+        phone,
+        country,
+        city,
+        village,
+        nin,
+        gender,
+      } = req.body;
+
+      // Check if user already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).send("User already exists.");
+      }
+
+      // Hash password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Create new user
+      const newUser = new User({
+        name,
+        email,
+        password: hashedPassword,
+        role,
+        phone,
+        address: { country, city, village },
+        nin,
+        gender,
+        status: "active",
+      });
+
+      await newUser.save();
+      res.redirect("/users"); // Redirect to user table page
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server error");
+    }
+  
+
+  // GET users table (manager only)
+  router.get("/users", async (req, res) => {
+    const currentUser = req.session.user;
+    if (!currentUser || currentUser.role !== "manager") {
+      return res.status(403).send("Access denied.");
+    }
+
+    try {
+      const users = await User.find();
+      res.render("usersTable", { users, currentUser });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
+  });
   // this route helps to post data in the terminal
   try {
-    const registration1 = new UserModel(req.body);
+    const registration = new UserModel(req.body);
     //Save the file path to the database
     console.log(req.body);
-    await registration1.save();
+    await registration.save();
     res.redirect("/userssection");
   } catch (error) {
     console.error(error);
-    res.redirect("/registration");
+    res.redirect("/registration1");
   }
 });
 

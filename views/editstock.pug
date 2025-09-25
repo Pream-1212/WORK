@@ -7,7 +7,18 @@ block content
                 .card-body
                     .mb-3
                     label.form-label Product Name
-                    input#productName.form-control(type='text' name='productName', value=`${item.productName}`, required='')
+                    select#productName.form-control(type='text' name='productName', value=`${item.productName}`, required='')
+                      option(value='') -- Select Product --
+                      option(value='Officefurniture') Officefurniture
+                      option(value='Softwood') Softwood
+                      option(value='Hardwood') Hardwood
+                      option(value='Cupboards') Cupboards
+                      option(value='Beds') Beds
+                      option(value='Cabinets') Cabinets
+                      option(value='Poles') Poles
+                      option(value='Woodchips') Woodchips
+                      option(value='Diningtables') Diningtables
+                      option(value='Wardrobes') Wardrobes  
                 .mb-3
                     label.form-label Product Type
                     select#productType.form-control(name='productType' value=`${item.productType}`, required='')
@@ -36,4 +47,5 @@ block content
                     input#measurements.form-control(type='text' name='measurements' value=`${item.measurements}`)
                 button.btn.btn-warning(type='submit') Update Stock
             script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js')
+            script(src='/js/about.js')
            

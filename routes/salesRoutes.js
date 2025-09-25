@@ -3,50 +3,22 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const moment = require("moment");
 
-const addsalesModel = require("../models/addsalesModel.js"); // adjust path
+const addsalesModel = require("../models/addsalesModel.js"); 
+
 const { ensureauthenticated, ensureagent } = require("../middleware/auth.js");
 const { use } = require("passport");
+
 const stockModel = require("../models/stockModel.js");
 
-// GET all sales and render page
-// router.get("/Addsale", async (req, res) => {
-//   try {
-//     const sales = await salesModel.find();
-//     res.render("sales", { title: "Sales Entry", sales });
-//   } catch (err) {
-//     console.error("Error fetching sales:", err.message);
-//     res.status(500).send("Error fetching sales");
-//   }
-// });
-
 router.get("/Addsale", async (req, res) => {
-    try {
-        const stocks = await stockModel.find();
-        res.render("sales",{stocks});
-    } catch (error) {
-        console.error(error.message);
-    }
+  try {
+    const stock = await stockModel.find();
+    res.render("sales", { stock });
+  } catch (error) {
+    console.error(error.message);
+  }
 });
-    
- 
 
-// POST new sale
-// router.post("/Addsale", async (req, res) => {
-//   try {
-//     const sale = new addsalesModel(req.body);
-//     console.log(req.body);
-//     const savedSale = await sale.save();
-
-//     console.log("Saved sale:", savedSale);
-
-//     // Fetch all sales after saving to render updated table
-//     const sales = await addsalesModel.find();
-//     res.render("sales", { title: "Sales Entry", sales });
-//   } catch (err) {
-//     console.error("Save error:", err.message);
-//     res.status(400).send("Error saving sale: " + err.message);
-//   }
-// });
 // ensureauthenticated,
 //   ensureagent,
 router.post("/Addsale", async (req, res) => {
@@ -54,78 +26,89 @@ router.post("/Addsale", async (req, res) => {
     const {
       date,
       name,
-      product,
+      productName,
+      productType,
       quantity,
       unitPrice,
       payment,
       delivery,
+      agentId, // optional: manager can select an agent
     } = req.body;
-    const userId = req.session.user._id;
-    const [productType, productName] = req.body.product.split(":");
-const stock = await stockModel.findOne({productType,productName});
-if(!stock){
-    return res.status(400).send("Product not found in stock");
-};
-if(stock.quantity < Number(quantity)){
-    return res.status(400).send(`Insufficient stock quantity, only${stock.quantity} available`);
-}
-//if you don't have total price, you can calculate it here.
-//let total = unitPrice * quantity;
 
-//if you have totalPrice already captured
-if (stock && stock.quantity > 0 ){
+    if (!req.session.user) {
+      return res.status(401).send("User not logged in");
+    }
 
+    const currentUser = req.session.user;
 
-let
+    const stock = await stockModel.findOne({ productName, productType });
+    if (!stock) {
+      return res.status(400).send("Product not found in stock");
+    }
+
+    if (stock.quantity < Number(quantity)) {
+      return res
+        .status(400)
+        .send(`Insufficient stock quantity, only ${stock.quantity} available`);
+    }
+
+    // Assign agent:
+    // - If manager provided agentId, use that
+    // - Otherwise use the logged-in user (agent or manager creating for self)
+    const saleAgent = agentId || currentUser._id;
+
     const sale = new addsalesModel({
       date,
       name,
-      product,
+      productName,
+      productType,
       quantity,
       unitPrice,
       payment,
-      agent: userId, // Use the logged-in user's ID
+      agent: saleAgent,
       delivery,
     });
-    console.log(userId);
+
     await sale.save();
 
     // Deduct sold quantity from stock
-    stock.quantity -= quantity;
-    console.log("new quantity after sale", stock.quantity);
+    stock.quantity -= Number(quantity);
     await stock.save();
+
     res.redirect("/salesdata");
-    }else{
-        return res.status(404).send("Products not found or sod out.")
-    }
   } catch (error) {
     console.error(error.message);
     res.redirect("/Addsale");
   }
 });
 
+
 router.get("/salesdata", async (req, res) => {
   try {
-    //sales agent only sees their own sales
-    const sales = await addsalesModel.find().populate("agent", "name");
-    // console.log(sales);
+    if (!req.session.user) {
+      return res.redirect("/login");
+    }
+
     const currentUser = req.session.user;
-    console.log(currentUser);
-    res.render("salestable", { sales:currentUser });
+    let sales;
+
+    if (currentUser.role === "manager") {
+      // Manager sees all sales
+      sales = await addsalesModel.find().populate("agent", "name");
+    } else {
+      // Agents see only their own sales
+      sales = await addsalesModel
+        .find({ agent: currentUser._id })
+        .populate("agent", "name");
+    }
+
+    res.render("salestable", { sales, currentUser });
   } catch (error) {
     console.error(error.message);
     res.redirect("/");
   }
 });
-// router.get("/salesdata", async (req, res) => {
-//   try {
-//     let items = await addsalesModel.find().sort({ $natural: -1 });
-//     res.render("salestable", { items, moment }); //pass as object
-//   } catch (error) {
-//     console.error("Error fetching items", error.message);
-//     res.status(400).send("Unable to find data in the database.");
-//   }
-// });
+
 
 //updating sales
 router.get("/editsales/:id", async (req, res) => {
