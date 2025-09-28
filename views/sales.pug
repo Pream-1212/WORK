@@ -1,35 +1,6 @@
-doctype html
-html
-  head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title MAYONDO WOOD FACTORY
-    // Bootstrap CSS
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet')
-    // Your custom CSS
-    link(href='/css/main.css' rel='stylesheet')
+extends edit_layout 
 
-  body
-    // Navbar
-    nav.navbar.navbar-expand-lg.bg-body-tertiary
-      .container-fluid
-        // Brand
-        a.navbar-brand(href='/')
-          img(src='/images/Download Wooden House Logo design for free.jpg', alt='Company Logo', width='80', height='80')
-        // Toggler button
-        button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
-          span.navbar-toggler-icon
-        // Navbar items
-        #navbarNav.collapse.navbar-collapse
-          ul.navbar-nav.ms-auto
-            li.nav-item
-              a.nav-link(href='/') Home
-            li.nav-item
-              a.nav-link(href='/login') Sign in
-            li.nav-item
-              a.nav-link(href='/stock') Stock
-            li.nav-item
-              a.nav-link(href='/Addsale') Sales
+block content
 
     // Page Header
     h1 Our Movements
@@ -53,11 +24,16 @@ html
             label.form-label Product Name
             select#productName.form-control(type='text', name='productName', required='')
               option(value='') -- Select Product --
-              option(value="Officefurniture") Officefurniture
-              option(value="Softwood") Softwood
-              option(value="Cupboards") Cupboards
-              option(value="Hardwood") Hardwood
-              option(value="Beds") Beds
+              option(value='Officefurniture') Officefurniture
+              option(value='Softwood') Softwood
+              option(value='Hardwood') Hardwood
+              option(value='Cupboards') Cupboards
+              option(value='Beds') Beds
+              option(value='Cabinets') Cabinets
+              option(value='Poles') Poles
+              option(value='Woodchips') Woodchips
+              option(value='Diningtables') Diningtables
+              option(value='Wardrobes') Wardrobes
               if stocks && stocks.length
                 each stock in stocks
                   option(value=stock.productName)= stock.productName

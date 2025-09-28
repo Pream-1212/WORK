@@ -1,0 +1,111 @@
+/* public/css/style.css */
+
+/* Layout container */
+.container.mt-5 {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,250,0.96));
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* Heading */
+.container.mt-5 h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.9rem;
+  color: #333;
+}
+
+/* Table styling */
+.table {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: separate;
+  box-shadow: 0 2px 8px rgba(16,24,40,0.04);
+}
+
+.table thead.table-dark th {
+  background: #2c3e50; /* stronger header */
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: background-color 0.12s ease, transform 0.08s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(44,62,80,0.04);
+  transform: translateY(-1px);
+}
+
+/* Nice consistent padding */
+.table th, .table td {
+  padding: 0.75rem 0.9rem;
+  vertical-align: middle;
+  font-size: 0.95rem;
+  color: #2f2f2f;
+}
+
+/* Center the "No stock available" row */
+.text-center {
+  text-align: center !important;
+}
+
+/* Button styling under table */
+a.btn.btn-warning.mt-3 {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255,193,7,0.12);
+}
+
+/* Make table horizontally scrollable on small screens */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Small screens - slightly reduce padding */
+@media (max-width: 768px) {
+  .table th, .table td {
+    padding: 0.55rem 0.6rem;
+    font-size: 0.88rem;
+  }
+  .container.mt-5 {
+    padding: 0.6rem;
+    border-radius: 8px;
+  }
+}
+
+/* subtle column wrapping for long texts */
+td {
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* Optional: highlight low quantity rows */
+.table tbody tr.low-qty td {
+  background: linear-gradient(90deg, rgba(255,239,210,0.3), rgba(255,255,255,0));
+  border-left: 4px solid #f59e0b;
+}
+
+/* Card-like form wrapper (if you include form on same page) */
+.form-wrapper {
+  margin-bottom: 1.25rem;
+}
+.form-container {
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+}

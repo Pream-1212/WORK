@@ -1,55 +1,48 @@
-// Table for displaying stock records
-doctype html
-html 
-  head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title Our Sales
-    link(href='/css/stocktable.css' rel='stylesheet')
+extends table_layout
+block content
+  .container.mt-5
+    h3.mb-3 Sales Records
 
-  body
-    .container.mt-5
-      h3.mb-3 Sales Records
-
-      table.table.table-bordered.table-striped
-        thead.table-dark
-          tr
-            th Date
-            th Customer Name
-            th Product Name
-            th Product Type
-            th Quantity
-            th Unit Price
-            th Sales agent
-            th Payment Type
-            th Delivery Method
-            if currentUser.role === 'manager'
-              th Update
-              th Delete
-        tbody
-          if sales && sales.length
-            each sale in sales
-              tr
-                td #{sale.date}
-                td #{sale.name}
-                td #{sale.productName}
-                td #{sale.productType}
-                td #{sale.quantity}
-                td #{sale.unitPrice}
-                td #{sale.agent ? sale.agent.name : "N/A"}
-                td #{sale.payment}
-                td #{sale.delivery}
-                if currentUser.role === 'manager'
-                  td
-                    a.btn.btn-warning.btn-sm(href=`/editsales/${sale._id}`) Edit
-                  td
-                    form(method='post', action='/deletesales')
-                      input(type='hidden', name='id', value=sale._id)
-                      button.btn.btn-danger.btn-sm(type='submit') Delete
-          else
+    table.table.table-bordered.table-striped
+      thead.table-dark
+        tr
+          th Date
+          th Customer Name
+          th Product Name
+          th Product Type
+          th Quantity
+          th Unit Price
+          th Sales agent
+          th Payment Type
+          th Delivery Method
+          if currentUser.role === 'manager'
+            th Update
+            th Delete
+      tbody
+        if sales && sales.length
+          each sale in sales
             tr
-              td(colspan="10").text-center No sales available
+              td #{moment(sale.date).format('DD/MM/YYYY')}
+              td #{sale.name}
+              td #{sale.productName}
+              td #{sale.productType}
+              td #{sale.quantity}
+              td #{sale.unitPrice}
+              td #{sale.agent ? sale.agent.name : "N/A"}
+              td #{sale.payment}
+              td #{sale.delivery}
+              if currentUser.role === 'manager'
+                td
+                  a.btn.btn-warning.btn-sm(href=`/editsales/${sale._id}`) Edit
+                td
+                  form(method='post', action=`/deletesales/${sale._id}`)
+                    button.btn.btn-danger.btn-sm(type='submit') Delete
+        else
+          tr
+            td(colspan="10").text-center No sales available
 
-      // Add sales button (placed below table)
-      a.btn.btn-success.mt-3(href='/Addsale') Add Sales
-      script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
+    // 👇 Now it’s outside the table
+    if sales && sales.length
+      a.btn.btn-dark.mt-3(href=`/getReceipt/${sales[0]._id}`) Generate Receipt
+
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')

@@ -30,6 +30,8 @@ header
             a.nav-link(href="general") Customer
           li.nav-item
             a.nav-link(href="/Addsale") Sales
+            li.nav-item
+            a.nav-link(href="/salesdata") Sales table
           li.nav-item
             a.nav-link(href="/logout") Logout
           li.nav-item
@@ -41,39 +43,45 @@ header
   h2.text-center.mb-4 📊 MWF Manager Dashboard
 
   // Overview Cards
-  .row.g-4.mb-4
-    .col-md-3
-      a.card.h-100.p-3.text-center.shadow-sm(href="/suppliers")
-        h5 Suppliers
-        p.mb-0 12 Active Suppliers
-    .col-md-3
-      .card.h-100.p-3.text-center.shadow-sm
+.row.g-4.mb-4
+  .col-md-3
+    a.card.h-100.p-3.text-center.shadow-sm(href="/suppliers")
+      h5 Suppliers
+      p.mb-0 12 Active Suppliers
+  .col-md-3
+    a.card.h-100.p-3.text-center.shadow-sm(href="/Addsale")
+      h5 Stock Price
+      p.mb-0 UGX 180,000,000
+  .col-md-3
+    a.card.h-100.p-3.text-center.shadow-sm(href="/salesdata")
+      h5 Sales Reports
+      p.mb-0 UGX 180,000,000
+  .col-md-3
+    a.card.h-100.p-3.text-center.shadow-sm(href="/userssection")
+      h5 Users register
+      p.mb-0 UGX 180,000,000
 
-        h5 Customers
-        p.mb-0 100+ Companies
-    .col-md-3
-      a.card.h-100.p-3.text-center.shadow-sm(href="/stock")
-        h5.card-title Total Expenses
-        p.card-text For poles: shs #{new Intl.NumberFormat().format(totalExpensesPoles.totalcost)} 
-        p.card-text For Beds: shs #{new Intl.NumberFormat().format(totalExpensesBeds.totalcost)} 
-        p.card-text For Cabinets: shs #{new Intl.NumberFormat().format(totalExpensesCabinets.totalcost)} 
-        h5.card-text Total Expenses: shs #{new Intl.NumberFormat().format(totalExpensesCabinets.totalcost) + (totalExpensesPoles.totalcost) + (totalExpensesBeds.totalcost)} 
-    .col-md-3
-      a.card.h-100.p-3.text-center.shadow-sm(href="/Addsale")
-        h5 Stock Price
-        p.mb-0 UGX 180,000,000
+.row.g-4.mb-4
+  .col-md-3
+    a.card.h-100.p-3.text-center.shadow-sm(href="/stocklist")
+      h5 Stock Reports
+      p.mb-0 UGX 180,000,000
+  .col-md-3
+    .card.h-100.p-3.text-center.shadow-sm
+      h5 Customers
+      p.mb-0 100+ Companies
+  .col-md-3
+    a.card.h-100.p-3.text-center.shadow-sm(href="/stock")
+      h5.card-title Total Expenses
+      p.card-text For poles: shs #{new Intl.NumberFormat().format(totalExpensesPoles.totalcost)} 
+      p.card-text For Beds: shs #{new Intl.NumberFormat().format(totalExpensesBeds.totalcost)} 
+      p.card-text For Cabinets: shs #{new Intl.NumberFormat().format(totalExpensesCabinets.totalcost)} 
+      h5.card-text Total Expenses: shs #{new Intl.NumberFormat().format(totalExpensesCabinets.totalcost + totalExpensesPoles.totalcost + totalExpensesBeds.totalcost)}
+  .col-md-3
+    a.card.h-100.p-3.text-center.shadow-sm(href="/Addsale")
+      h5 Stock Price
+      p.mb-0 UGX 180,000,000
 
-  // Graphs Section
-  .row.g-4.mb-4
-    .col-md-6
-      .card.p-3
-        h5 Sales Trend
-        canvas#salesChart
-    .col-md-6
-      .card.p-3
-        h5.card-title Revenue Per Product
-        p.card-text For Sofa: shs #{new Intl.NumberFormat().format(totalRevenueSofa.totalcost)} 
-        canvas#revenueChart
 
   // Customer Orders Table
   h1 Orders Information

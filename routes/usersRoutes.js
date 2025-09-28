@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const UserModel = require("../models/userModel");
 
 // Get Routes
-router;
+
 
 // GET signup form (only for managers)
 router.get("/registration1", (req, res) => {
@@ -39,7 +39,7 @@ router.post("/registration1", async (req, res) => {
       } = req.body;
 
       // Check if user already exists
-      const existingUser = await User.findOne({ email });
+      const existingUser = await UserModel.findOne({ email });
       if (existingUser) {
         return res.status(400).send("User already exists.");
       }
@@ -76,7 +76,7 @@ router.post("/registration1", async (req, res) => {
     }
 
     try {
-      const users = await User.find();
+      const users = await UserModel.find();
       res.render("usersTable", { users, currentUser });
     } catch (err) {
       console.error(err);
@@ -112,7 +112,7 @@ router.get("/userssection", async (req, res) => {
 router.get("/edituser/:id", async (req, res) => {
   let item = await UserModel.findById(req.params.id);
   // console.log(item)
-  res.render(`edituser`, { item });
+  res.render(`editusers`, { item });
 });
 
 router.post("/edituser/:id", async (req, res) => {

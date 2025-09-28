@@ -1,60 +1,66 @@
-extends layout 
+extends edit_layout 
+
 block content
-    h1 Our Movements
-    main.container
-      h1 Sales Information
-      p
-        i Welcome to our sales page!
-        |  Here you will find our latest offers.
+  h1 Our Movements
+  main.container
+    h1 Sales Information
+    p
+      i Welcome to our sales page!
+      |  Here you will find our latest offers.
 
-      h3 Edit sale form
-      form#addSaleForm.mb-4(action=`/editsales/${item._id}`, method='post')
-        .mb-2
-          label(for="saleDate") Date:
-          input#saleDate.form-control(type="date", name="date", required)
-        .mb-2
-          label(for="customer") Customer Name:
-          input#customer.form-control(type="text", placeholder="Customer Name", name="name", value=`${item.name}`, required)
-        .mb-2
-          label.form-label Product Name
-            select#productName.form-control(type='text', name='productName', required='')
-              option(value='') -- Select Product --
-              option(value='Officefurniture') Officefurniture
-              option(value='Softwood') Softwood
-              option(value='Hardwood') Hardwood
-              option(value='Cupboards') Cupboards
-              option(value='Beds') Beds
-              option(value='Cabinets') Cabinets
-              option(value='Poles') Poles
-              option(value='Woodchips') Woodchips
-              option(value='Diningtables') Diningtables
-              option(value='Wardrobes') Wardrobes
-              .mb-3
-            label.form-label Product Type
-            select#productType.form-control(name='productType', required)
-              option(value='Wood') Wood
-              option(value='Furniture') Furniture
-              if stocks.length
-                each stock in stocks
-                  option(value=stock.productName)= stock.productName
-        .mb-2
-          label(for="quantity") Quantity:
-          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity",value=`${item.quantity}`, required)
-        .mb-2
-          label(for="unitprice") Unit Price: UGX
-          input#price.form-control(type="text", placeholder="Total price", name="price", value=`${item.price}`, required)
-        .mb-2
-          label.payment Payment Type:
-          select.form-control#paymentType(name="payment", value=`${item.payment}`, required)
-            option(value="cheque") Cheque
-            option(value="cash") Cash
-            option(value="bankoverdraft") Bank Overdraft
-            option(value="banktransfer") Bank Transfer
-            option(value="paypal") PayPal
-        .mb-2
-          label(for="delivery") Delivery Method:
-          input#delivery.form-control(type="text", placeholder="Delivery Method", name="delivery", value=`${item.delivery}`, required)
-        button.btn.btn-warning(type="submit") Update Sales
-
-     
-      
+    h3 Edit sale form
+    form#addSaleForm.mb-4(action=`/editsales/${item._id}`, method='post')
+      .mb-2
+        label(for="saleDate") Date:
+        input#saleDate.form-control(type="date", name="date", value=`${item.date}`, required)
+      .mb-2
+        label(for="customer") Customer Name:
+        input#customer.form-control(type="text", placeholder="Customer Name", name="name", value=`${item.name}`, required)
+      .mb-2
+        label.form-label Product Name
+        select#productName.form-control(name='productName', required)
+          option(value='') -- Select Product --
+          option(value='Officefurniture') Officefurniture
+          option(value='Softwood') Softwood
+          option(value='Hardwood') Hardwood
+          option(value='Cupboards') Cupboards
+          option(value='Beds') Beds
+          option(value='Cabinets') Cabinets
+          option(value='Poles') Poles
+          option(value='Woodchips') Woodchips
+          option(value='Diningtables') Diningtables
+          option(value='Wardrobes') Wardrobes
+      .mb-3
+        label.form-label Product Type
+        select#productType.form-control(name='productType', required)
+          option(value='Wood') Wood
+          option(value='Furniture') Furniture
+          if stocks && stocks.length
+            each stock in stocks
+              option(value=stock.productName)= stock.productName
+      .mb-2
+        label(for="quantity") Quantity:
+        input#quantity.form-control(type="number", placeholder="Quantity", name="quantity", value=`${item.quantity}`, required)
+      .mb-2
+        label(for="unitprice") Unit Price: UGX
+        input#price.form-control(type="text", placeholder="Unit price", name="unitPrice", value=`${item.unitPrice}`, required)
+      .mb-2
+        label.payment Payment Type:
+        select.form-control#paymentType(name="payment", required)
+          option(value="cheque") Cheque
+          option(value="cash") Cash
+          option(value="bankoverdraft") Bank Overdraft
+          option(value="banktransfer") Bank Transfer
+          option(value="paypal") PayPal
+      .mb-2
+        label.form-label Delivery Time
+        .form-check
+          input.form-check-input#delivery1(type="radio", name="delivery", value="1-2 weeks", required)
+          label.form-check-label(for="delivery1") 1-2 weeks delivery
+        .form-check
+          input.form-check-input#delivery2(type="radio", name="delivery", value="3-5 days")
+          label.form-check-label(for="delivery2") 3-5 days delivery
+        .form-check
+          input.form-check-input#delivery3(type="radio", name="delivery", value="Same day")
+          label.form-check-label(for="delivery3") Same day delivery
+      button.btn.btn-warning(type="submit") Update Sales

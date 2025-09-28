@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  #splash-card.card.bg-dark.text-white
-    img.card-img(src='images/curtain.jpg' alt='Background' width='300' height='500')
-    .card-img-overlay
-      h5.card-title It is Right Here
-      p.card-text BELIEVE IN THAT FIRST STEP
-      p.card-text LET&apos;S MOVE TOGETHER
+  #splash-card.card.bg-dark.text-white.position-relative
+    img.card-img(src='images/curtain.jpg' alt='Background')
+    .card-img-overlay.d-flex.flex-column.justify-content-center
+      h5 It is Right Here
+      p BELIEVE IN THAT FIRST STEP
+      p LET&apos;S MOVE TOGETHER
 
   a(href='/login')
     img.tap(src='/images/ARROW.png' alt='Arrow' width='30' height='20')

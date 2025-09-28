@@ -1,29 +1,44 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title MAYONDO WOOD FACTORY
-  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet')
-  link(href='/css/style.css' rel='stylesheet')
-nav.navbar.navbar-expand-lg.bg-body-tertiary
-  .container-fluid
-    // Brand
-    a.navbar-brand(href='/') 
-        img(src='/images/Download Wooden House Logo design for free.jpg' alt='Company Logo' width='80' height='80')
-    // Toggler button
-    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
-      span.navbar-toggler-icon
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title MAYONDO WOOD FACTORY
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet')
+    link(href='/css/style.css' rel='stylesheet')
 
-    // Navbar items
-    #navbarNav.collapse.navbar-collapse
-      ul.navbar-nav.ms-auto
-        li.nav-item
-          a.nav-link(href='/') Home
-        li.nav-item
-          a.nav-link(href='/login') Sign in
-        li.nav-item
-          a.nav-link(href='') 
+  body
+    // Navbar
+    nav.navbar.navbar-expand-lg.bg-body-tertiary
+      .container-fluid
+        // Brand
+        a.navbar-brand(href='/') 
+          img(src='/images/Download Wooden House Logo design for free.jpg' alt='Company Logo' width='80' height='80')
 
+        // Toggler button
+        button.navbar-toggler(
+          type='button',
+          data-bs-toggle='collapse',
+          data-bs-target='#navbarNav',
+          aria-controls='navbarNav',
+          aria-expanded='false',
+          aria-label='Toggle navigation'
+        )
+          span.navbar-toggler-icon
 
-body 
-    block content              
+        // Navbar items
+        #navbarNav.collapse.navbar-collapse
+          ul.navbar-nav.ms-auto
+            li.nav-item
+              a.nav-link(href='/') Home
+            li.nav-item
+              a.nav-link(href='/login') Sign in
+            li.nav-item
+              a.nav-link(href='#') 
+
+    // Main content
+    block content
+
+    // Footer
+    footer.bg-dark.text-white.text-center.py-3
+      p © 2025 MWF Ltd. All rights reserved.

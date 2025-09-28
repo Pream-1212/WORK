@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const moment = require("moment");
 
-const addsalesModel = require("../models/addsalesModel.js"); 
+const addsalesModel = require("../models/addsalesModel.js");
 
 const { ensureauthenticated, ensureagent } = require("../middleware/auth.js");
 const { use } = require("passport");
@@ -82,7 +82,6 @@ router.post("/Addsale", async (req, res) => {
   }
 });
 
-
 router.get("/salesdata", async (req, res) => {
   try {
     if (!req.session.user) {
@@ -102,13 +101,12 @@ router.get("/salesdata", async (req, res) => {
         .populate("agent", "name");
     }
 
-    res.render("salestable", { sales, currentUser });
+    res.render("salestable", { sales, currentUser: req.user || {}, moment });
   } catch (error) {
     console.error(error.message);
     res.redirect("/");
   }
 });
-
 
 //updating sales
 router.get("/editsales/:id", async (req, res) => {
@@ -147,6 +145,28 @@ router.post("/deletesales/:id", async (req, res) => {
 
 router.get("/", (req, res) => {
   res.render("index");
+});
+
+router.get("/getReceipt/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log("Requested receipt ID:", id);
+  // Validate existence and format of ID
+  if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send("Invalid sale ID");
+  }
+  try {
+    const sale = await addsalesModel
+      .findById(req.params.id)
+      .populate("agent", "name");
+    if (!sale) {
+      return res.status(404).send("Sale not found");
+    }
+    const currentUser = req.session.user;
+    res.render("receipt", { sale, moment });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).send("Unable to find a sale.");
+  }
 });
 
 module.exports = router;
