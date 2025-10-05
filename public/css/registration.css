@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  background: #B5D8C7;
   min-height: 100vh;
   display: block; /* stop flex centering */
   padding: 20px; /* optional, give some top space */
@@ -43,4 +43,17 @@ body {
 }
 .cancelbtn:hover {
   background-color: #da190b;
+}
+
+/* Custom button color */
+button.btn.btn-primary,
+a.btn.btn-primary {
+  background-color: #29573a !important;
+  border-color: #29573a !important;
+}
+
+button.btn.btn-primary:hover,
+a.btn.btn-primary:hover {
+  background-color: #1f452f !important; /* a bit darker on hover */
+  border-color: #1f452f !important;
 }

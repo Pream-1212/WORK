@@ -38,11 +38,11 @@ html
             li.nav-item
               a.nav-link(href='/Addsale') Sales
               li.nav-item
-              a.nav-link(href='/userssection') Sales
+              a.nav-link(href='/userssection') ViewSales
               li.nav-item
-              a.nav-link(href='/salesdata') Sales
+              a.nav-link(href='/salesdata') ViewSales
               li.nav-item
-              a.nav-link(href='/stocklist') Sales
+              a.nav-link(href='/stocklist') ViewStock
 
 
 
@@ -85,7 +85,7 @@ html
                   input#quantity.form-control(type='number', name='quantity', required='')
                 .mb-3
                   label.form-label(for='supplierName') Supplier Name
-                  input#supplierName.form-control(type='text', name='supplierName', required='')
+                  input#supplierName.form-control(type='text', name='supplierName')
                 .mb-3
                   label.form-label(for='quality') Quality
                   select#quality.form-control(name='quality', required='')

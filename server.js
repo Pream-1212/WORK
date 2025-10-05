@@ -14,6 +14,7 @@ require("dotenv").config(); // load .env file
 const UserModel = require("./models/userModel");
 //import routes
 
+const stockerRoutes = require("./routes/stockerRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const authRoutes = require("./routes/authRoutes");
 const stockRoutes = require("./routes/stockRoutes");
@@ -73,6 +74,7 @@ app.use((req, res, next) => {
 
 //routing
 
+app.use("/", stockerRoutes); 
 app.use("/", dashboardRoutes);
 app.use("/", authRoutes);
 app.use("/", stockRoutes);

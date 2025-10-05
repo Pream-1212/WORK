@@ -1,143 +1,99 @@
 meta(charset="UTF-8")
-meta(name="viewport", content="width=device-width,initial-scale=1")
+meta(name="viewport", content="width=device-width, initial-scale=1")
 title MWF Manager Dashboard
-link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css", rel="stylesheet")
+link(
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css", 
+  rel="stylesheet"
+)
 script(src="https://cdn.jsdelivr.net/npm/chart.js")
+link(rel="stylesheet", href="/css/manager.css")
 
+// Header
 header
-  div
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="#")
-        b MWF
-      button.navbar-toggler(
-        type="button", 
-        data-toggle="collapse", 
-        data-target="#navbarNav", 
-        aria-controls="navbarNav", 
-        aria-expanded="false", 
-        aria-label="Toggle navigation"
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href="/")
+      img(
+        src="/images/mwf.png" 
+        alt="Company Logo" 
+        width="80" 
+        height="80"
       )
-        span.navbar-toggler-icon
-      .collapse.navbar-collapse#navbarNav
-        ul.navbar-nav.ms-auto
-          li.nav-item.active
-            a.nav-link(href="/") Home
-          li.nav-item
-            a.nav-link(href="/registration") Sign Up
-          li.nav-item
-            a.nav-link(href="/login") sign In
-          li.nav-item
-            a.nav-link(href="general") Customer
-          li.nav-item
-            a.nav-link(href="/Addsale") Sales
-            li.nav-item
-            a.nav-link(href="/salesdata") Sales table
-          li.nav-item
-            a.nav-link(href="/logout") Logout
-          li.nav-item
-            a.nav-link(href="/suppliers") Supply
-            li.nav-item
-            a.nav-link(href="/dash") Public Dashboard 
+    button.navbar-toggler(
+      type="button", 
+      data-toggle="collapse", 
+      data-target="#navbarNav", 
+      aria-controls="navbarNav", 
+      aria-expanded="false", 
+      aria-label="Toggle navigation"
+    )
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse#navbarNav
+      ul.navbar-nav.ms-auto
+        li.nav-item.active
+          a.nav-link(href="/") Home
+        li.nav-item
+          a.nav-link(href="/registration") Sign Up
+        li.nav-item
+          a.nav-link(href="/login") Sign In
+        li.nav-item
+          a.nav-link(href="/general") Customer
+        li.nav-item
+          a.nav-link(href="/Addsale") Sales
+        li.nav-item
+          a.nav-link(href="/salesdata") Sales Table
+        li.nav-item
+          a.nav-link(href="/logout") Logout
+        li.nav-item
+          a.nav-link(href="/suppliers") Supply
+        li.nav-item
+          a.nav-link(href="/dash") Public Dashboard 
 
+// Main Content
 .container-fluid.p-4
   h2.text-center.mb-4 📊 MWF Manager Dashboard
 
   // Overview Cards
-.row.g-4.mb-4
-  .col-md-3
-    a.card.h-100.p-3.text-center.shadow-sm(href="/suppliers")
-      h5 Suppliers
-      p.mb-0 12 Active Suppliers
-  .col-md-3
-    a.card.h-100.p-3.text-center.shadow-sm(href="/Addsale")
-      h5 Stock Price
-      p.mb-0 UGX 180,000,000
-  .col-md-3
-    a.card.h-100.p-3.text-center.shadow-sm(href="/salesdata")
-      h5 Sales Reports
-      p.mb-0 UGX 180,000,000
-  .col-md-3
-    a.card.h-100.p-3.text-center.shadow-sm(href="/userssection")
-      h5 Users register
-      p.mb-0 UGX 180,000,000
+  .row.g-4.mb-4
+    .col-md-3
+      a.card.h-100.p-3.text-center.shadow-sm(href="/suppliers")
+        h5 Suppliers
+        p.mb-0 12 Active Suppliers
+    .col-md-3
+      a.card.h-100.p-3.text-center.shadow-sm(href="/Addsale")
+        h5 Start up a Sale
+        p.mb-0 
+    .col-md-3
+      a.card.h-100.p-3.text-center.shadow-sm(href="/salesdata")
+        h5 Sales Report
+        p.mb-0 
+    .col-md-3
+      a.card.h-100.p-3.text-center.shadow-sm(href="/stockreport")
+        h5 Stock Report
+        p.mb-0 
+    .col-md-3
+      a.card.h-100.p-3.text-center.shadow-sm(href="/userssection")
+        h5 Users Register
+        p.mb-0 8 Attendants + 2 Managers
 
-.row.g-4.mb-4
-  .col-md-3
-    a.card.h-100.p-3.text-center.shadow-sm(href="/stocklist")
-      h5 Stock Reports
-      p.mb-0 UGX 180,000,000
-  .col-md-3
-    .card.h-100.p-3.text-center.shadow-sm
-      h5 Customers
-      p.mb-0 100+ Companies
-  .col-md-3
-    a.card.h-100.p-3.text-center.shadow-sm(href="/stock")
-      h5.card-title Total Expenses
-      p.card-text For poles: shs #{new Intl.NumberFormat().format(totalExpensesPoles.totalcost)} 
-      p.card-text For Beds: shs #{new Intl.NumberFormat().format(totalExpensesBeds.totalcost)} 
-      p.card-text For Cabinets: shs #{new Intl.NumberFormat().format(totalExpensesCabinets.totalcost)} 
-      h5.card-text Total Expenses: shs #{new Intl.NumberFormat().format(totalExpensesCabinets.totalcost + totalExpensesPoles.totalcost + totalExpensesBeds.totalcost)}
-  .col-md-3
-    a.card.h-100.p-3.text-center.shadow-sm(href="/Addsale")
-      h5 Stock Price
-      p.mb-0 UGX 180,000,000
+  // Stock & Sales Summary
+  .row.g-4.mb-4
+    .col-md-3
+      .card.h-100.p-3.text-center.shadow-sm
+        h5 Total Stock Quantity
+        h3 #{totalStock.totalQuantity}
+    .col-md-3
+      .card.h-100.p-3.text-center.shadow-sm
+        h5 Total Stock Cost
+        h3 UGX #{new Intl.NumberFormat().format(totalStock.totalCost)}
+    .col-md-3
+      .card.h-100.p-3.text-center.shadow-sm
+        h5 Total Sales Quantity
+        h3 #{totalSales.totalQuantity}
+    .col-md-3
+      .card.h-100.p-3.text-center.shadow-sm
+        h5 Total Sales Revenue
+        h3 UGX #{new Intl.NumberFormat().format(totalSales.totalRevenue)}
 
-
-  // Customer Orders Table
-  h1 Orders Information
-  p
-    i Welcome, You may order NOW!
-  h3 Add New Order
-  form#addOrderForm.mb-4(action='/manager' method='post')
-    .mb-2
-      label(for="orderDate") Date:
-      input#orderDate.form-control(type="date", name="date", required)
-    .mb-2
-      label(for="customer") Customer Name:
-      input#customer.form-control(type="text", placeholder="Customer Name", name="name", required)
-    .mb-2
-      label(for="product") Product:
-      input#product.form-control(type="text", placeholder="Product Name", name="product", required)
-    .mb-2
-      label(for="quantity") Quantity:
-      input#quantity.form-control(type="number", placeholder="Quantity", name="quantity", required)
-    .mb-2
-      label(for="price") Total Price: UGX
-      input#price.form-control(type="text", placeholder="Total price", name="price", required)
-    .mb-2
-      label(for="payment") Payment Type:
-      input#payment.form-control(type="text", placeholder="Payment Type", name="payment", required)
-    button.btn.btn-success.mt-2(type="submit") Add Order
-
-  .card.p-3.mb-5
-    h5 Recent Customer Orders
-    table#salesOrders.table.table-striped
-      thead
-        tr
-          th Customer
-          th Product
-          th Quantity
-          th Total Price (UGX)
-          th Payment Type
-      tbody
-        // Example rows:
-        // tr
-        //   td ABC Constructions
-        //   td Timber
-        //   td 200
-        //   td 1,000,000
-        //   td Cash
-        // tr
-        //   td XYZ Furnishers
-        //   td Sofa Set
-        //   td 5
-        //   td 600,000
-        //   td Cheque
-        // tr
-        //   td Elite Builders Ltd
-        //   td Poles
-        //   td 300
-        //   td 900,000
-        //   td Bank Transfer
-
-script(src="../js/manager.js")
+// Footer
+footer.bg-custom.text-white.text-center.py-3.mt-5
+  p.mb-0 © 2025 MWF Ltd. | All Rights Reserved

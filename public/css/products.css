@@ -1,3 +1,30 @@
+/*navbar*/
+.nav-link {
+  color: black;
+}
+#navbarNav {
+  background-color: rgba(0, 0, 128, 0.452);
+}
+.nav-link:hover {
+  color: white;
+  background-color: salmon;
+}
+.nav-link:focus {
+  color: white;
+  background-color: salmon;
+}
+.navbar-nav {
+  display: flex;
+  gap: 20px;
+}
+.navbar-brand {
+  color: powderblue;
+  background-color: antiquewhite;
+}
+a {
+  color: white;
+  background-color: blue;
+}/* General page styling */
 .card-body {
   display: flex;
   flex-direction: column;
@@ -10,4 +37,8 @@
 
 .btn {
   align-self: flex-start; /* keeps button aligned nicely */
+}
+body {
+  background-color: hsl(180, 87%, 58%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

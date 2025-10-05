@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 router.get("/contact", (req, res) => {
-  res.render("contact ");
+  res.render("contact");
 });
 router.get("/products", (req, res) => {
   res.render("products");

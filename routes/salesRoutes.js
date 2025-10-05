@@ -12,10 +12,14 @@ const stockModel = require("../models/stockModel.js");
 
 router.get("/Addsale", async (req, res) => {
   try {
-    const stock = await stockModel.find();
-    res.render("sales", { stock });
+    const stocks = await stockModel.find();
+    res.render("sales", {
+      stocks,
+      pageClass: "sales-page", // pass pageClass to layout
+    });
   } catch (error) {
     console.error(error.message);
+    res.redirect("/"); // fallback if DB fails
   }
 });
 

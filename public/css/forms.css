@@ -1,25 +1,46 @@
+/*navbar*/
+.nav-link {
+  color: black;
+}
+#navbarNav {
+  background-color: rgba(0, 0, 128, 0.452);
+}
+.nav-link:hover {
+  color: white;
+  background-color: salmon;
+}
+.nav-link:focus {
+  color: white;
+  background-color: salmon;
+}
+.navbar-nav {
+  display: flex;
+  gap: 20px;
+}
+.navbar-brand {
+  color: powderblue;
+  background-color: antiquewhite;
+}
+a {
+  color: white;
+  background-color: blue;
+} /* General page styling */
+
 /* General body style */
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background-color:#B5D8C7;
   min-height: 100vh;
-  /* display: flex; */
+  flex-direction: column;
+  display: flex;
   justify-content: center;
   align-items: center;
   margin: 0;
+  padding-top: 80px; /* space for navbar if sticky */
+  align-items: center;
 }
 
-/* Form container */
-form {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 400px;
-  margin: 5rem auto; /* center the form horizontally and give top space */
-  display: block;
-}
+
 
 /* Labels */
 label {
@@ -53,3 +74,48 @@ button {
   border-radius: 8px;
   font-weight: bold;
 }
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+
+
+form {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* keeps it neat */
+}
+
+/* Custom button color */
+button.btn.btn-primary,
+a.btn.btn-primary {
+  background-color: #29573a !important;
+  border-color: #29573a !important;
+}
+
+button.btn.btn-primary:hover,
+a.btn.btn-primary:hover {
+  background-color: #1f452f !important; /* a bit darker on hover */
+  border-color: #1f452f !important;
+}
+
+/* === Fix: prevent flex centering on multi-section pages like Sales === */
+body.sales-page {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  padding-top: 100px; /* keep spacing below navbar */
+}
+
+
+
+footer {
+  margin-top: auto; /* Make sure footer stays at bottom */
+  width: 100%; /* Full width */
+}
+
+

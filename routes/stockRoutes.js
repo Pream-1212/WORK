@@ -19,12 +19,25 @@ router.get("/stock", async (req, res) => {
 });
 
 router.post("/stock", async (req, res) => {
-   
   try {
-    const stocks = new StockModel(req.body);
-     
-    console.log(req.body);
-    await stocks.save();
+    // 1. Update StockModel (live stock)
+    let existingStock = await StockModel.findOne({
+      productName: req.body.productName,
+      productType: req.body.productType,
+    });
+
+    if (existingStock) {
+      existingStock.quantity += parseInt(req.body.quantity);
+      await existingStock.save();
+    } else {
+      const stocks = new StockModel(req.body);
+      await stocks.save();
+    }
+    const Stocker = require("../models/stocker"); // import your history model
+    const stockHistory = new Stocker(req.body);
+    await stockHistory.save();
+
+    // 3. Redirect back to stock list
     res.redirect("/stocklist");
   } catch (error) {
     console.error(error);
@@ -32,92 +45,48 @@ router.post("/stock", async (req, res) => {
   }
 });
 
+
  
 
 router.get("/manager", async (req, res) => {
   try {
-    //expenses for buying stock
-    let totalExpensesPoles = await StockModel.aggregate([
-      { $match: { productName: "poles" } },
+    // --- Total Remaining Stock ---
+    let totalStock = await StockModel.aggregate([
       {
         $group: {
-          _id: "$productType",
-          totalQuantity: { $sum: "$quantity" },
-          //costprice is for unitprice
-          totalcost: {
-            $sum: { $multiply: ["$costPrice", "$quantity"] },
-          },
+          _id: null,
+          totalQuantity: { $sum: "$quantity" }, // current stock
+          totalCost: { $sum: { $multiply: ["$costPrice", "$quantity"] } },
         },
       },
     ]);
-    let totalExpensesBeds = await StockModel.aggregate([
-      { $match: { productName: "Beds" } },
-      {
-        $group: {
-          _id: "$productType",
-          totalQuantity: { $sum: "$quantity" },
-          //costprice is for unitprice
-          totalcost: {
-            $sum: { $multiply: ["$costPrice", "$quantity"] },
-          },
-        },
-      },
-    ]);
-    let totalExpensesCabinets = await StockModel.aggregate([
-      { $match: { productName: "Cabinets" } },
-      {
-        $group: {
-          _id: "$productType",
-          totalQuantity: { $sum: "$quantity" },
-          //costprice is for unitprice
-          totalcost: {
-            $sum: { $multiply: ["$costPrice", "$quantity"] },
-          },
-        },
-      },
-    ]);
-    //sales revenue
-    let totalRevenueSofa = await addsalesModel.aggregate([
-      { $match: { productName: "sofa" } },
-      {
-        $group: {
-          _id: "$productType",
-          totalQuantity: { $sum: "$quantity" },
-          //price is for unitprice
-          totalcost: {
-            $sum: { $multiply: ["$price", "$quantity"] },
-          },
-        },
-      },
-    ]);
-    //to avoid crashing the app if no expenses have been added
-    //set default values if no expenses in the db
-    totalRevenueSofa = totalRevenueSofa[0] || {
-      totalQuantity: 0,
-      totalcost: 0,
-    };
 
-    totalExpensesPoles = totalExpensesPoles[0] ?? {
-      totalQuantity: 0,
-      totalcost: 0,
-    };
-    totalExpensesBeds = totalExpensesBeds[0] ?? {
-      totalQuantity: 0,
-      totalcost: 0,
-    };
-    (totalExpensesCabinets = totalExpensesCabinets[0] ?? {
-      totalQuantity: 0,
-      totalcost: 0,
-    }),
-      res.render("manager", {
-        totalExpensesPoles,
-        totalExpensesBeds,
-        totalExpensesCabinets,
-        totalRevenueSofa: totalRevenueSofa,
-      });
+    // --- Total Sales Revenue ---
+    let totalSales = await addsalesModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalQuantity: { $sum: "$quantity" }, // total sold items
+          totalRevenue: { $sum: { $multiply: ["$unitPrice", "$quantity"] } },
+        },
+      },
+    ]);
+
+    // --- DEBUG: log aggregation results ---
+    console.log("Raw totalStock:", totalStock);
+    console.log("Raw totalSales:", totalSales);
+
+    // --- Defaults if no data ---
+    totalStock = totalStock[0] ?? { totalQuantity: 0, totalCost: 0 };
+    totalSales = totalSales[0] ?? { totalQuantity: 0, totalRevenue: 0 };
+
+    res.render("manager", {
+      totalStock,
+      totalSales,
+    });
   } catch (error) {
-    res.status(400).send("Unable to find data in the database.");
     console.error("Aggregate Error:", error.message);
+    res.status(400).send("Unable to fetch manager data.");
   }
 });
 
@@ -160,14 +129,7 @@ router.post("/editstock/:id", async (req, res) => {
   }
 });
 
-// router.delete("/stocklist/:id", async (req,res) =>{
-//   try {
-//    await StockModel.findByIdAndDelete(req.params.id);
-//     res.redirect('/stocklist')
-//   } catch (error) {
-//       return res.status(500).send("error deleting product.")
-//      }
-// });
+
 router.post("/deletestock", async (req, res) => {
   if (!req.session.user || req.session.user.role !== 'manager') {
     return res.status(403).send('Forbidden: Only manager can delete stock');

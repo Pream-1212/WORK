@@ -1,9 +1,14 @@
-/*navbar*/
+body,
+html {
+  color: #000 !important;
+  opacity: 1; /* fully visible */
+  font-weight: bold; /* optional - make it stronger */
+}
 .nav-link {
-  color: black;
+  color: #B5D8C7;
 }
 #navbarNav {
-  background-color: rgba(0, 0, 128, 0.452);
+  background-color: #254B33;
 }
 .nav-link:hover {
   color: white;
@@ -51,9 +56,9 @@ a {
   color: rgb(75, 75, 133);
 }
 .card-img {
-  border-radius: 50%;
+
   object-fit: cover;
-  width: 100;              /* Full width */
+  width: 100;              
   height: 100vh; 
 }
 .tap {
@@ -74,9 +79,9 @@ html {
   color: #fff;
 }
 
-/* Splash content */
-.splash {
-  display: none; /* hidden until loader finishes */
+/*Splash content */
+ .splash {
+  display: none; 
   position: relative;
   height: 100;
   text-align: center;
@@ -93,13 +98,11 @@ html {
 }
 
 .splash h1 {
-  /* font-size: 2rem; */
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
 .splash p {
-  /* font-size: 1.2rem; */
   margin-bottom: 2rem;
 }
 
@@ -111,33 +114,21 @@ html {
   animation: bounce 1.5s infinite;
 }
 
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-60%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-50%);
-  }
+ P{
+  color: #06271A;
+  font-family: Arial, sans-serif ;
+  font-size: 40px;
+  font-style: italic;
+  text-shadow: 2px 2px 5px;
+  text-align: center
 }
 
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
 
-h1,
 h3,
-p {
-  display: block !important;
-  color: white !important;
+h1
+{
+  display: block ;
+  color: white ;
    text-align: center;
    font-size: 50px;
 }
@@ -184,9 +175,9 @@ body {
 }
 
 /*manager's page*/
-body {
+/* body { 
   background-color: #f8f9fa;
-}
+} */
 .card {
   border-radius: 15px;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
@@ -199,10 +190,45 @@ table td {
   text-align: center;
 }
 
-/*view port*/
-body,
-html {
-  color: #000 !important;
-  opacity: 1; /* fully visible */
-  font-weight: bold; /* optional - make it stronger */
+.container-fluid.p-4 {
+  flex: 1 0 auto; /* Allows main content to grow and fill space */
+}
+
+.bg-custom  {
+ background-color: #06271A !important;
+  
+}
+footer  {
+  margin: 0;
+  font-size: 0.95rem;
+}
+footer.bg-custom {
+  color: #6bec9a !important; 
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-60%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+footer.bg-custom.text-white p,
+footer.bg-custom p,
+footer.bg-custom {
+  color: #6bec9a !important;
 }

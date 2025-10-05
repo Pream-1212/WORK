@@ -6,7 +6,7 @@ block content
     table.table.table-bordered.table-striped
       thead.table-dark
         tr
-        a.btn.btn-warning.mt-3(href='/stock') Add Stock
+        a.btn.btn-warning.mt-3(href='/stocker') Add Stockhistory
           th Product Name
           th Product Type
           th Cost Price
@@ -40,14 +40,14 @@ block content
                 else
                   span.badge.bg-success In Stock
               td
-                a.btn.btn-warning.btn-sm(href=`/editstock/${item._id}`) Edit
+                a.btn.btn-warning.btn-sm(href=`/editstockhistory/${item._id}`) Edit
               td
-                form(method='post', action='/deletestock')
+                form(method='post', action='/deletestockhistory')
                   input(type='hidden', name='id', value=item._id)
                   button.btn.btn-danger.btn-sm(type='submit') Delete
         else
           tr
-            td(colspan="12").text-center No stock available
+            td(colspan="12").text-center No stockhistory available
 
     // Add Stock button (placed below table)
     
