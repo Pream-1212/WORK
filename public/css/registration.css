@@ -57,3 +57,17 @@ a.btn.btn-primary:hover {
   background-color: #1f452f !important; /* a bit darker on hover */
   border-color: #1f452f !important;
 }
+
+.container-fluid.p-4 {
+  flex: 1 0 auto; /* Allows main content to grow and fill space */
+}
+
+.bg-custom {
+  background-color: #06271A !important;
+  color: #fff !important;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.95rem;
+}

@@ -1,17 +1,13 @@
 /*navbar*/
 .nav-link {
-  color: black;
+ color: #B5D8C7;
 }
 #navbarNav {
-  background-color: rgba(0, 0, 128, 0.452);
+  background-color: #254B33;
 }
 .nav-link:hover {
-  color: white;
-  background-color: salmon;
-}
-.nav-link:focus {
-  color: white;
-  background-color: salmon;
+  color: #254B33;
+  background-color: #B5D8C7 ;
 }
 .navbar-nav {
   display: flex;
@@ -24,7 +20,7 @@
 a {
   color: white;
   background-color: blue;
-}/* General page styling */
+}
 .card-body {
   display: flex;
   flex-direction: column;
@@ -39,6 +35,21 @@ a {
   align-self: flex-start; /* keeps button aligned nicely */
 }
 body {
-  background-color: hsl(180, 87%, 58%);
+  background-color:#B5D8C7;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.container-fluid.p-4 {
+  flex: 1 0 auto; /* Allows main content to grow and fill space */
+}
+
+.bg-custom {
+  background-color: #06271A !important;
+  color: #fff !important;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+

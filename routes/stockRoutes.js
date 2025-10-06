@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 
 const StockModel = require("../models/stockModel");
+const Stocker = require("../models/stocker"); // import your history model
 const addsalesModel = require("../models/addsalesModel");
 
 
@@ -33,7 +34,7 @@ router.post("/stock", async (req, res) => {
       const stocks = new StockModel(req.body);
       await stocks.save();
     }
-    const Stocker = require("../models/stocker"); // import your history model
+    
     const stockHistory = new Stocker(req.body);
     await stockHistory.save();
 
@@ -42,6 +43,16 @@ router.post("/stock", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.redirect("/stock");
+  }
+});
+
+router.get("/stockreport", async (req, res) => {
+  try {
+    const stockreport = await Stocker.find().sort({ _id: -1});
+    res.render("stocktab", { stocktab: stockreport }); 
+  } catch (err) {
+    console.error(err);
+     res.status(500).send("Failed to load stock history");
   }
 });
 
@@ -100,46 +111,6 @@ router.get("/stocklist", async (req, res) => {
   }
 });
 
-//updating stock
-router.get("/editstock/:id", async (req, res) => {
-  if (!req.session.user || req.session.user.role !== "manager") {
-    return res.status(403).send("Forbidden: Only manager can edit stock");
-  }
 
-  let item = await StockModel.findById(req.params.id);
-  // console.log(item)
-  res.render(`editstock`, { item });
-});
-
-router.post("/editstock/:id", async (req, res) => {
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send("Invalid stock ID");
-  }
-
-  try {
-    const updated = await StockModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    res.redirect("/stocklist");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
-  }
-});
-
-
-router.post("/deletestock", async (req, res) => {
-  if (!req.session.user || req.session.user.role !== 'manager') {
-    return res.status(403).send('Forbidden: Only manager can delete stock');
-  }
-  try {
-    await StockModel.deleteOne({ _id: req.body.id });
-    res.redirect("stocklist");
-  } catch (error) {
-    res.status(400).send("Unable to delete item from the database.");
-  }
-});
 
 module.exports = router;

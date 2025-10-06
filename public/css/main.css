@@ -70,18 +70,14 @@ main.container {
 
 
 .nav-link {
-  color: black;
+ color: #B5D8C7;
 }
 #navbarNav {
-  background-color: rgba(0, 0, 128, 0.452);
+ background-color: #254B33;
 }
 .nav-link:hover {
-  color: white;
-  background-color: salmon;
-}
-.nav-link:focus {
-  color: white;
-  background-color: salmon;
+  color: #254B33;
+  background-color: #B5D8C7 ;
 }
 .navbar-nav {
   display: flex;

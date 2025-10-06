@@ -12,6 +12,8 @@ block content
           th Product Type
           th Quantity
           th Unit Price
+          th Transport Charge   
+          th Total Price       
           th Sales agent
           th Payment Type
           th Delivery Method
@@ -28,6 +30,8 @@ block content
               td #{sale.productType}
               td #{sale.quantity}
               td #{sale.unitPrice}
+              td #{sale.transportCharge ? sale.transportCharge.toFixed(2) : 0}  // display transport charge
+              td #{sale.totalPrice ? sale.totalPrice.toFixed(2) : sale.unitPrice * sale.quantity} 
               td #{sale.agent ? sale.agent.name : "N/A"}
               td #{sale.payment}
               td #{sale.delivery}
@@ -39,9 +43,9 @@ block content
                     button.btn.btn-danger.btn-sm(type='submit') Delete
         else
           tr
-            td(colspan="10").text-center No sales available
+            td(colspan="12").text-center No sales available
 
-    // 👇 Now it’s outside the table
+    
     if sales && sales.length
       a.btn.btn-dark.mt-3(href=`/getReceipt/${sales[0]._id}`) Generate Receipt
 

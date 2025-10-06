@@ -1,17 +1,13 @@
 /*navbar*/
 .nav-link {
-  color: black;
+  color: #B5D8C7;
 }
 #navbarNav {
-  background-color: rgba(0, 0, 128, 0.452);
+ background-color: #254B33;
 }
 .nav-link:hover {
-  color: white;
-  background-color: salmon;
-}
-.nav-link:focus {
-  color: white;
-  background-color: salmon;
+  color: #254B33;
+  background-color: #B5D8C7 ;
 }
 .navbar-nav {
   display: flex;
@@ -39,9 +35,6 @@ body {
   padding-top: 80px; /* space for navbar if sticky */
   align-items: center;
 }
-
-
-
 /* Labels */
 label {
   font-weight: bold;
@@ -80,8 +73,6 @@ body {
   margin: 0;
 }
 
-
-
 form {
   background: white;
   padding: 2rem;
@@ -109,6 +100,13 @@ body.sales-page {
   justify-content: flex-start !important;
   align-items: stretch !important;
   padding-top: 100px; /* keep spacing below navbar */
+}
+
+/* === Fix: Proper spacing for stock form === */
+body.stock-page {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  padding-top: 120px; /* Add more space under navbar */
 }
 
 

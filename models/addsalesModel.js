@@ -37,6 +37,9 @@ const addsaleSchema = new mongoose.Schema({
     ref: "UserModel",
     required: true,
   },
+  transportOption: { type: Boolean, default: false },
+  transportCharge: { type: Number, default: 0 },
+  totalPrice: { type: Number, required: true }, // includes 5% if applicable
   delivery: {
     type: String,
     required: true,

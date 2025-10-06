@@ -47,19 +47,28 @@ block content
             option(value='Furniture') Furniture
         .mb-3
           label(for="quantity") Quantity:
-          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity", required)
+          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity",id="quantity", required)
         .mb-3
           label(for="unitprice") Unit Price: UGX
-          input#price.form-control(type="text", placeholder="Unit Price", name="unitPrice", required)
+          input#price.form-control(type="text", placeholder="Unit Price", name="unitPrice",id="unitPrice", required)
         .mb-3
           label.payment Payment Type:
-          select.form-control#paymentType(name="payment", required)
+          select.form-control#paymentType(name="payment",id="payment", required)
             option(value='') -- Select Payment --
             option(value="cheque") Cheque
             option(value="cash") Cash
             option(value="bankoverdraft") Bank Overdraft
             option(value="banktransfer") Bank Transfer
             option(value="paypal") PayPal
+        .mb-3
+          label.form-label Transport Required?
+          select#transportOption.form-control(name='transportOption',id="transportOption",required)
+            option(value='no') No
+            option(value='yes') Yes
+
+        // Hidden fields to store computed values
+        input#transportCharge(type='hidden', name='transportCharge',id="transportCharge")
+        input#totalPrice(type='hidden', name='totalPrice',id="totalPrice")
         .mb-3
           label.form-label Delivery Time
           .form-check
@@ -107,3 +116,29 @@ block content
 
   // Scripts
   script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js")
+  // Script to calculate transportCharge and totalPrice
+  script.
+    const quantityInput = document.getElementById('quantity');
+    const unitPriceInput = document.getElementById('unitPrice');
+    const transportOption = document.getElementById('transportOption');
+    const transportInput = document.getElementById('transportCharge');
+    const totalInput = document.getElementById('totalPrice');
+
+    function calculateTotal() {
+      const qty = parseFloat(quantityInput.value) || 0;
+      const price = parseFloat(unitPriceInput.value) || 0;
+      let total = qty * price;
+      let transport = 0;
+
+      if (transportOption.value === 'yes') {
+        transport = total * 0.05;
+        total += transport;
+      }
+
+      transportInput.value = transport;
+      totalInput.value = total;
+    }
+
+    quantityInput.addEventListener('input', calculateTotal);
+    unitPriceInput.addEventListener('input', calculateTotal);
+    transportOption.addEventListener('change', calculateTotal);

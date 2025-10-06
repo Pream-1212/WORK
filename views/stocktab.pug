@@ -1,4 +1,4 @@
-extends layout
+extends table_layout
 
 block content
   .container.mt-5
@@ -6,7 +6,6 @@ block content
     table.table.table-bordered.table-striped
       thead.table-dark
         tr
-        a.btn.btn-warning.mt-3(href='/stocker') Add Stockhistory
           th Product Name
           th Product Type
           th Cost Price
@@ -18,31 +17,30 @@ block content
           th Measurements
           th Status
           if currentUser.role === 'manager'
-          th Update
-          th Delete
+            th Update
+            th Delete
       tbody
-        if items && items.length
-          each item in items
-            tr
-              td #{item.productName}
-              td #{item.productType}
-              td #{item.costPrice}
-              td #{item.sellPrice}
-              td #{item.quantity}
-              td #{item.supplierName}
-              td #{item.quality}
-              td #{item.color}
-              td #{item.measurements}
-              if currentUser.role === 'manager'
+        each item in stocktab
+          tr
+            td #{item.productName}
+            td #{item.productType}
+            td #{item.costPrice}
+            td #{item.sellPrice}
+            td #{item.quantity}
+            td #{item.supplierName}
+            td #{item.quality}
+            td #{item.color}
+            td #{item.measurements}
+            if currentUser.role === 'manager'
               td
                 if item.quantity <= 20
                   span.badge.bg-danger Low Stock (#{item.quantity} left)
                 else
                   span.badge.bg-success In Stock
               td
-                a.btn.btn-warning.btn-sm(href=`/editstockhistory/${item._id}`) Edit
+                a.btn.btn-warning.btn-sm(href=`/editstock/${item._id}`) Edit
               td
-                form(method='post', action='/deletestockhistory')
+                form(method='post', action='/deletestock')
                   input(type='hidden', name='id', value=item._id)
                   button.btn.btn-danger.btn-sm(type='submit') Delete
         else
@@ -50,4 +48,4 @@ block content
             td(colspan="12").text-center No stockhistory available
 
     // Add Stock button (placed below table)
-    
+    a.btn.btn-warning.mt-3(href='/stockreport') Add Stockhistory

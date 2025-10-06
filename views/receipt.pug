@@ -4,48 +4,47 @@ html
   head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title Clarificating sales
+    title Mayondo Receipt
     link(href='/css/receipt.css' rel='stylesheet')
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet')
 
   body
     .container.mt-5
-      h2.text-center Mayondo Reciept
+      h2.text-center Mayondo Receipt
       p.text-center A B2B Furniture Company  
       hr
-        
-    
-    
+
       h3.text-center RECEIPT  
       p Date: #{moment(sale.date).format('DD/MM/YYYY')}
-      p CustomerName: #{sale.name}
-      p SalesAgent: #{sale.agent.name}
+      p Customer Name: #{sale.name}
+      p Sales Agent: #{sale.agent ? sale.agent.name : "N/A"}
 
-      table.table
-        thead
-            tr
-                th Product Type 
-                th Product Name
-                th Quantity
-                th Unit Price
-                th Total Price
-                th Payment Type
-                th Delivery Time 
+      table.table.table-bordered.mt-3
+        thead.table-dark
+          tr
+            th Product Type 
+            th Product Name
+            th Quantity
+            th Unit Price (UGX)
+            th Transport Charge (UGX)
+            th Total Price (UGX)
+            th Payment Type
+            th Delivery Time 
         tbody
-            tr
-                td #{sale.productName}
-                td #{sale.productType}
-                td #{sale.quantity}
-                td #{sale.unitPrice}
-                td #{sale.quantity * sale.unitPrice}   // -- total price calc
-                td #{sale.payment}
-                td #{sale.delivery}
-                    
-                
-        p Payment Type: #{sale.payment}
-        hr
-        h4.text-center Thank You For Your Purchase!
-        p.text-center Visit Us Again!
-        button(onclick="window.print()" class='btn.btn-primary') Print Receipt
-        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
+          tr
+            td #{sale.productType}
+            td #{sale.productName}
+            td #{sale.quantity}
+            td #{sale.unitPrice.toLocaleString()}
+            td #{sale.transportCharge ? sale.transportCharge.toFixed(2) : 0}
+            td #{sale.totalPrice ? sale.totalPrice.toFixed(2) : (sale.quantity * sale.unitPrice).toFixed(2)}
+            td #{sale.payment}
+            td #{sale.delivery}
 
-  
+      hr
+      h4.text-center Thank You For Your Purchase!
+      p.text-center Visit Us Again!
+      .text-center.mt-3
+        button.btn.btn-primary(onclick="window.print()") Print Receipt
+
+      script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
