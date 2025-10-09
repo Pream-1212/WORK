@@ -1,4 +1,4 @@
-/*navbar*/
+
 body {
   background-color:#B5D8C7;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,33 +22,11 @@ body {
   color: powderblue;
   background-color: antiquewhite;
 }
-
-h2, p {
-  color: #B5D8C7;
-  font-family: Arial, sans-serif ;
-  font-size: 40px;
-  font-style: italic;
-  text-shadow: 2px 2px 5px;
-  
-}
-
-h5, h3{
-  color: #B5D8C7;
-  font-weight: 600;
-  text-decoration: none !important;
-}
-
-a {
-  text-decoration: none !important;
-}
-
-/* Card styling */
 .card {
   border-radius: 1rem;
-  background-color: #06271A; /* 🔹 new color for cards */
+  background-color: #29573a;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
 
 .card:hover {
   transform: translateY(-5px);
@@ -97,34 +75,40 @@ p{
   margin: 0;
 }
 
-/* Individual card colors */
-.stock-quantity {
-  background-color: #007bff; /* Blue */
+
+/* Ensure headings and paragraph text follow the color */
+.suppliers-page h1,
+.suppliers-page h2,
+.suppliers-page h4,
+.suppliers-page h5,
+.suppliers-page p,
+.suppliers-page pre,
+.suppliers-page .card-text {
+  color: #B5D8C7 !important;
 }
 
-.stock-cost {
-  background-color: #28a7}
-
-  html, body {
-  height: 100%;
-  margin: 0;
+/* Optional – adjust cards */
+.suppliers-page .card {
+  background-color: transparent;
+  border: 1px solid #06271A !important;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.container-fluid.p-4 {
-  flex: 1 0 auto; /* Allows main content to grow and fill space */
-}
-
-.bg-custom {
+/* Make footer consistent */
+.suppliers-page footer {
   background-color: #06271A !important;
-  color: #fff !important;
+  color: #B5D8C7 !important;
+}
+.suppliers-page h3,
+h5.card-title {
+     color: #B5D8C7 !important;
 }
 
-footer p {
-  margin: 0;
-  font-size: 0.95rem;
+.card {
+  background-color: #29573a;
 }
+
+.suppliers-page .card {
+  background-color: #06271A;
+}
+
+

@@ -12,12 +12,9 @@ html {
 }
 .nav-link:hover {
   color: white;
-  background-color: salmon;
+  background-color: #B5D8C7 ;
 }
-.nav-link:focus {
-  color: white;
-  background-color: salmon;
-}
+
 .navbar-nav {
   display: flex;
   gap: 20px;
@@ -76,7 +73,7 @@ html {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
 
-  color: #fff;
+  
 }
 
 /*Splash content */
@@ -160,7 +157,7 @@ h1
 
 /*customer page*/
 body {
-  background-color: #f8f9fa;
+  background-color:  #B5D8C7 
 }
 .header {
   background-color: #198754;
@@ -202,9 +199,6 @@ footer  {
   margin: 0;
   font-size: 0.95rem;
 }
-footer.bg-custom {
-  color: #6bec9a !important; 
-}
 
 @keyframes fadeIn {
   from {
@@ -232,3 +226,114 @@ footer.bg-custom p,
 footer.bg-custom {
   color: #6bec9a !important;
 }
+
+footer.bg-custom p {
+  font-size: 1rem; /* Makes text smaller */
+  font-style: normal; /* optional */
+  color: #6bec9a !important; /* keeps your footer color */
+}
+
+.suppliers-page footer {
+  background-color: #06271A !important;
+ 
+}
+
+/* Intro (Our Movements) section */
+.intro-section h1 {
+  font-size: 2rem;        /* smaller than global 50px */
+  color:#06271A;           
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.intro-section p {
+  font-size: 1.1rem;      /* readable but not large */
+  color: #06271A;         /* keep your preferred text color */
+  text-align: center;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.intro-section h3 {
+  font-size: 1.5rem;      /* smaller than 50px */
+  color: #254B33;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.intro-section pre {
+  font-size: 1rem;
+  color: #06271A; 
+  background-color: #B5D8C7 ;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Color only the page content below navbar */
+.dash-page {
+  background-color: #B5D8C7;
+  min-height: 100vh; /* ensures it fills the screen height */
+  padding-top: 20px; /* some breathing space under navbar */
+}
+
+/* Dashboard Cards Color */
+.dashboard-card {
+  background-color: #06271A !important; /* dark green background */
+  color: #B5D8C7 !important;           /* text color inside cards */
+  border-radius: 12px;                  
+  text-align: center;
+  height: 200px;                         
+  display: flex;
+  flex-direction: column;
+  justify-content: center;              
+  transition: transform 0.3s;
+}
+
+/* Text inside cards specifically */
+.dashboard-card h5,
+.dashboard-card p,
+.dashboard-card pre {
+  color: #B5D8C7 !important;  /* light text for contrast */
+  margin: 0.3rem 0;           /* optional spacing */
+}
+
+/* Optional hover effect */
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Pre inside cards */
+.dashboard-card pre {
+  background-color: transparent;
+  font-size: 1rem;
+}
+
+/* Dashboard main heading */
+.text-center.my-4 h1 {
+  color:  #06271A !important; /* matches footer text color */
+}
+
+footer.bg-custom {
+  background-color: #06271A !important; /* dark background */
+  color: #6bec9a !important;           /* green text */
+  text-align: center;
+  padding: 10px 0;      /* vertical padding */
+  position: relative;   /* stays in normal flow */
+  bottom: 0;
+  width: 100%;          /* full width */
+}
+
+footer.bg-custom p {
+  font-size: 0.85rem;
+  font-weight: normal;
+  margin: 0;
+  color: #6bec9a;
+  text-align: center;
+}
+
+
+
+
+
+

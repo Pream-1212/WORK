@@ -8,8 +8,8 @@ link(rel="stylesheet", href="/css/style.css")
 header
   div
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="#")
-        b MWF
+      a.navbar-brand(href="/")
+         img(src='/images/mwf.png' alt='Company Logo' width='80' height='80')
       button.navbar-toggler(
         type="button",
         data-toggle="collapse",
@@ -31,21 +31,22 @@ header
             a.nav-link(href="/login") Sign In
           li.nav-item
             a.nav-link(href="/suppliers") supply
+div.dash-page
+  .section.intro-section
+      h1 Our Movements
+      p.
+        We started in 2009 as a small project. We have been importing finished furniture from European countries like Germany, Denmark. We also import our finished furniture in neighboring countries like Kenya, Burundi. Local customers are among our interests. Furniture is stocked and together with our stable suppliers from around Uganda. For this reason we are the potential company to design your office, home, dining halls, hotels etc.
 
-h1 Our Movements
-p.
-  We started in 2009 as a small project. We have been importing finished furniture from European countries like Germany, Denmark. We also import our finished furniture in neighboring countries like Kenya, Burundi. Local customers are among our interests. Furniture is stocked and together with our stable suppliers from around Uganda. For this reason we are the potential company to design your office, home, dining halls, hotels etc.
-
-h3 some of our details
-pre.
-  Mayondo Wood and Furniture (MWF) Ltd operates under a registered license Board. 
-  We are still under a tax holiday which will be terminated next year in May.
-  The top selling products are the office furniture, beds and cupboards.
+      h3.mb-0 some of our details
+      pre.mt-0.mb-2.
+        Mayondo Wood and Furniture (MWF) Ltd operates under a registered license Board. 
+        The top selling products are the office furniture, beds and cupboards.
 
 //  Overview Section 
-section#overview.container.my-5.text-center
-  h2.mb-4 MWF at a Glance
-  .row.g-4
+section#overview.container.text-center
+  div.overview-header.mb-2
+    h2.mb-1 MWF at a Glance
+  .row.g-4.mt-0
     .col-md-3
       .card.p-3
         h5 Products
@@ -64,7 +65,7 @@ section#overview.container.my-5.text-center
         p 100+ Companies
 
 //  Products Section 
-section#products.container.my-5
+section#products
   h2.mb-4.text-center Featured Products
   .row.g-4
     .col-md-4
@@ -87,7 +88,7 @@ section#products.container.my-5
           p.card-text Sofas, beds, dining sets
 
 //  Gallery Section 
-section#gallery.container.my-5
+section#gallery
   h2.mb-4.text-center Gallery
   .row.g-3.align-items-stretch
     .col-md-3.col-sm-6
@@ -111,8 +112,9 @@ section#gallery.container.my-5
       canvas#productChart
 
 //  Footer 
-footer.bg-dark.text-white.text-center.py-3
-  p © 2025 MWF Ltd. All rights reserved.
+footer.bg-custom
+  p.mb-0 © 2025 MWF Ltd. | All Rights Reserved
+
 
 //  <script src ="stable.js"></script> 
 script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js")

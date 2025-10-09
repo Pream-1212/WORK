@@ -1,7 +1,5 @@
 extends edit_layout
 
-
-
 block content
 
   // Page Header
@@ -47,13 +45,13 @@ block content
             option(value='Furniture') Furniture
         .mb-3
           label(for="quantity") Quantity:
-          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity",id="quantity", required)
+          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity", required)
         .mb-3
           label(for="unitprice") Unit Price: UGX
-          input#price.form-control(type="text", placeholder="Unit Price", name="unitPrice",id="unitPrice", required)
+          input#price.form-control(type="text", placeholder="Unit Price", name="unitPrice", required)
         .mb-3
           label.payment Payment Type:
-          select.form-control#paymentType(name="payment",id="payment", required)
+          select.form-control#paymentType(name="payment", required)
             option(value='') -- Select Payment --
             option(value="cheque") Cheque
             option(value="cash") Cash
@@ -62,13 +60,13 @@ block content
             option(value="paypal") PayPal
         .mb-3
           label.form-label Transport Required?
-          select#transportOption.form-control(name='transportOption',id="transportOption",required)
+          select#transportOption.form-control(name='transportOption', required)
             option(value='no') No
             option(value='yes') Yes
 
         // Hidden fields to store computed values
-        input#transportCharge(type='hidden', name='transportCharge',id="transportCharge")
-        input#totalPrice(type='hidden', name='totalPrice',id="totalPrice")
+        input#transportCharge(type='hidden', name='transportCharge',)
+        input#totalPrice(type='hidden', name='totalPrice',)
         .mb-3
           label.form-label Delivery Time
           .form-check

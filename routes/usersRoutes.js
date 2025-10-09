@@ -101,7 +101,7 @@ router.post("/registration1", async (req, res) => {
 router.get("/userssection", async (req, res) => {
   try {
     let items = await UserModel.find().sort({ $natural: -1 });
-    res.render("userstable", { items }); //pass as object
+    res.render("userstable", { items, currentUser }); //pass as object
   } catch (error) {
     console.error("Error fetching items", error.message);
     res.status(400).send("Unable to find data in the database.");

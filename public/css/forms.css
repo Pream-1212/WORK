@@ -25,16 +25,17 @@ a {
 /* General body style */
 body {
   font-family: Arial, sans-serif;
-  background-color:#B5D8C7;
+  background-color: #B5D8C7;
   min-height: 100vh;
-  flex-direction: column;
   display: flex;
-  justify-content: center;
+  flex-direction: column;   /* stack navbar + content */
+  justify-content: flex-start;  /* start below navbar */
   align-items: center;
   margin: 0;
-  padding-top: 80px; /* space for navbar if sticky */
-  align-items: center;
+  padding-top: 100px; /* space for navbar */
+  box-sizing: border-box;
 }
+
 /* Labels */
 label {
   font-weight: bold;
@@ -79,7 +80,8 @@ form {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px; /* keeps it neat */
+  max-width:450px; /* wider and neat */
+  margin: 20px;
 }
 
 /* Custom button color */
@@ -109,11 +111,79 @@ body.stock-page {
   padding-top: 120px; /* Add more space under navbar */
 }
 
+ main.container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      max-width: 450px;
+      width: 100%;
+    }
 
+    h1, h3 {
+      text-align: center;
+    }
+
+    .container-fluid.p-4 {
+  flex: 1 0 auto; /* Allows main content to grow and fill space */
+}
+
+/* .bg-custom  {
+ background-color: #06271A !important;
+  
+} */
+footer  {
+  margin: 0;
+  font-size: 0.95rem;
+}
+/* footer.bg-custom {
+  color: #6bec9a !important; 
+} */
 
 footer {
   margin-top: auto; /* Make sure footer stays at bottom */
   width: 100%; /* Full width */
 }
 
+/* Footer text smaller and neat */
+footer p {
+  font-size: 0.85rem; /* smaller, readable */
+  font-weight: normal; /* optional */
+  margin: 0; /* remove extra spacing */
+  color: #6bec9a ; /* keep white text */
+  text-align: center; /* ensure centered */
+}
+
+footer.bg-custom {
+  background-color: #06271A !important; /* your dark bg */
+  color: #6bec9a !important;
+  text-align: center;
+  padding: 10px 0;      /* give vertical padding */
+  position: relative;   /* ensures it stays at bottom flow */
+  bottom: 0;            /* aligns with bottom if needed */
+  width: 100%;          /* full width */
+}
+
+footer.bg-custom p {
+  font-size: 0.85rem;
+  font-weight: normal;
+  margin: 0;
+  color: #6bec9a;
+  text-align: center;
+}
+
+/* Only affects login page */
+body.login-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between; /* pushes footer down */
+  align-items: stretch;
+  padding-top: 100px;
+}
+
+body.login-page form {
+  margin: 20px auto;
+  max-width: 450px;
+}
 

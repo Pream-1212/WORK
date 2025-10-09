@@ -35,6 +35,9 @@ router.post("/Addsale", async (req, res) => {
       quantity,
       unitPrice,
       payment,
+      transportOption,
+      transportCharge,
+      totalPrice,
       delivery,
       agentId, // optional: manager can select an agent
     } = req.body;
@@ -61,15 +64,29 @@ router.post("/Addsale", async (req, res) => {
     // - Otherwise use the logged-in user (agent or manager creating for self)
     const saleAgent = agentId || currentUser._id;
 
+    // ✅ Calculate totals properly
+    const baseTotal = Number(quantity) * Number(unitPrice);
+    let finalTransportCharge = 0;
+
+    // Only apply 5% if customer agreed
+    if (transportOption && transportOption.toLowerCase() === "yes") {
+      finalTransportCharge = 0.05 * baseTotal;
+    }
+
+    const finalTotalPrice = baseTotal + finalTransportCharge;
+
     const sale = new addsalesModel({
       date,
       name,
       productName,
       productType,
-      quantity,
-      unitPrice,
+      quantity: Number(quantity),
+      unitPrice: Number(unitPrice),
       payment,
       agent: saleAgent,
+      transportOption,
+      transportCharge: finalTransportCharge,
+      totalPrice: finalTotalPrice,
       delivery,
     });
 
@@ -79,7 +96,7 @@ router.post("/Addsale", async (req, res) => {
     stock.quantity -= Number(quantity);
     await stock.save();
 
-    res.redirect("/salesdata");
+    res.redirect(`/getReceipt/${sale._id}`);
   } catch (error) {
     console.error(error.message);
     res.redirect("/Addsale");
@@ -126,16 +143,38 @@ router.post("/editsales/:id", async (req, res) => {
     return res.status(400).send("Invalid sales ID");
   }
 
-  try {
-    const updated = await addsalesModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    res.redirect("/salesdata");
+   try {
+    const oldSale = await addsalesModel.findById(id);
+
+    if (!oldSale) return res.status(404).send("Sale not found");
+
+    const updatedData = {
+      ...req.body,
+      transportCharge: Number(req.body.transportCharge),
+      totalPrice: Number(req.body.totalPrice),
+    };
+
+  const updated = await addsalesModel.findByIdAndUpdate(id, updatedData, {
+    new: true,
+  });
+
+   const stockItem = await stockModel.findOne({
+     productName: oldSale.productName,
+   });
+
+   if (stockItem) {
+     // quantityDifference = new qty - old qty
+     const quantityDifference = Number(req.body.quantity) - oldSale.quantity;
+     stockItem.quantity -= quantityDifference; // decrease if +, increase if -
+     await stockItem.save();
+   }
+       res.redirect("/salesdata");
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 });
+
 
 //deleting users
 router.post("/deletesales/:id", async (req, res) => {

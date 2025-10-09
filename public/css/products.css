@@ -45,11 +45,30 @@ body {
 
 .bg-custom {
   background-color: #06271A !important;
-  color: #fff !important;
+  color:#6bec9a !important; 
 }
 
 footer p {
   margin: 0;
   font-size: 0.95rem;
 }
+h1,p{
+  color: #06271A;
+}
 
+footer.bg-custom.text-white p,
+footer.bg-custom p,
+footer.bg-custom {
+  color: #6bec9a !important;
+}
+
+footer.bg-custom p {
+  font-size: 1rem; /* Makes text smaller */
+  font-style: normal; /* optional */
+  color: #6bec9a !important; /* keeps your footer color */
+}
+
+.suppliers-page footer {
+  background-color: #06271A !important;
+ 
+}

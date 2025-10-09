@@ -29,20 +29,20 @@ header
           li.nav-item
             a.nav-link(href="suppliers") supply
 //  Header 
-.header.text-center.my-4
+.text-center.my-4
   h1 Mayondo Wood & Furniture Ltd
   p Marketing & Customer Insights
 .container.my-5
   .row.g-4
     .col-md-4.mb-3
       a.text-decoration-none(href="/contact")
-        .card.shadow-sm.p-3
+        .card.dashboard-card.shadow-sm.p-3
           h5 About us
           p#marketGrowth.fs-4.text-success Since 2009(Till this Year)
     //  Most Popular Product 
     .col-md-4.mb-3
       a.text-decoration-none(href="/products")
-        .card.shadow-sm.p-3
+        .card.dashboard-card.shadow-sm.p-3
           h5 Most Popular Product Ever
           pre.fs-4.
             Dining Tables
@@ -53,13 +53,14 @@ header
                   
     //  Customer Base 
     .col-md-4.mb-3
-      a.text-decoration-none(href)
-        .card.shadow-sm.p-3
+      a.text-decoration-none(href="/general")
+        .card.dashboard-card.shadow-sm.p-3
           h5 Customer Base
           p.fs-4 Construction Companies & Dealers
 //  Footer 
-footer.bg-dark.text-white.text-center.py-3
-  p © 2025 Mayondo Wood and Furniture Ltd. All Rights Reserved.
+footer.bg-custom.text-white.text-center.py-3.mt-5
+  p.mb-0 © 2025 MWF Ltd. | All Rights Reserved
+
 //  Bootstrap JS 
 script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js")
 script(src="/js/general.js")

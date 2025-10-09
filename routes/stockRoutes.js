@@ -78,7 +78,14 @@ router.get("/manager", async (req, res) => {
         $group: {
           _id: null,
           totalQuantity: { $sum: "$quantity" }, // total sold items
-          totalRevenue: { $sum: { $multiply: ["$unitPrice", "$quantity"] } },
+          totalRevenue: {
+            $sum: {
+              $add: [
+                { $multiply: ["$unitPrice", "$quantity"] },
+                { $ifNull: ["$transport", 0] }, // sum all transport charges
+              ],
+            },
+          },
         },
       },
     ]);
@@ -104,7 +111,7 @@ router.get("/manager", async (req, res) => {
 router.get("/stocklist", async (req, res) => {
   try {
     let items = await StockModel.find().sort({ $natural: -1 });
-    res.render("stocktable", { items }); //pass as object
+    res.render("stocktable", { items, currentUser }); //pass as object
   } catch (error) {
     console.error("Error fetching items", error.message);
     res.status(400).send("Unable to find data in the database.");
