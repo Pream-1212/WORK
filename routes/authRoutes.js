@@ -2,28 +2,59 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const UserModel = require("../models/userModel");
-const StockModel = require("../models/stockModel");
-//getting the signup form
 
-router.get("/registration", (req, res) => {
-  res.render("registration", { title: "sign up page" });
+// Middleware: Allow only the manager to access certain routes
+function ensureManager(req, res, next) {
+  if (req.isAuthenticated() && req.user.role === "manager") {
+    return next();
+  }
+  return res               
+    .status(403)
+    .send("Access denied. Only the manager can register users.");
+}
+
+// ==========================
+//  SIGNUP / REGISTRATION
+// ==========================
+
+// GET signup form
+router.get("/registration", async (req, res) => {
+  const userCount = await UserModel.countDocuments();
+
+  if (userCount === 0) {
+    return res.render("registration", { title: "Initial Manager Setup" });
+  }
+
+  if (req.isAuthenticated() && req.user.role === "manager") {
+    return res.render("registration", { title: "Register New User" });
+  }
+
+  res.status(403).send("Access denied. Only the manager can register users.");
 });
 
+// POST signup logic
 router.post("/registration", async (req, res) => {
   try {
-    // const user = new UserModel(req.body);
-    // after saving, go to login page
-    // console.log(req.body);
-    let existingUser = await UserModel.findOne({ email: req.body.email });
+    const userCount = await UserModel.countDocuments();
+
+    // Validate password length
+    if (!req.body.password || req.body.password.length < 6) {
+      return res
+        .status(400)
+        .send("Password must be at least 6 characters long.");
+    }
+
+    // Check if email already exists
+    const existingUser = await UserModel.findOne({ email: req.body.email });
     if (existingUser) {
       return res.status(400).send("This email has already been used before!");
     }
 
-    // create new user
-    const newUser = new UserModel({
-      // username: req.body.email, // required by passport-local-mongoose
-      email: req.body.email,
-      role: req.body.role,
+    // Assign role: first user becomes manager automatically
+    const roleToAssign = userCount === 0 ? "manager" : req.body.role;
+
+    // Create user with all required fields
+    const user = new UserModel({
       name: req.body.name,
       country: req.body.country,
       city: req.body.city,
@@ -31,25 +62,43 @@ router.post("/registration", async (req, res) => {
       nin: req.body.nin,
       gender: req.body.gender,
       tel: req.body.tel,
+      email: req.body.email,
+      role: roleToAssign,
     });
 
-
-    const user = new UserModel(req.body);
-    UserModel.register(newUser, req.body.password, (error, user) => {
-      if (error) {
-        return res.status(400).send("Please just try again!");
+    // Register user using passport-local-mongoose
+    UserModel.register(user, req.body.password, (err, registeredUser) => {
+      if (err) {
+        console.error("Registration error:", err);
+        return res.status(400).send("Registration failed, please try again.");
       }
-      res.redirect("/login");
+
+      console.log(
+        "✅ New user registered:",
+        registeredUser.email,
+        "as",
+        roleToAssign
+      );
+
+      // Auto-login the first-time manager
+      req.login(registeredUser, (err) => {
+        if (err)
+          return res.status(500).send("Login after registration failed.");
+        res.redirect("/userssection"); // Redirect to users table
+      });
     });
   } catch (error) {
     console.error("Error in signup:", error);
     res.status(500).send("Server error. Please try again later!");
   }
 });
-//added this.res.redirect that directs me to the login page after registering
+
+// ==========================
+//  LOGIN LOGIC
+// ==========================
 
 router.get("/login", (req, res) => {
-  res.render("login", { title: "login page" });
+  res.render("login", { title: "Login Page" });
 });
 
 router.post(
@@ -57,25 +106,30 @@ router.post(
   passport.authenticate("local", { failureRedirect: "/login" }),
   (req, res) => {
     req.session.user = req.user;
+
     if (req.user.role === "manager") {
       res.redirect("/manager");
     } else if (req.user.role === "attendant") {
       res.redirect("/Addsale");
-    } else res.redirect("nonuser");
+    } else {
+      res.redirect("/nonuser");
+    }
   }
 );
+
+// ==========================
+//  LOGOUT LOGIC
+// ==========================
 
 router.get("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy((error) => {
       if (error) {
-        return res.status(500).send("Error loggingout");
+        return res.status(500).send("Error logging out");
       }
-      res.redirect("/");
+      res.redirect("/login");
     });
   }
 });
-
-
 
 module.exports = router;

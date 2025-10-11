@@ -58,6 +58,13 @@ a.btn.btn-primary:hover {
   border-color: #1f452f !important;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+
 .container-fluid.p-4 {
   flex: 1 0 auto; /* Allows main content to grow and fill space */
 }

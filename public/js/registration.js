@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const fullname = document.getElementById("fullname");
@@ -10,58 +8,84 @@ document.addEventListener("DOMContentLoaded", () => {
   const showPassword = document.getElementById("showPassword");
   const role = document.getElementById("role");
 
-  // ✅ 1. Show/Hide password toggle
+  // --- Show/Hide password toggle ---
   showPassword.addEventListener("change", () => {
     const type = showPassword.checked ? "text" : "password";
     password.type = type;
     confirmPassword.type = type;
   });
 
-  // ✅ 2. Email validation function
-  function validateEmail(emailValue) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(emailValue).toLowerCase());
+  // --- Helper functions for validation ---
+  const validateEmail = (emailValue) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
+  const validatePhone = (phoneValue) =>
+    /^(?:\+256|0)\d{9}$/.test(phoneValue.trim());
+
+  // --- Create / clear inline error messages ---
+  function setError(element, message) {
+    clearError(element);
+    const error = document.createElement("div");
+    error.className = "error-message";
+    error.style.color = "red";
+    error.style.fontSize = "0.85rem";
+    error.textContent = message;
+    element.parentNode.appendChild(error);
   }
 
-  // ✅ 3. Phone validation (Uganda style: 10 digits starting with 0, or +256...)
-  function validatePhone(phoneValue) {
-    const re = /^(?:\+256|0)\d{9}$/;
-    return re.test(phoneValue.trim());
+  function clearError(element) {
+    const parent = element.parentNode;
+    const existingError = parent.querySelector(".error-message");
+    if (existingError) parent.removeChild(existingError);
   }
 
-  // ✅ 4. Form submit validation
+  // --- Form submit validation ---
   form.addEventListener("submit", (e) => {
-    let errors = [];
+    let hasError = false;
 
+    // Clear previous errors
+    [fullname, email, phone, password, confirmPassword, role].forEach(
+      clearError
+    );
+
+    // Full name
     if (fullname.value.trim() === "") {
-      errors.push("Full name is required.");
+      setError(fullname, "Full name is required.");
+      hasError = true;
     }
 
+    // Email
     if (!validateEmail(email.value)) {
-      errors.push("Please enter a valid email address.");
+      setError(email, "Please enter a valid email address.");
+      hasError = true;
     }
 
+    // Phone
     if (!validatePhone(phone.value)) {
-      errors.push(
-        "Please enter a valid phone number (e.g., 0771234567 or +256771234567)."
+      setError(
+        phone,
+        "Enter a valid phone number (e.g., 0771234567 or +256771234567)."
       );
+      hasError = true;
     }
 
+    // Password
     if (password.value.length < 6) {
-      errors.push("Password must be at least 6 characters.");
+      setError(password, "Password must be at least 6 characters.");
+      hasError = true;
     }
 
+    // Confirm password
     if (password.value !== confirmPassword.value) {
-      errors.push("Passwords do not match.");
+      setError(confirmPassword, "Passwords do not match.");
+      hasError = true;
     }
 
+    // Role
     if (role.value === "") {
-      errors.push("Please select a role.");
+      setError(role, "Please select a role.");
+      hasError = true;
     }
 
-    if (errors.length > 0) {
-      e.preventDefault();
-      alert(errors.join("\n"));
-    }
+    if (hasError) e.preventDefault();
   });
 });
