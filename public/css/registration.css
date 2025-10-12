@@ -9,12 +9,21 @@ body {
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  padding: 2rem;
+  overflow-x: hidden;
+  padding-top: 2.5rem;
   width: 100%;
-  max-width: 450px;
+  max-width: 600px;
   margin: 0 auto; /* center horizontally */
   overflow-y: auto; /* allow scrolling if content is taller than viewport */
 }
+
+h2.text-center {
+  padding-top: 0.5rem;       /* adds a little breathing space above */
+  overflow: visible;         /* ensures text/shadow isn’t cut off */
+  color: #06271A !important; /* keeps your main heading color */
+  text-shadow: 1px 1px 3px #B5D8C7;
+}
+
 
 /* optional: form controls and buttons stay the same */
 .form-control, .form-select {
@@ -64,6 +73,50 @@ a.btn.btn-primary:hover {
   margin-top: 0.25rem;
 }
 
+.nav-link {
+  color: #B5D8C7;
+}
+#navbarNav {
+  background-color: #254B33;
+}
+.nav-link:hover {
+  color: #254B33;
+  background-color: #B5D8C7 ;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 20px;
+}
+.navbar-brand {
+  color: powderblue;
+  background-color: antiquewhite;
+}
+
+h2, p {
+  color: #B5D8C7;
+  font-family: Arial, sans-serif ;
+  font-size: 40px;
+  font-style: italic;
+  text-shadow: 2px 2px 5px;
+  
+}
+
+h5, h3{
+  color: #B5D8C7;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+h2.text-center {
+  color: #06271A; /* dark green to contrast background */
+  text-shadow: 1px 1px 3px #B5D8C7;
+}
+
+
+a {
+  text-decoration: none !important;
+}
 
 .container-fluid.p-4 {
   flex: 1 0 auto; /* Allows main content to grow and fill space */
@@ -71,7 +124,7 @@ a.btn.btn-primary:hover {
 
 .bg-custom {
   background-color: #06271A !important;
-  color: #fff !important;
+  color:  #6bec9a !important;
 }
 
 footer p {

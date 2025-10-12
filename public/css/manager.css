@@ -38,6 +38,12 @@ h5, h3{
   text-decoration: none !important;
 }
 
+h2.text-center {
+  color: #06271A; /* dark green to contrast background */
+  text-shadow: 1px 1px 3px #B5D8C7;
+}
+
+
 a {
   text-decoration: none !important;
 }
@@ -121,7 +127,7 @@ body {
 
 .bg-custom {
   background-color: #06271A !important;
-  color: #fff !important;
+  color: #6bec9a !important;
 }
 
 footer p {

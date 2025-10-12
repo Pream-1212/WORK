@@ -69,7 +69,7 @@ passport.deserializeUser(UserModel.deserializeUser());
 
 // Make currentUser available in all Pug templates
 app.use((req, res, next) => {
-  res.locals.currentUser = req.session.user || null;
+  res.locals.currentUser = req.user || null;
   next();
 });
 

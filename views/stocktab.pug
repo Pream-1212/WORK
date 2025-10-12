@@ -3,6 +3,9 @@ extends table_layout
 block content
   .container.mt-5
     h3.mb-3 Stock Records
+
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css")
+
     table.table.table-bordered.table-striped
       thead.table-dark
         tr
@@ -38,14 +41,16 @@ block content
                 else
                   span.badge.bg-success In Stock
               td
-                a.btn.btn-warning.btn-sm(href=`/editstock/${item._id}`) Edit
+                a.btn.btn-sm.btn-outline-warning(href=`/editstockhistory/${item._id}`, title="Edit")
+                  i.bi.bi-pencil-square
               td
-                form(method='post', action='/deletestock')
+                form(method='post', action=`/deletestockhistory/${item._id}`, onsubmit="return confirm('Are you sure you want to delete this stock record?');")
                   input(type='hidden', name='id', value=item._id)
-                  button.btn.btn-danger.btn-sm(type='submit') Delete
+                  button.btn.btn-sm.btn-outline-danger(type='submit', title="Delete")
+                    i.bi.bi-trash
         else
           tr
             td(colspan="12").text-center No stockhistory available
 
     // Add Stock button (placed below table)
-    a.btn.btn-warning.mt-3(href='/stockreport') Add Stockhistory
+    a.btn.btn-success.mt-3(href='/stock') Add Stockhistory

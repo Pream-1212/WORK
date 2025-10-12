@@ -1,42 +1,101 @@
-meta(charset="UTF-8")
-meta(name="viewport", content="width=device-width,initial-scale=1")
-title MWF - Sign Up
-link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css", rel="stylesheet")
-link(href="/css/registration.css", rel="stylesheet")
-.container.d-flex.justify-content-center.align-items-center.vh-100
-  .card.shadow-lg.p-4(style="width: 450px")
-    h3.text-center.mb-3 Edit user form
-    form#signUpForm(action=`/edituser/${item._id}` method='post')
-      //  Universal Fields 
-      .mb-3
-        label.form-label Full Name
-        input.form-control#name(type="text", name="name", value=`${item.name}`,required='')
-      .mb-3
-        label.form-label Email Address
-        input.form-control#email(type="email", name="email", value=`${item.email}`, required='')
+extends main_layout
+
+block content
+  .container.mt-5.mb-5
+    .signup-card.mx-auto.p-4.shadow
+
+      h2.text-center.mb-4 Edit User
+      form(action=`/edituser/${item._id}`, method='post')
+        // Fullname
         .mb-3
-        label.form-label Password
-        input.form-control#password(type="password", name="password", value=`${item.password}`, required='')
-      .mb-3
-        label.form-label Phone Number
-        input.form-control#phone(type="tel", name="tel", value=`${item.tel}`, required='')
-      .mb-3
-      label.form-label(for="confirmPassword") Confirm Password
-      input.form-control#confirmPassword(type="password",name="confirm", placeholder="Confirm password", required)
-      .form-check.mb-3
-      input.form-check-input#showPassword(type="checkbox", name="showPassword")
-      label.form-check-label(for="showPassword").
-        Show Password
-      .mb-3
-        label.form-label Role
-        select.form-select#role(required name="role", value=`${item.role}`)
-          option(value, disabled, selected) -- Select Role --
-          option(value="manager") Manager
-          option(value="attendant") Attendant 
-          
-      //  Role-Specific Fields 
-      #extraFields
-      //  Submit 
-      button.btn.btn-primary.w-100(type="submit")  Update User
-script(src="../js/registration.js")
-script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js")
+          label.form-label(for="fullname") Fullname
+          input.form-control#fullname(type="text", name="name", value=item.name, placeholder="Enter full name", required)
+
+        // Address: Country, City, Village
+        .mb-3
+          label.form-label(for="country") Country
+          select.form-select#country(name="country", required)
+            option(value="") Select your country
+            option(value="Uganda", selected=(item.country==="Uganda")) Uganda
+            option(value="Kenya", selected=(item.country==="Kenya")) Kenya
+            option(value="Tanzania", selected=(item.country==="Tanzania")) Tanzania
+            option(value="Rwanda", selected=(item.country==="Rwanda")) Rwanda
+            option(value="Burundi", selected=(item.country==="Burundi")) Burundi
+
+        .mb-3
+          label.form-label(for="city") City/Region
+          input.form-control#city(type="text", name="city", value=item.city, placeholder="Enter your city or region")
+
+        .mb-3
+          label.form-label(for="village") Village
+          input.form-control#village(type="text", name="village", value=item.village, placeholder="Enter your village")
+
+        // National ID
+        .mb-3
+          label.form-label(for="nin") National Identification Number (NIN)
+          input.form-control#nin(type="text", name="nin", value=item.nin, placeholder="Enter your NIN", required)
+
+        // Gender
+        .mb-3
+          label.form-label Gender
+          .form-check
+            input.form-check-input#female(type="radio", name="gender", value="female", checked=(item.gender==="female"))
+            label.form-check-label(for="female") Female
+          .form-check
+            input.form-check-input#male(type="radio", name="gender", value="male", checked=(item.gender==="male"))
+            label.form-check-label(for="male") Male
+
+        // Email
+        .mb-3
+          label.form-label(for="email") Email address
+          input.form-control#email(type="email", name="email", value=item.email, aria-describedby="emailHelp")
+          #emailHelp.form-text We'll never share your email with anyone else.
+
+        // Password
+        .mb-3
+          label.form-label(for="password") Password
+          input.form-control#password(type="password", name="password", placeholder="Enter new password")
+
+        // Phone
+        .mb-3
+          label.form-label(for="phone") Phone Number
+          input.form-control#phone(type="tel", name="tel", value=item.tel, placeholder="Enter your phone number", required)
+
+        // Confirm Password
+        .mb-3
+          label.form-label(for="confirmPassword") Confirm Password
+          input.form-control#confirmPassword(type="password", name="confirmPassword", placeholder="Confirm password")
+
+        // Show Password
+        .form-check.mb-3
+          input.form-check-input#showPassword(type="checkbox", name="showPassword")
+          label.form-check-label(for="showPassword") Show Password
+
+        // Role Selection
+        .mb-3
+          label.form-label(for="role") Select Role
+          select.form-select#role(name="role", required)
+            option(value="") -- Choose role --
+            option(value="manager", selected=(item.role==="manager")) Manager
+            option(value="attendant", selected=(item.role==="attendant")) Attendant
+
+        // Buttons side by side
+        .d-flex.justify-content-between
+          button.btn.btn-primary(type="submit") Update
+          button.btn.btn-danger(type="button", onclick="window.location.href='/userssection'") Cancel
+
+  // Scripts
+  script(src="/js/registration.js")
+  script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js")
+  script.
+    const showPassword = document.getElementById('showPassword');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+
+    if (showPassword) {
+      showPassword.addEventListener('change', () => {
+        const type = showPassword.checked ? 'text' : 'password';
+        if (password) password.type = type;
+        if (confirmPassword) confirmPassword.type = type;
+      });
+    }

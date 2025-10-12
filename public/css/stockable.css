@@ -42,7 +42,7 @@ a {
 
 /* Table styling */
 .table {
-  background: #fff;
+  background: #B5D8C7;
   border-radius: 8px;
   overflow: hidden;
   border-collapse: separate;
@@ -50,8 +50,8 @@ a {
 }
 
 .table thead.table-dark th {
-  background: #2c3e50; /* stronger header */
-  color: #fff;
+  background: #B5D8C7; /* stronger header */
+  color: #254B33;
   border: 0;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -72,7 +72,7 @@ a {
   padding: 0.75rem 0.9rem;
   vertical-align: middle;
   font-size: 0.95rem;
-  color: #2f2f2f;
+  color: #254B33;
 }
 
 /* Center the "No stock available" row */
@@ -131,13 +131,18 @@ td {
   box-shadow: 0 6px 18px rgba(16,24,40,0.04);
 }
 
+.container.mt-5 {
+  flex: 1 0 auto; /* allows main content to grow and push footer down */
+}
+
+
 .container-fluid.p-4 {
   flex: 1 0 auto; /* Allows main content to grow and fill space */
 }
 
 .bg-custom {
   background-color: #06271A !important;
-  color: #fff !important;
+  color:  #6bec9a !important;
 }
 
 footer p {

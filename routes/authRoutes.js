@@ -51,7 +51,8 @@ router.post("/registration", async (req, res) => {
     }
 
     // Assign role: first user becomes manager automatically
-    const roleToAssign = userCount === 0 ? "manager" : req.body.role;
+    const roleToAssign =
+      userCount === 0 ? "manager" : req.body.role.toLowerCase();
 
     // Create user with all required fields
     const user = new UserModel({
@@ -107,9 +108,9 @@ router.post(
   (req, res) => {
     req.session.user = req.user;
 
-    if (req.user.role === "manager") {
+    if (req.user.role.toLowerCase() === "manager") {
       res.redirect("/manager");
-    } else if (req.user.role === "attendant") {
+    } else if (req.user.role.toLowerCase() === "attendant") {
       res.redirect("/Addsale");
     } else {
       res.redirect("/nonuser");

@@ -23,7 +23,7 @@ block content
         .mb-3
           label.form-label Product Name
           select#productName.form-control(type='text', name='productName', required='')
-            option(value='') -- Select Product --
+            option(value='') -- Select Product Name--
             option(value='Officefurniture') Officefurniture
             option(value='Softwood') Softwood
             option(value='Hardwood') Hardwood
@@ -34,13 +34,11 @@ block content
             option(value='Woodchips') Woodchips
             option(value='Diningtables') Diningtables
             option(value='Wardrobes') Wardrobes
-            if stocks && stocks.length
-              each stock in stocks
-                option(value=stock.productName)= stock.productName
+            
         .mb-3
           label.form-label Product Type
           select#productType.form-control(name='productType', required)
-            option(value='') -- Select Product --
+            option(value='') -- Select Product Type--
             option(value='Wood') Wood
             option(value='Furniture') Furniture
         .mb-3
@@ -52,7 +50,7 @@ block content
         .mb-3
           label.payment Payment Type:
           select.form-control#paymentType(name="payment", required)
-            option(value='') -- Select Payment --
+            option(value='') -- Select Payment Type--
             option(value="cheque") Cheque
             option(value="cash") Cash
             option(value="bankoverdraft") Bank Overdraft
@@ -61,6 +59,7 @@ block content
         .mb-3
           label.form-label Transport Required?
           select#transportOption.form-control(name='transportOption', required)
+            option(value='') -- Choose  --
             option(value='no') No
             option(value='yes') Yes
 

@@ -3,6 +3,9 @@ extends table_layout
 block content
   .container.mt-5
     h3.mb-3 User Records
+
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css")
+
     table.table.table-bordered.table-striped
       thead.table-dark
         tr
@@ -16,8 +19,8 @@ block content
           th Phone Number
           th Role
           if currentUser.role === 'manager'
-          th Update
-          th Delete
+            th Update
+            th Delete
       tbody
         if items && items.length
           each item in items
@@ -31,15 +34,19 @@ block content
               td #{item.email}
               td #{item.tel}
               td #{item.role}
-              td
-                a.btn.btn-warning(href=`/edituser/${item._id}`) Edit
-              td
-                form(method='post', action='/deleteuser')
-                  input(type='hidden', name='id', value=item._id)
-                  button.btn.btn-danger.btn-block(type='submit') Delete
+              if currentUser.role === 'manager'
+                td
+                  a.btn.btn-sm.btn-outline-warning(href=`/edituser/${item._id}`, title="Edit")
+                    i.bi.bi-pencil-square
+                td
+                  form(method='post', action='/deleteuser')
+                    input(type='hidden', name='id', value=item._id)
+                    button.btn.btn-sm.btn-outline-danger(type='submit', title="Delete")
+                      i.bi.bi-trash
         else
           tr
             td(colspan="11").text-center Not available
 
     // Add user button (placed below table)
-    a.btn.btn-warning.mt-3(href='/registration') Add User
+    if currentUser.role === 'manager'
+      a.btn.btn-success.mt-3(href='/registration') Add User

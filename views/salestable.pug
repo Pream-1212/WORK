@@ -3,7 +3,10 @@ block content
   .container.mt-5
     h3.mb-3 Sales Records
 
-    table.table.table-bordered.table-striped
+    // Bootstrap Icons CDN
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css")
+
+    table.table.table-bordered.table-striped.table-sm(style="font-size: 0.9rem;")
       thead.table-dark
         tr
           th Date
@@ -12,14 +15,14 @@ block content
           th Product Type
           th Quantity
           th Unit Price
-          th Transport Charge   
-          th Total Price       
-          th Sales agent
-          th Payment Type
-          th Delivery Method
+          th Transport
+          th Total
+          th Agent
+          th Payment
+          th Delivery
           if currentUser.role === 'manager'
-            th Update
-            th Delete
+            th.text-center(style="width:60px") Update
+            th.text-center(style="width:60px") Delete
       tbody
         if sales && sales.length
           each sale in sales
@@ -30,23 +33,24 @@ block content
               td #{sale.productType}
               td #{sale.quantity}
               td #{sale.unitPrice}
-              td #{sale.transportCharge ? sale.transportCharge.toFixed(2) : 0}  // display transport charge
-              td #{sale.totalPrice ? sale.totalPrice.toFixed(2) : sale.unitPrice * sale.quantity} 
+              td #{sale.transportCharge ? sale.transportCharge.toFixed(2) : 0}
+              td #{sale.totalPrice ? sale.totalPrice.toFixed(2) : sale.unitPrice * sale.quantity}
               td #{sale.agent ? sale.agent.name : "N/A"}
               td #{sale.payment}
               td #{sale.delivery}
               if currentUser.role === 'manager'
-                td
-                  a.btn.btn-warning.btn-sm(href=`/editsales/${sale._id}`) Edit
-                td
+                td.text-center
+                  a.btn.btn-sm.btn-outline-warning(href=`/editsales/${sale._id}`, title="Edit")
+                    i.bi.bi-pencil-square
+                td.text-center
                   form(method='post', action=`/deletesales/${sale._id}`)
-                    button.btn.btn-danger.btn-sm(type='submit') Delete
+                    button.btn.btn-sm.btn-outline-danger(type='submit', title="Delete")
+                      i.bi.bi-trash
         else
           tr
             td(colspan="12").text-center No sales available
 
-    
     if sales && sales.length
-      a.btn.btn-dark.mt-3(href=`/getReceipt/${sales[0]._id}`) Generate Receipt
+      a.btn.btn-success.mt-3(href=`/getReceipt/${sales[0]._id}`) Generate Receipt
 
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')

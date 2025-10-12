@@ -56,8 +56,76 @@ router.get("/stockreport", async (req, res) => {
   }
 });
 
+// GET route to render edit form for a specific stock record
+router.get("/editstockhistory/:id", async (req, res) => {
+  try {
+    const stockItem = await Stocker.findById(req.params.id); // use history collection
+    if (!stockItem) {
+      return res.status(404).send("Stock record not found");
+    }
+    // Render an edit page (create editstock.pug separately)
+    res.render("editstockhistory", { pageClass: "form-page", item: stockItem });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching stock record");
+  }
+});
 
- 
+// POST route to handle form submission for updating the stock record
+router.post("/editstockhistory/:id", async (req, res) => {
+  try {
+    const {
+      productName,
+      productType,
+      costPrice,
+      sellPrice,
+      quantity,
+      supplierName,
+      quality,
+      color,
+      measurements,
+    } = req.body;
+
+    const updatedStock = await Stocker.findByIdAndUpdate(
+      req.params.id,
+      {
+        productName,
+        productType,
+        costPrice,
+        sellPrice,
+        quantity,
+        supplierName,
+        quality,
+        color,
+        measurements,
+      },
+      { new: true } // return the updated document
+    );
+
+    if (!updatedStock) {
+      return res.status(404).send("Stock record not found");
+    }
+
+    // Redirect back to stockreport page
+    res.redirect("/stockreport");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to update stock record");
+  }
+});
+
+// POST route to delete a specific stock record
+router.post("/deletestockhistory/:id", async (req, res) => {
+  try {
+    await Stocker.deleteOne({ _id: req.params.id });
+    // Redirect back to stockreport page after deletion
+    res.redirect("/stockreport");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to delete stock record");
+  }
+});
+
 
 router.get("/manager", async (req, res) => {
   try {
@@ -111,7 +179,7 @@ router.get("/manager", async (req, res) => {
 router.get("/stocklist", async (req, res) => {
   try {
     let items = await StockModel.find().sort({ $natural: -1 });
-    res.render("stocktable", { items, currentUser }); //pass as object
+    res.render("stocktable", { items,}); //pass as object
   } catch (error) {
     console.error("Error fetching items", error.message);
     res.status(400).send("Unable to find data in the database.");
