@@ -111,14 +111,7 @@ body.stock-page {
   padding-top: 120px; /* Add more space under navbar */
 }
 
- /* main.container {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      max-width: 450px;
-      width: 100%;
-    } */
+ 
 
     h1, h3 {
       text-align: center;
@@ -128,17 +121,12 @@ body.stock-page {
   flex: 1 0 auto; /* Allows main content to grow and fill space */
 }
 
-/* .bg-custom  {
- background-color: #06271A !important;
-  
-} */
+
 footer  {
   margin: 0;
   font-size: 0.95rem;
 }
-/* footer.bg-custom {
-  color: #6bec9a !important; 
-} */
+
 
 footer {
   margin-top: auto; /* Make sure footer stays at bottom */
@@ -172,20 +160,7 @@ footer.bg-custom p {
   text-align: center;
 }
 
-/* Only affects login page */
-/* body.login-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: space-between; pushes footer down
-  align-items: stretch;
-  padding-top: 100px;
-} */
 
-/* body.login-page form {
-  margin: 20px auto;
-  max-width: 450px;
-} */
 
 /* ===================== LOGIN PAGE ===================== */
 body.login-page {
