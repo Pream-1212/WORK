@@ -19,7 +19,7 @@ header
       .collapse.navbar-collapse#navbarNav
         ul.navbar-nav.ms-auto
           li.nav-item.active
-            a.nav-link(href="/") Logout
+            a.nav-link(href="/logout") Logout
           li.nav-item
             a.nav-link(href="/general") Customer
           li.nav-item
@@ -31,7 +31,7 @@ header
 //  Header 
 .text-center.my-4
   h1 Mayondo Wood & Furniture Ltd
-  p Customer Insights 
+  
 .container.my-5
   .row.g-4
     .col-md-4.mb-3
@@ -44,7 +44,7 @@ header
       a.text-decoration-none(href="/products")
         .card.dashboard-card.shadow-sm.p-3
           h5 Most Popular Product Ever
-          pre.fs-4.
+          p.fs-4.
             Dining Tables
             School Desks
             Chairs
@@ -57,6 +57,27 @@ header
         .card.dashboard-card.shadow-sm.p-3
           h5 Customer Base
           p.fs-4 Construction Companies & Dealers
+  .row.g-4.mb-4 
+    .col-md-3
+      a.card.dashboard-card.shadow-sm(href="/suppliers")
+        h5 Suppliers
+        p.mb-0 12 Active Suppliers
+    .col-md-3
+      a.card.dashboard-card.shadow-sm(href="/Addsale")
+        h5 Start up a Sale
+        p.mb-0 
+    .col-md-3
+      a.card.dashboard-card.shadow-sm(href="/salesdata")
+        h5 Sales Report
+        p.mb-0 
+    .col-md-3
+      a.card.dashboard-card.shadow-sm(href="/stocklist")
+        h5 Stock Report
+        p.mb-0 
+    .col-md-3
+      a.card.dashboard-card.shadow-sm(href="/userssection")
+        h5 Users Register
+        p.mb-0 8 Attendants + 2 Managers       
 //  Footer 
 footer.bg-custom.text-white.text-center.py-3.mt-5
   p.mb-0 © 2025 MWF Ltd. | All Rights Reserved

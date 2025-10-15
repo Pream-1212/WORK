@@ -111,7 +111,7 @@ router.post(
     if (req.user.role.toLowerCase() === "manager") {
       res.redirect("/manager");
     } else if (req.user.role.toLowerCase() === "attendant") {
-      res.redirect("/Addsale");
+      res.redirect("/general");
     } else {
       res.redirect("/nonuser");
     }
@@ -128,7 +128,7 @@ router.get("/logout", (req, res) => {
       if (error) {
         return res.status(500).send("Error logging out");
       }
-      res.redirect("/login");
+      res.redirect("/");
     });
   }
 });
