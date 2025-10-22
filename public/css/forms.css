@@ -20,7 +20,30 @@
 a {
   color: white;
   background-color: blue;
-} /* General page styling */
+}
+
+/* Active link styling */
+.navbar-nav .nav-item.active .nav-link {
+  color: #254B33 !important;       /* text color */
+  background-color: #B5D8C7 !important; /* highlight background */
+  font-weight: bold;               /* emphasize */
+  border-radius: 6px;
+  padding: 8px 14px;
+  transition: 0.3s ease;
+}
+
+/* Optional subtle underline */
+.navbar-nav .nav-item.active .nav-link::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: #254B33;
+  margin: 4px auto 0;
+  border-radius: 2px;
+}
+
+/* General page styling */
 
 /* General body style */
 body {
@@ -91,11 +114,24 @@ a.btn.btn-primary {
   border-color: #29573a !important;
 }
 
-button.btn.btn-primary:hover,
-a.btn.btn-primary:hover {
-  background-color: #1f452f !important; /* a bit darker on hover */
-  border-color: #1f452f !important;
+button.btn.btn-success:hover,
+a.btn.btn-success:hover {
+   background: #2b184a !important;
+  transform: scale(1.03) !important;
 }
+
+
+
+.mb-3.error input,
+.mb-3.error select {
+  border: 2px solid #ff3860 !important;
+}
+
+.mb-3.success input,
+.mb-3.success select {
+  border: 2px solid #09c372 !important;
+}
+
 
 /* === Fix: prevent flex centering on multi-section pages like Sales === */
 body.sales-page {

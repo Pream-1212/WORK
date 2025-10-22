@@ -42,6 +42,21 @@ router.post("/Addsale", async (req, res) => {
       agentId, // optional: manager can select an agent
     } = req.body;
 
+    const errors = [];
+
+    // --- Backend validation ---
+    if (!date || date.trim() === "") errors.push("");
+    if (!name || name.trim() === "") errors.push("");
+    if (!productName || productName.trim() === "") errors.push("");
+    if (!productType || productType.trim() === "") errors.push("");
+    if (!quantity || quantity.trim() === "") errors.push("");
+    if (!unitPrice || unitPrice.trim() === "") errors.push("");
+    if (!payment || payment.trim() === "") errors.push("");
+    if (!transportOption || transportOption.trim() === "") errors.push("");
+    if (!delivery || delivery.trim() === "")
+      errors.push("Delivery is required");
+;
+
     if (!req.session.user) {
       return res.status(401).send("User not logged in");
     }

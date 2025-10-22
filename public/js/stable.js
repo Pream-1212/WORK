@@ -1,110 +1,122 @@
-// (() => {
-//   // Optional arrow button (guarded so it won't crash if missing)
-const arrowBtn = document.getElementById("arrowBtn");
-if (arrowBtn) {
-  arrowBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    alert("Taking you to the Login page...");
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 1000);
-  });
-}
-
-// Form + table
-
+// Get form and inputs
 const saleForm = document.getElementById("addSaleForm");
 
-const salesTableBody = document.querySelector("#salesTable tbody");
+const dateInput = document.getElementById("date");
+const nameInput = document.getElementById("name");
+const productNameInput = document.getElementById("productName");
+const productTypeInput = document.getElementById("productType");
+const quantityInput = document.getElementById("quantity");
+const unitPriceInput = document.getElementById("unitPrice");
+const paymentInput = document.getElementById("payment");
+const transportOptionInput = document.getElementById("transportOption");
+const transportChargeInput = document.getElementById("transportCharge");
+const totalPriceInput = document.getElementById("totalPrice");
+const delivery1 = document.getElementById("delivery1");
+const delivery2 = document.getElementById("delivery2");
+const delivery3 = document.getElementById("delivery3");
 
-let sales = JSON.parse(localStorage.getItem("sales")) || [];
-sales.forEach((sale) => {
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <th scope="row">${sale.saleDate}</th>
-    <td>${sale.customer}</td>
-    <td>${sale.product}</td>
-    <td>${sale.quantity}</td>
-    <td>${sale.payment}</td>
-    <td>${sale.agent}</td>
-    <td>${sale.delivery}</td>
-  `;
-  salesTableBody.appendChild(row);
-});
+// Error/success handlers
+const setError = (el, msg) => {
+  const inputControl = el.closest(".mb-3");
+  const errorDisplay = inputControl.querySelector(".error");
+  errorDisplay.innerText = msg;
+  inputControl.classList.add("error");
+  inputControl.classList.remove("success");
+};
 
-saleForm.addEventListener("submit", function (event) {
-  event.preventDefault(); // stop page reload
+const setSuccess = (el) => {
+  const inputControl = el.closest(".mb-3");
+  const errorDisplay = inputControl.querySelector(".error");
+  errorDisplay.innerText = "";
+  inputControl.classList.add("success");
+  inputControl.classList.remove("error");
+};
 
-  // Read values
-  const saleDate = document.getElementById("saleDate").value;
-  const customer = document.getElementById("customer").value;
-  const product = document.getElementById("product").value;
-  const quantity = document.getElementById("quantity").value;
-  const payment = document.getElementById("payment").value;
-  const agent = document.getElementById("agent").value;
-  const delivery = document.getElementById("delivery").value;
+// Validate inputs
+const validateInputs = () => {
+  let isValid = true;
 
-  // Save array to localStorage
-  // localStorage.setItem("sales", JSON.stringify(#salesTable tbody));
+  if (!dateInput.value.trim()) {
+    setError(dateInput, "Date is required");
+    isValid = false;
+  } else setSuccess(dateInput);
 
-  // Basic validation (optional)
-  if (
-    !saleDate ||
-    !customer ||
-    !product ||
-    !quantity ||
-    !payment ||
-    !agent ||
-    !delivery
-  ) {
-    alert("Please fill in all fields.");
+  if (!nameInput.value.trim()) {
+    setError(nameInput, "Customer name required");
+    isValid = false;
+  } else setSuccess(nameInput);
+
+  if (!productNameInput.value.trim()) {
+    setError(productNameInput, "Select a product");
+    isValid = false;
+  } else setSuccess(productNameInput);
+
+  if (!productTypeInput.value.trim()) {
+    setError(productTypeInput, "Select product type");
+    isValid = false;
+  } else setSuccess(productTypeInput);
+
+  if (!quantityInput.value.trim() || Number(quantityInput.value) <= 0) {
+    setError(quantityInput, "Enter quantity");
+    isValid = false;
+  } else setSuccess(quantityInput);
+
+  if (!unitPriceInput.value.trim() || Number(unitPriceInput.value) <= 0) {
+    setError(unitPriceInput, "Enter unit price");
+    isValid = false;
+  } else setSuccess(unitPriceInput);
+
+  if (!paymentInput.value.trim()) {
+    setError(paymentInput, "Select payment type");
+    isValid = false;
+  } else setSuccess(paymentInput);
+
+  if (!transportOptionInput.value.trim()) {
+    setError(transportOptionInput, "Select transport option");
+    isValid = false;
+  } else setSuccess(transportOptionInput);
+
+  const deliveryChecked =
+    delivery1.checked || delivery2.checked || delivery3.checked;
+  if (!deliveryChecked) {
+    setError(delivery3, "Choose delivery time");
+    isValid = false;
+  } else setSuccess(delivery3);
+
+  return isValid;
+};
+
+// Calculate totals
+function calculateTotal() {
+  const qty = parseFloat(quantityInput.value) || 0;
+  const price = parseFloat(unitPriceInput.value) || 0;
+  let total = qty * price;
+  let transport = 0;
+
+  if (transportOptionInput.value === "yes") {
+    transport = total * 0.05;
+    total += transport;
+  }
+
+  transportChargeInput.value = transport.toFixed(2);
+  totalPriceInput.value = total.toFixed(2);
+}
+
+// Listen for input changes
+quantityInput.addEventListener("input", calculateTotal);
+unitPriceInput.addEventListener("input", calculateTotal);
+transportOptionInput.addEventListener("change", calculateTotal);
+
+// Handle form submission
+saleForm.addEventListener("submit", function (e) {
+  const isValid = validateInputs();
+
+  if (!isValid) {
+    e.preventDefault(); // stop submission if invalid
     return;
   }
 
-  // Build row
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-      <th scope="row">${saleDate}</th>
-      <td>${customer}</td>
-      <td>${product}</td>
-      <td>${quantity}</td>
-      <td>${payment}</td>
-      <td>${agent}</td>
-      <td>${delivery}</td>
-    `;
-
-  // Append
-  salesTableBody.appendChild(newRow);
-
-  // Save new sale to array and localStorage
-  sales.push({
-    saleDate,
-    customer,
-    product,
-    quantity,
-    payment,
-    agent,
-    delivery,
-  });
-  localStorage.setItem("sales", JSON.stringify(sales));
-
-  // Clear form
-  saleForm.reset();
+  // Update hidden totals before submit
+  calculateTotal();
+  // form now submits to backend /Addsale and will redirect to receipt
 });
-
-
-const returnsBtn = document.querySelectorAll(".btn.btn-warning");
-returnsBtn.forEach((button) => {
-  button.addEventListener("click", function (event) {
-    event.preventDefault();
-    showReturnsInfo();
-  });
-});
-// })();
-//Show returns info
-function showReturnsInfo() {
-  alert(
-    "Returns allowed only after 14 days, with no damages and proper storage."
-  );
-}
-

@@ -16,13 +16,15 @@ block content
       form#addSaleForm(action='/Addsale', method='post')
         .mb-3
           label(for="saleDate") Date:
-          input#saleDate.form-control(type="date", name="date", required)
+          input#date.form-control(type="date", name="date")
+          .error
         .mb-3
           label(for="customer") Customer Name:
-          input#customer.form-control(type="text", placeholder="Customer Name", name="name", required)
+          input#name.form-control(type="text", placeholder="Customer Name", name="name")
+          .error
         .mb-3
           label.form-label Product Name
-          select#productName.form-control(type='text', name='productName', required='')
+          select#productName.form-control(type='text', name='productName')
             option(value='') -- Select Product Name--
             option(value='Officefurniture') Officefurniture
             option(value='Softwood') Softwood
@@ -34,42 +36,46 @@ block content
             option(value='Woodchips') Woodchips
             option(value='Diningtables') Diningtables
             option(value='Wardrobes') Wardrobes
-            
+          .error  
         .mb-3
           label.form-label Product Type
-          select#productType.form-control(name='productType', required)
+          select#productType.form-control(name='productType')
             option(value='') -- Select Product Type--
             option(value='Wood') Wood
             option(value='Furniture') Furniture
+          .error
         .mb-3
           label(for="quantity") Quantity:
-          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity", required)
+          input#quantity.form-control(type="number", placeholder="Quantity", name="quantity")
+          .error
         .mb-3
           label(for="unitprice") Unit Price: UGX
-          input#price.form-control(type="text", placeholder="Unit Price", name="unitPrice", required)
+          input#unitPrice.form-control(type="text", placeholder="Unit Price", name="unitPrice")
+          .error
         .mb-3
           label.payment Payment Type:
-          select.form-control#paymentType(name="payment", required)
+          select.form-control#payment(name="payment")
             option(value='') -- Select Payment Type--
             option(value="cheque") Cheque
             option(value="cash") Cash
             option(value="bankoverdraft") Bank Overdraft
             option(value="banktransfer") Bank Transfer
             option(value="paypal") PayPal
+          .error
         .mb-3
           label.form-label Transport Required?
-          select#transportOption.form-control(name='transportOption', required)
+          select#transportOption.form-control(name='transportOption')
             option(value='') -- Choose  --
             option(value='no') No
             option(value='yes') Yes
-
+          .error
         // Hidden fields to store computed values
         input#transportCharge(type='hidden', name='transportCharge',)
         input#totalPrice(type='hidden', name='totalPrice',)
         .mb-3
           label.form-label Delivery Time
           .form-check
-            input.form-check-input#delivery1(type="radio", name="delivery", value="1-2 weeks", required)
+            input.form-check-input#delivery1(type="radio", name="delivery", value="1-2 weeks",)
             label.form-check-label(for="delivery1") 1-2 weeks delivery
           .form-check
             input.form-check-input#delivery2(type="radio", name="delivery", value="3-5 days")
@@ -77,7 +83,7 @@ block content
           .form-check
             input.form-check-input#delivery3(type="radio", name="delivery", value="Same day")
             label.form-check-label(for="delivery3") Same day delivery
-
+          .error
         button.btn.btn-success.mt-3(type="submit") Add Sale
 
     // Info Row
@@ -112,30 +118,31 @@ block content
     )
 
   // Scripts
+  script(src="/js/stable.js") 
   script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js")
-  // Script to calculate transportCharge and totalPrice
-  script.
-    const quantityInput = document.getElementById('quantity');
-    const unitPriceInput = document.getElementById('unitPrice');
-    const transportOption = document.getElementById('transportOption');
-    const transportInput = document.getElementById('transportCharge');
-    const totalInput = document.getElementById('totalPrice');
+  //- // Script to calculate transportCharge and totalPrice
+  //- script.
+  //-   const quantityInput = document.getElementById('quantity');
+  //-   const priceInput = document.getElementById('price');
+  //-   const transportOption = document.getElementById('transportOption');
+  //-   const transportInput = document.getElementById('transportCharge');
+  //-   const totalInput = document.getElementById('totalPrice');
 
-    function calculateTotal() {
-      const qty = parseFloat(quantityInput.value) || 0;
-      const price = parseFloat(unitPriceInput.value) || 0;
-      let total = qty * price;
-      let transport = 0;
+  //-   function calculateTotal() {
+  //-     const qty = parseFloat(quantityInput.value) || 0;
+  //-     const price = parseFloat(unitPriceInput.value) || 0;
+  //-     let total = qty * price;
+  //-     let transport = 0;
 
-      if (transportOption.value === 'yes') {
-        transport = total * 0.05;
-        total += transport;
-      }
+  //-     if (transportOption.value === 'yes') {
+  //-       transport = total * 0.05;
+  //-       total += transport;
+  //-     }
 
-      transportInput.value = transport;
-      totalInput.value = total;
-    }
+  //-     transportInput.value = transport;
+  //-     totalInput.value = total;
+  //-   }
 
-    quantityInput.addEventListener('input', calculateTotal);
-    unitPriceInput.addEventListener('input', calculateTotal);
-    transportOption.addEventListener('change', calculateTotal);
+  //-   quantityInput.addEventListener('input', calculateTotal);
+  //-   unitPriceInput.addEventListener('input', calculateTotal);
+  //-   transportOption.addEventListener('change', calculateTotal);
