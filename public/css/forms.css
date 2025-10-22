@@ -22,26 +22,7 @@ a {
   background-color: blue;
 }
 
-/* Active link styling */
-.navbar-nav .nav-item.active .nav-link {
-  color: #254B33 !important;       /* text color */
-  background-color: #B5D8C7 !important; /* highlight background */
-  font-weight: bold;               /* emphasize */
-  border-radius: 6px;
-  padding: 8px 14px;
-  transition: 0.3s ease;
-}
 
-/* Optional subtle underline */
-.navbar-nav .nav-item.active .nav-link::after {
-  content: "";
-  display: block;
-  width: 60%;
-  height: 3px;
-  background: #254B33;
-  margin: 4px auto 0;
-  border-radius: 2px;
-}
 
 /* General page styling */
 

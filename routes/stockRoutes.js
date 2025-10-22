@@ -8,6 +8,49 @@ const StockModel = require("../models/stockModel");
 const Stocker = require("../models/stocker"); // import your history model
 const addsalesModel = require("../models/addsalesModel");
 
+// Helper: Validate stock input
+function validateStockData(body) {
+  const errors = [];
+  const requiredFields = [
+    "productName",
+    "productType",
+    "costPrice",
+    "sellPrice",
+    "quantity",
+    "quality",
+  ];
+
+  // --- Required checks ---
+  requiredFields.forEach((field) => {
+    if (!body[field] || body[field].toString().trim() === "") {
+      errors.push(`${field} is required.`);
+    }
+  });
+
+  // --- Number validations ---
+  if (body.costPrice && (isNaN(body.costPrice) || Number(body.costPrice) <= 0))
+    errors.push("Cost Price must be a valid positive number.");
+
+  if (body.sellPrice && (isNaN(body.sellPrice) || Number(body.sellPrice) <= 0))
+    errors.push("Selling Price must be a valid positive number.");
+
+  if (
+    body.quantity &&
+    (!Number.isInteger(Number(body.quantity)) || Number(body.quantity) <= 0)
+  )
+    errors.push("Quantity must be a valid whole number greater than 0.");
+
+  // --- Optional text fields ---
+  ["supplierName", "color", "measurements"].forEach((field) => {
+    if (body[field] && typeof body[field] !== "string") {
+      errors.push(`${field} must be text if provided.`);
+    }
+  });
+
+  return errors;
+}
+
+
 
 router.get("/stock", async (req, res) => {
   try {
@@ -21,6 +64,13 @@ router.get("/stock", async (req, res) => {
 
 router.post("/stock", async (req, res) => {
   try {
+    // ✅ Validate data first
+    const errors = validateStockData(req.body);
+    if (errors.length > 0) {
+      console.log("Validation errors:", errors);
+      return res.status(400).send(errors.join("<br>"));
+      // or res.render("stocks", { errorMessages: errors });
+    }
     // 1. Update StockModel (live stock)
     let existingStock = await StockModel.findOne({
       productName: req.body.productName,
@@ -34,7 +84,7 @@ router.post("/stock", async (req, res) => {
       const stocks = new StockModel(req.body);
       await stocks.save();
     }
-    
+
     const stockHistory = new Stocker(req.body);
     await stockHistory.save();
 

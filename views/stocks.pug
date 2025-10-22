@@ -49,7 +49,7 @@ html
               .card-body
                 .mb-3
                   label.form-label(for='productName') Product Name
-                  select#productName.form-control(name='productName', required='')
+                  select#productName.form-control(name='productName')
                     option(value='') -- Select Product --
                     option(value='Officefurniture') Officefurniture
                     option(value='Softwood') Softwood
@@ -61,33 +61,41 @@ html
                     option(value='Woodchips') Woodchips
                     option(value='Diningtables') Diningtables
                     option(value='Wardrobes') Wardrobes
+                  .error
                 .mb-3
                   label.form-label(for='productType') Product Type
-                  select#productType.form-control(name='productType', required='')
+                  select#productType.form-control(name='productType')
                     option(value='') -- Select Product --
                     option(value='Wood') Wood
                     option(value='Furniture') Furniture
+                  .error
                 .mb-3
                   label.form-label(for='costPrice') Cost Price
-                  input#costPrice.form-control(type='number', name='costPrice', required='')
+                  input#costPrice.form-control(type='number', name='costPrice')
+                  .error
                 .mb-3
                   label.form-label(for='sellPrice') Selling Price
-                  input#sellPrice.form-control(type='number', name='sellPrice', required='')
+                  input#sellPrice.form-control(type='number', name='sellPrice')
+                  .error
                 .mb-3
                   label.form-label(for='quantity') Quantity
-                  input#quantity.form-control(type='number', name='quantity', required='')
+                  input#quantity.form-control(type='number', name='quantity')
+                  .error
                 .mb-3
                   label.form-label(for='supplierName') Supplier Name
                   input#supplierName.form-control(type='text', name='supplierName')
+                  .error
                 .mb-3
                   label.form-label(for='quality') Quality
-                  select#quality.form-control(name='quality', required='')
+                  select#quality.form-control(name='quality')
                     option(value='') -- Select Product --
                     option(value='Low') Low 
                     option(value='High') High
+                  .error
                 .mb-3
                   label.form-label(for='color') Color (optional)
                   input#color.form-control(type='text', name='color')
+                  .error
                 .mb-3
                   label.form-label(for='measurements') Measurements (optional)
                   input#measurements.form-control(type='text', name='measurements')
@@ -99,4 +107,4 @@ html
 
     // Scripts at the end
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js')
-    script(src='../js/about.js')
+    script(src='/js/about.js')

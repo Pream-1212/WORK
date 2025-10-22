@@ -33,9 +33,11 @@ const stockSchema = new mongoose.Schema({
   },
   color: {
     type: String,
+    required: false,
   },
   measurements: {
     type: String,
+    required: false,
   },
 });
 
