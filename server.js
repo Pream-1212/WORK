@@ -20,10 +20,11 @@ const authRoutes = require("./routes/authRoutes");
 const stockRoutes = require("./routes/stockRoutes");
 const salesRoutes = require("./routes/salesRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const supplierRoutes = require("./routes/supplierRoutes");
 
 //2.Instantiate the express app
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 //3.Configurations
 //setting upmongodb connection
@@ -81,6 +82,7 @@ app.use("/", authRoutes);
 app.use("/", stockRoutes);
 app.use("/", salesRoutes);
 app.use("/", usersRoutes);
+app.use("/", supplierRoutes);
 
 //non existent route handler
 app.use((req, res) => {

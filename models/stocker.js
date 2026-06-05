@@ -37,6 +37,10 @@ const stocksSchema = new mongoose.Schema({
   measurements: {
     type: String,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("stocker", stocksSchema);

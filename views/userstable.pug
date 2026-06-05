@@ -39,8 +39,7 @@ block content
                   a.btn.btn-sm.btn-outline-warning(href=`/edituser/${item._id}`, title="Edit")
                     i.bi.bi-pencil-square
                 td
-                  form(method='post', action='/deleteuser')
-                    input(type='hidden', name='id', value=item._id)
+                  form(method='post', action=`/deleteuser/${item._id}`)
                     button.btn.btn-sm.btn-outline-danger(type='submit', title="Delete")
                       i.bi.bi-trash
         else

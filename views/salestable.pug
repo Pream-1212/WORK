@@ -3,6 +3,40 @@ block content
   .container.mt-5
     h3.mb-3 Sales Records
 
+    // Date filter form
+    .card.p-3.mb-4.shadow-sm
+      form(method='get', action='/salesdata').row.g-2.align-items-end
+        .col-md-3
+          label.form-label(for="startDate") Start Date
+          input#startDate.form-control(type='date', name='startDate', value=startDate)
+        .col-md-3
+          label.form-label(for="endDate") End Date
+          input#endDate.form-control(type='date', name='endDate', value=endDate)
+        .col-md-2
+          button.btn.btn-success(type='submit') Filter
+        .col-md-2
+          a.btn.btn-secondary(href='/salesdata') Clear
+
+    // Summary cards
+    if totalRevenue !== undefined
+      .row.g-2.mb-4
+        .col-md-3
+          .card.p-2.text-center.shadow-sm
+            h6 Total Revenue
+            h5 UGX #{Number(totalRevenue).toLocaleString()}
+        .col-md-3
+          .card.p-2.text-center.shadow-sm
+            h6 Total Items Sold
+            h5 #{totalQuantity}
+        .col-md-3
+          .card.p-2.text-center.shadow-sm
+            h6 Transport Charges
+            h5 UGX #{Number(totalTransport).toLocaleString()}
+        .col-md-3
+          .card.p-2.text-center.shadow-sm
+            h6 Total Sales
+            h5 #{sales ? sales.length : 0}
+
     // Bootstrap Icons CDN
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css")
 
@@ -20,7 +54,7 @@ block content
           th Agent
           th Payment
           th Delivery
-          if currentUser.role === 'manager'
+          if currentUser && currentUser.role === 'manager'
             th.text-center(style="width:60px") Update
             th.text-center(style="width:60px") Delete
       tbody
@@ -38,7 +72,7 @@ block content
               td #{sale.agent ? sale.agent.name : "N/A"}
               td #{sale.payment}
               td #{sale.delivery}
-              if currentUser.role === 'manager'
+              if currentUser && currentUser.role === 'manager'
                 td.text-center
                   a.btn.btn-sm.btn-outline-warning(href=`/editsales/${sale._id}`, title="Edit")
                     i.bi.bi-pencil-square
@@ -49,8 +83,5 @@ block content
         else
           tr
             td(colspan="12").text-center No sales available
-
-    if sales && sales.length
-      a.btn.btn-success.mt-3(href=`/getReceipt/${sales[0]._id}`) Generate Receipt
 
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')

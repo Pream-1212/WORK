@@ -8,7 +8,6 @@ link(
 script(src="https://cdn.jsdelivr.net/npm/chart.js")
 link(rel="stylesheet", href="/css/manager.css")
 
-// Header
 header
   nav.navbar.navbar-expand-lg.navbar-light.bg-light
     a.navbar-brand(href="/")
@@ -40,38 +39,46 @@ header
         li.nav-item
           a.nav-link(href="/salesdata") Sales Table
         li.nav-item
-          a.nav-link(href="/logout") Logout
-        li.nav-item
           a.nav-link(href="/suppliers") Supply
+        li.nav-item
+          a.nav-link(href="/suppliers-list") Supplier Records
+        li.nav-item
+          a.nav-link(href="/stockreport") Stock Report
+        li.nav-item
+          a.nav-link(href="/userssection") Users
         li.nav-item
           a.nav-link(href="/dash") viewpoint
 
 // Main Content
 .container-fluid.p-4
-  h2.text-center.mb-4 📊 MWF Manager Dashboard
+  h2.text-center.mb-4 MWF Manager Dashboard
 
   // Overview Cards
   .row.g-4.mb-4
     .col-md-3
-      a.card.h-100.p-3.text-center.shadow-sm(href="/suppliers")
+      a.card.h-100.p-3.text-center.shadow-sm(href="/suppliers-list")
         h5 Suppliers
-        p.mb-0 12 Active Suppliers
+        p.mb-0 Manage Suppliers
     .col-md-3
       a.card.h-100.p-3.text-center.shadow-sm(href="/Addsale")
-        h5 Start up a Sale
-        p.mb-0 
+        h5 Start a Sale
+        p.mb-0 New Transaction
     .col-md-3
       a.card.h-100.p-3.text-center.shadow-sm(href="/salesdata")
         h5 Sales Report
-        p.mb-0 
+        p.mb-0 View Reports
     .col-md-3
       a.card.h-100.p-3.text-center.shadow-sm(href="/stockreport")
         h5 Stock Report
-        p.mb-0 
+        p.mb-0 View Stock History
+    .col-md-3
+      a.card.h-100.p-3.text-center.shadow-sm(href="/stocklist")
+        h5 Current Stock
+        p.mb-0 Live Stock Levels
     .col-md-3
       a.card.h-100.p-3.text-center.shadow-sm(href="/userssection")
         h5 Users Register
-        p.mb-0 8 Attendants + 2 Managers
+        p.mb-0 Manage Users
 
   // Stock & Sales Summary
   .row.g-4.mb-4
@@ -92,6 +99,63 @@ header
         h5 Total Sales Revenue
         h3 UGX #{new Intl.NumberFormat().format(totalSales.totalRevenue)}
 
+  // Charts Row
+  .row.g-4.mb-4
+    .col-md-6
+      .card.p-3.shadow-sm
+        canvas#stockChart(height="200")
+    .col-md-6
+      .card.p-3.shadow-sm
+        canvas#salesChart(height="200")
+
 // Footer
 footer.bg-custom.text-white.text-center.py-3.mt-5
   p.mb-0 © 2025 MWF Ltd. | All Rights Reserved
+
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js")
+script.
+  // Stock Chart - Doughnut
+  const stockCtx = document.getElementById('stockChart').getContext('2d');
+  new Chart(stockCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Total Stock Qty', 'Total Sales Qty'],
+      datasets: [{
+        data: [#{totalStock.totalQuantity}, #{totalSales.totalQuantity}],
+        backgroundColor: ['#29573a', '#6bec9a'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: { display: true, text: 'Stock vs Sales Overview', color: '#06271A' },
+        legend: { position: 'bottom' }
+      }
+    }
+  });
+
+  // Sales Chart - Bar
+  const salesCtx = document.getElementById('salesChart').getContext('2d');
+  new Chart(salesCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Revenue', 'Stock Cost'],
+      datasets: [{
+        label: 'UGX',
+        data: [#{totalSales.totalRevenue}, #{totalStock.totalCost}],
+        backgroundColor: ['#29573a', '#6bec9a'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: { display: true, text: 'Revenue vs Cost', color: '#06271A' },
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });

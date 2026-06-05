@@ -15,7 +15,8 @@ router.get("/Addsale", async (req, res) => {
     const stocks = await stockModel.find();
     res.render("sales", {
       stocks,
-      pageClass: "sales-page", // pass pageClass to layout
+      pageClass: "sales-page",
+      currentUser: req.user || null,
     });
   } catch (error) {
     console.error(error.message);
@@ -44,18 +45,19 @@ router.post("/Addsale", async (req, res) => {
 
     const errors = [];
 
-    // --- Backend validation ---
-    if (!date || date.trim() === "") errors.push("");
-    if (!name || name.trim() === "") errors.push("");
-    if (!productName || productName.trim() === "") errors.push("");
-    if (!productType || productType.trim() === "") errors.push("");
-    if (!quantity || quantity.trim() === "") errors.push("");
-    if (!unitPrice || unitPrice.trim() === "") errors.push("");
-    if (!payment || payment.trim() === "") errors.push("");
-    if (!transportOption || transportOption.trim() === "") errors.push("");
-    if (!delivery || delivery.trim() === "")
-      errors.push("Delivery is required");
-;
+    if (!date || date.trim() === "") errors.push("Date is required");
+    if (!name || name.trim() === "") errors.push("Customer name is required");
+    if (!productName || productName.trim() === "") errors.push("Product name is required");
+    if (!productType || productType.trim() === "") errors.push("Product type is required");
+    if (!quantity || quantity.trim() === "" || Number(quantity) <= 0) errors.push("Valid quantity is required");
+    if (!unitPrice || unitPrice.trim() === "" || Number(unitPrice) <= 0) errors.push("Valid unit price is required");
+    if (!payment || payment.trim() === "") errors.push("Payment type is required");
+    if (!transportOption || transportOption.trim() === "") errors.push("Transport option is required");
+    if (!delivery || delivery.trim() === "") errors.push("Delivery is required");
+
+    if (errors.length > 0) {
+      return res.status(400).send(errors.join("<br>"));
+    }
 
     if (!req.session.user) {
       return res.status(401).send("User not logged in");
@@ -125,19 +127,44 @@ router.get("/salesdata", async (req, res) => {
     }
 
     const currentUser = req.session.user;
-    let sales;
+    const { startDate, endDate } = req.query;
+    let filter = {};
 
-    if (currentUser.role === "manager") {
-      // Manager sees all sales
-      sales = await addsalesModel.find().populate("agent", "name");
-    } else {
-      // Agents see only their own sales
-      sales = await addsalesModel
-        .find({ agent: currentUser._id })
-        .populate("agent", "name");
+    if (currentUser.role !== "manager") {
+      filter.agent = currentUser._id;
     }
 
-    res.render("salestable", { sales, currentUser: req.user || {}, moment });
+    // Apply date filtering if provided
+    if (startDate || endDate) {
+      filter.date = {};
+      if (startDate) filter.date.$gte = new Date(startDate);
+      if (endDate) {
+        const end = new Date(endDate);
+        end.setDate(end.getDate() + 1);
+        filter.date.$lte = end;
+      }
+    }
+
+    let sales = await addsalesModel
+      .find(filter)
+      .populate("agent", "name")
+      .sort({ date: -1 });
+
+    // Calculate summary
+    const totalRevenue = sales.reduce((sum, s) => sum + (s.totalPrice || 0), 0);
+    const totalQuantity = sales.reduce((sum, s) => sum + (s.quantity || 0), 0);
+    const totalTransport = sales.reduce((sum, s) => sum + (s.transportCharge || 0), 0);
+
+    res.render("salestable", {
+      sales,
+      currentUser: req.user || {},
+      moment,
+      startDate: startDate || "",
+      endDate: endDate || "",
+      totalRevenue,
+      totalQuantity,
+      totalTransport,
+    });
   } catch (error) {
     console.error(error.message);
     res.redirect("/");
@@ -147,8 +174,7 @@ router.get("/salesdata", async (req, res) => {
 //updating sales
 router.get("/editsales/:id", async (req, res) => {
   let item = await addsalesModel.findById(req.params.id);
-  // console.log(item)
-  res.render(`editsales`, { item });
+  res.render(`editsales`, { item, currentUser: req.user || null, moment });
 });
 
 router.post("/editsales/:id", async (req, res) => {

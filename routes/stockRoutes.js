@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 
 
@@ -55,7 +56,7 @@ function validateStockData(body) {
 router.get("/stock", async (req, res) => {
   try {
     const stocks = await StockModel.find();
-    res.render("stocks", { stocks }); //  You must pass { stocks }
+    res.render("stocks", { stocks, currentUser: req.user || null });
   } catch (error) {
     console.error(error.message);
     res.render("stocks", { stocks: [] }); // fallback so pug doesn't break
@@ -99,7 +100,7 @@ router.post("/stock", async (req, res) => {
 router.get("/stockreport", async (req, res) => {
   try {
     const stockreport = await Stocker.find().sort({ _id: -1});
-    res.render("stocktab", { stocktab: stockreport }); 
+    res.render("stocktab", { stocktab: stockreport, moment, currentUser: req.user || null }); 
   } catch (err) {
     console.error(err);
      res.status(500).send("Failed to load stock history");
@@ -229,13 +230,47 @@ router.get("/manager", async (req, res) => {
 router.get("/stocklist", async (req, res) => {
   try {
     let items = await StockModel.find().sort({ $natural: -1 });
-    res.render("stocktable", { items,}); //pass as object
+    res.render("stocktable", { items, currentUser: req.user || null, moment }); //pass as object
   } catch (error) {
     console.error("Error fetching items", error.message);
     res.status(400).send("Unable to find data in the database.");
   }
 });
 
+// Edit live stock item
+router.get("/editstock/:id", async (req, res) => {
+  try {
+    const item = await StockModel.findById(req.params.id);
+    if (!item) return res.status(404).send("Stock item not found");
+    res.render("editstock", { item, currentUser: req.user || null });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching stock item");
+  }
+});
 
+router.post("/editstock/:id", async (req, res) => {
+  try {
+    const errors = validateStockData(req.body);
+    if (errors.length > 0) return res.status(400).send(errors.join("<br>"));
+
+    await StockModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.redirect("/stocklist");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to update stock");
+  }
+});
+
+// Delete live stock item
+router.post("/deletestock/:id", async (req, res) => {
+  try {
+    await StockModel.findByIdAndDelete(req.params.id);
+    res.redirect("/stocklist");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to delete stock");
+  }
+});
 
 module.exports = router;

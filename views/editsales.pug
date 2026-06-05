@@ -8,7 +8,7 @@ block content
     form#addSaleForm.mb-4(action=`/editsales/${item._id}`, method='post')
       .mb-2
         label(for="saleDate") Date:
-        input#saleDate.form-control(type="date", name="date", value=`${item.date}`, required)
+        input#saleDate.form-control(type="date", name="date", value=`${moment(item.date).format('YYYY-MM-DD')}`, required)
       .mb-2
         label(for="customer") Customer Name:
         input#customer.form-control(type="text", placeholder="Customer Name", name="name", value=`${item.name}`, required)
@@ -16,24 +16,21 @@ block content
         label.form-label Product Name
         select#productName.form-control(name='productName', required)
           option(value='') -- Select Product Name--
-          option(value='Officefurniture') Officefurniture
-          option(value='Softwood') Softwood
-          option(value='Hardwood') Hardwood
-          option(value='Cupboards') Cupboards
-          option(value='Beds') Beds
-          option(value='Cabinets') Cabinets
-          option(value='Poles') Poles
-          option(value='Woodchips') Woodchips
-          option(value='Diningtables') Diningtables
-          option(value='Wardrobes') Wardrobes
+          option(value='Officefurniture' selected=(item.productName === 'Officefurniture')) Officefurniture
+          option(value='Softwood' selected=(item.productName === 'Softwood')) Softwood
+          option(value='Hardwood' selected=(item.productName === 'Hardwood')) Hardwood
+          option(value='Cupboards' selected=(item.productName === 'Cupboards')) Cupboards
+          option(value='Beds' selected=(item.productName === 'Beds')) Beds
+          option(value='Cabinets' selected=(item.productName === 'Cabinets')) Cabinets
+          option(value='Poles' selected=(item.productName === 'Poles')) Poles
+          option(value='Woodchips' selected=(item.productName === 'Woodchips')) Woodchips
+          option(value='Diningtables' selected=(item.productName === 'Diningtables')) Diningtables
+          option(value='Wardrobes' selected=(item.productName === 'Wardrobes')) Wardrobes
       .mb-3
         label.form-label Product Type
         select#productType.form-control(name='productType', required)
-          option(value='Wood') Wood
-          option(value='Furniture') Furniture
-          if stocks && stocks.length
-            each stock in stocks
-              option(value=stock.productName)= stock.productName
+          option(value='Wood' selected=(item.productType === 'Wood')) Wood
+          option(value='Furniture' selected=(item.productType === 'Furniture')) Furniture
       .mb-2
         label(for="quantity") Quantity:
         input#quantity.form-control(type="number", placeholder="Quantity", name="quantity", value=`${item.quantity}`, required)
@@ -44,37 +41,34 @@ block content
         label.payment Payment Type:
         select.form-control#paymentType(name="payment", required)
           option(value='') -- Select Payment Type--
-          option(value="cheque") Cheque
-          option(value="cash") Cash
-          option(value="bankoverdraft") Bank Overdraft
-          option(value="banktransfer") Bank Transfer
-          option(value="paypal") PayPal
+          option(value="cheque" selected=(item.payment === 'cheque')) Cheque
+          option(value="cash" selected=(item.payment === 'cash')) Cash
+          option(value="bankoverdraft" selected=(item.payment === 'bankoverdraft')) Bank Overdraft
+          option(value="banktransfer" selected=(item.payment === 'banktransfer')) Bank Transfer
+          option(value="paypal" selected=(item.payment === 'paypal')) PayPal
       .mb-3
         label.form-label Transport Required?
         select#transportOption.form-control(name='transportOption', required)
           option(value='') -- Choose--
-          option(value='no') No
-          option(value='yes') Yes
+          option(value='no' selected=(item.transportOption === 'no' || item.transportOption === false)) No
+          option(value='yes' selected=(item.transportOption === 'yes' || item.transportOption === true)) Yes
 
-        // Hidden fields to store computed values
-        input#transportCharge(type='hidden', name='transportCharge')
-        input#totalPrice(type='hidden', name='totalPrice')
+        input#transportCharge(type='hidden', name='transportCharge', value=item.transportCharge || 0)
+        input#totalPrice(type='hidden', name='totalPrice', value=item.totalPrice || 0)
       .mb-3
         label.form-label Delivery Time
         .form-check
-          input.form-check-input#delivery1(type="radio", name="delivery", value="1-2 weeks", required)
+          input.form-check-input#delivery1(type="radio", name="delivery", value="1-2 weeks", checked=(item.delivery === '1-2 weeks'))
           label.form-check-label(for="delivery1") 1-2 weeks delivery
         .form-check
-          input.form-check-input#delivery2(type="radio", name="delivery", value="3-5 days")
+          input.form-check-input#delivery2(type="radio", name="delivery", value="3-5 days", checked=(item.delivery === '3-5 days'))
           label.form-check-label(for="delivery2") 3-5 days delivery
         .form-check
-          input.form-check-input#delivery3(type="radio", name="delivery", value="Same day")
+          input.form-check-input#delivery3(type="radio", name="delivery", value="Same day", checked=(item.delivery === 'Same day'))
           label.form-check-label(for="delivery3") Same day delivery
       button.btn.btn-success(type="submit") Update Sales
 
-  // Scripts
   script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js")
-  // Script to calculate transportCharge and totalPrice
   script.
     const quantityInput = document.getElementById('quantity');
     const unitPriceInput = document.getElementById('unitPrice');

@@ -1,0 +1,47 @@
+extends table_layout
+
+block content
+  .container.mt-5
+    h3.mb-3 Supplier Records
+
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css")
+
+    table.table.table-bordered.table-striped
+      thead.table-dark
+        tr
+          th Supplier Name
+          th Contact Person
+          th Email
+          th Phone
+          th Address
+          th Products Supplied
+          th Commission (%)
+          th Date Added
+          if currentUser && currentUser.role === 'manager'
+            th Update
+            th Delete
+      tbody
+        if suppliers && suppliers.length
+          each supplier in suppliers
+            tr
+              td #{supplier.name}
+              td #{supplier.contactPerson || 'N/A'}
+              td #{supplier.email || 'N/A'}
+              td #{supplier.phone}
+              td #{supplier.address || 'N/A'}
+              td #{supplier.productsSupplied || 'N/A'}
+              td #{supplier.commission || 0}%
+              td #{moment(supplier.dateAdded).format('DD/MM/YYYY')}
+              if currentUser && currentUser.role === 'manager'
+                td
+                  a.btn.btn-sm.btn-outline-warning(href=`/edit-supplier/${supplier._id}`, title="Edit")
+                    i.bi.bi-pencil-square
+                td
+                  form(method='post', action=`/delete-supplier/${supplier._id}`, onsubmit="return confirm('Delete this supplier?');")
+                    button.btn.btn-sm.btn-outline-danger(type='submit', title="Delete")
+                      i.bi.bi-trash
+        else
+          tr
+            td(colspan="10").text-center No suppliers found
+
+    a.btn.btn-success.mt-3(href='/add-supplier') Add Supplier

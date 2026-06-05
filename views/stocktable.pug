@@ -3,6 +3,9 @@ extends table_layout
 block content
   .container.mt-5
     h3.mb-3 Stock Records
+
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css")
+
     table.table.table-bordered.table-striped
       thead.table-dark
         tr
@@ -16,6 +19,10 @@ block content
           th Color
           th Measurements
           th Status
+          th Date Added
+          if currentUser && currentUser.role === 'manager'
+            th Update
+            th Delete
       tbody
         if items && items.length
           each item in items
@@ -34,9 +41,17 @@ block content
                   span.badge.bg-danger Low Stock (#{item.quantity} left)
                 else
                   span.badge.bg-success In Stock
+              td #{item.date ? moment(item.date).format('DD/MM/YYYY') : 'N/A'}
+              if currentUser && currentUser.role === 'manager'
+                td
+                  a.btn.btn-sm.btn-outline-warning(href=`/editstock/${item._id}`, title="Edit")
+                    i.bi.bi-pencil-square
+                td
+                  form(method='post', action=`/deletestock/${item._id}`, onsubmit="return confirm('Delete this stock item?');")
+                    button.btn.btn-sm.btn-outline-danger(type='submit', title="Delete")
+                      i.bi.bi-trash
         else
           tr
-            td(colspan="10").text-center No stock available
+            td(colspan="13").text-center No stock available
 
-    // Add Stock button (placed below table)
     a.btn.btn-success.mt-3(href='/stock') Add Stock

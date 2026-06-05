@@ -7,7 +7,7 @@ block content
                 .card-body
                     .mb-3
                     label.form-label Product Name
-                    select#productName.form-control(type='text' name='productName', value=`${item.productName}`, required='')
+                    select#productName.form-control(name='productName', required='')
                       option(value='') -- Select Product --
                       option(value='Officefurniture') Officefurniture
                       option(value='Softwood') Softwood
@@ -21,9 +21,9 @@ block content
                       option(value='Wardrobes') Wardrobes  
                 .mb-3
                     label.form-label Product Type
-                    select#productType.form-control(name='productType' value=`${item.productType}`, required='')
-                        option(value='Wood') Wood
-                        option(value='Furniture') Furniture
+                    select#productType.form-control(name='productType', required='')
+                        option(value='Wood' selected=(item.productType === 'Wood')) Wood
+                        option(value='Furniture' selected=(item.productType === 'Furniture')) Furniture
                 .mb-3
                     label.form-label Cost Price
                     input#costPrice.form-control(type='number' name='costPrice' value=`${item.costPrice}`, required='')

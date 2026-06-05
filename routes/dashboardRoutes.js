@@ -9,15 +9,13 @@ router.get("/products", (req, res) => {
   res.render("products");
 });
 router.get("/general", (req, res) => {
-  res.render("general");
+  res.render("general", { currentUser: req.user || null });
 });
 router.get("/dash", (req, res) => {
   res.render("dash");
 });
 router.get("/suppliers", (req, res) => {
-  res.render("suppliers");
+  res.render("suppliers", { currentUser: req.user || null });
 });
-// router.get("/", (req, res) => {
-//   res.render("index");
-// });
+
 module.exports = router;
