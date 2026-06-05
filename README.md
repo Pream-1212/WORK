@@ -1,93 +1,198 @@
-Mayondo Project – MWF Ltd
- Overview
+# Mayondo Project – MWF Ltd
 
-The Mayondo Project is a business management system designed for Mayondo Wood and Furniture (MWF) Ltd, a B2B company that deals in wood products and furniture. The system helps the company manage suppliers, customers, sales, users, and products efficiently through an interactive dashboard.
+## Overview
 
-It provides a centralized platform for monitoring daily operations such as:
+The Mayondo Project is a web-based business management system developed for Mayondo Wood and Furniture (MWF) Ltd, a business specializing in wood products and furniture. The application streamlines day-to-day operations by providing a centralized platform for managing inventory, suppliers, sales, users, and business performance.
 
-Supplier management
+The system is built using Node.js, Express.js, MongoDB Atlas, and Pug templates, enabling secure data management and real-time business operations.
 
-Sales tracking
+---
 
-User management
+## Features
 
-Dashboard analytics
+### Dashboard Management
 
-Business reporting
+* Business overview dashboard
+* Sales and inventory summaries
+* Quick access to key operational metrics
 
-FEATURES
+### Inventory Management
 
-Dashboard – Overview of sales, suppliers, and performance metrics
+* Add, edit, and delete stock records
+* Track available inventory
+* Monitor stock movement and history
+* Validate stock data before storage
 
-User Management – Add, view, and manage system users
+### Supplier Management
 
-Supplier Management – Track supplier details and wood products supplied
+* Add and manage supplier information
+* Update supplier records
+* Track supplier details and supplied products
 
-Sales Management – Record, view, and manage customer sales
+### Sales Management
 
-Reports – Generate insights for revenue, product margins, and orders
+* Record sales transactions
+* View and manage sales history
+* Update and edit sales records
 
-Responsive UI – Accessible on desktop and mobile
+### User Management
 
- TECH STACK
+* User registration and authentication
+* Role-based access control
+* Secure session management using Passport.js
 
-Frontend: HTML5, CSS3, JavaScript (Vanilla JS)
+### Reporting and Analytics
 
-Styling: Custom CSS, Bootstrap (for components & responsiveness)
+* Business performance monitoring
+* Inventory tracking
+* Sales reporting and analysis
 
-Data Handling: Local/session storage (for now, can integrate backend later)
+### Responsive Interface
 
-PROJECT STRUCTURE
+* Optimized for desktop and mobile devices
+* User-friendly navigation and layouts
+
+---
+
+## Technology Stack
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB Atlas
+* Mongoose
+
+### Authentication & Security
+
+* Passport.js
+* Passport Local Mongoose
+* Express Session
+* Connect Mongo
+
+### Frontend
+
+* Pug Template Engine
+* HTML5
+* CSS3
+* JavaScript
+
+### Testing & Development
+
+* Jest
+* Nodemon
+
+---
+
+## Project Structure
+
+```text
 WORK/
-│── index.html         # Homepage / entry point
-│── dashboard.html     # Manager dashboard
-│── sales.html         # Sales management
-│── suppliers.html     # Supplier records
-│── users.html         # User management
-│── style.css          # Styling for the project
-│── /images            # Logos, product images, UI assets
-│── /scripts           # JavaScript files (DOM logic, functions)
+│
+├── middleware/
+├── models/
+├── public/
+├── routes/
+├── views/
+│
+├── server.js
+├── package.json
+├── validateStockData.js
+├── validateStockData.test.js
+├── .env.example
+└── README.md
+```
 
-INSTALLATION AND SETUP
+---
 
-Clone the repository
+## Installation and Setup
 
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Pream-1212/WORK.git
 cd WORK
+```
 
+### 2. Install Dependencies
 
-OPEN IN THE BROWSER
-Simply open index.html in your preferred browser to start using the system.
+```bash
+npm install
+```
 
-No backend setup is required at this stage.
+### 3. Configure Environment Variables
 
- USAGE
+Create a `.env` file in the project root:
 
-Open index.html → navigate through the dashboard.
+```env
+MONGODB_URL=your_mongodb_connection_string
+SESSION_SECRET=your_secure_session_secret
+```
 
-Manage suppliers via suppliers.html.
+### 4. Start the Application
 
-Track users in users.html.
+Production:
 
-Record and view sales using sales.html.
+```bash
+npm start
+```
 
-Use the dashboard for quick business insights.
+Development:
 
- Author
+```bash
+npm run dev
+```
 
-Pream Twesige Queen
- [preamqueentwesige@gmail.com]
+### 5. Access the Application
 
- License
+Open your browser and visit:
 
-This project is licensed under the MIT License – feel free to use and modify with attribution.
+```text
+http://localhost:4000
+```
 
- Future updates may include:
+---
 
-Database integration (MySQL/PostgreSQL)
+## Deployment
 
-Authentication & role-based access
+The application is configured for deployment on platforms such as Render using:
 
-REST API for dynamic data
+```bash
+npm install
+npm start
+```
 
-Advanced reporting & analytic
+Environment variables required:
+
+```env
+MONGODB_URL=your_mongodb_connection_string
+SESSION_SECRET=your_secure_session_secret
+NODE_ENV=production
+```
+
+---
+
+## Author
+
+**Twesige Pream Queen**
+
+Email: [preamqueentwesige@gmail.com](mailto:preamqueentwesige@gmail.com)
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Future Enhancements
+
+* Advanced business analytics
+* Exportable reports (PDF/Excel)
+* Email notifications
+* Audit logging
+* Multi-branch inventory management
+* Enhanced role-based permissions
+* REST API integration
+* Cloud file storage support
