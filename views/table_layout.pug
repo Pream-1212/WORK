@@ -4,7 +4,11 @@ html
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title MAYONDO WOOD FACTORY
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet')
+
+    link(
+      href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css'
+      rel='stylesheet'
+    )
     link(href='/css/stockable.css' rel='stylesheet')
 
   body.d-flex.flex-column.min-vh-100
@@ -12,17 +16,23 @@ html
     // Navbar
     nav.navbar.navbar-expand-lg.bg-body-tertiary
       .container-fluid
+
         // Brand
-        a.navbar-brand(href='/') 
-          img(src='/images/mwf.png' alt='Company Logo' width='80' height='80')
+        a.navbar-brand(href='/')
+          img(
+            src='/images/mwf.png'
+            alt='Company Logo'
+            width='80'
+            height='80'
+          )
 
         // Toggler button
         button.navbar-toggler(
-          type='button',
-          data-bs-toggle='collapse',
-          data-bs-target='#navbarNav',
-          aria-controls='navbarNav',
-          aria-expanded='false',
+          type='button'
+          data-bs-toggle='collapse'
+          data-bs-target='#navbarNav'
+          aria-controls='navbarNav'
+          aria-expanded='false'
           aria-label='Toggle navigation'
         )
           span.navbar-toggler-icon
@@ -32,25 +42,35 @@ html
           ul.navbar-nav.ms-auto
             li.nav-item
               a.nav-link(href='/logout') Logout
+
             li.nav-item
               a.nav-link(href='/userssection') Users List
+
             li.nav-item
               a.nav-link(href='/salesdata') Sales List
+
             li.nav-item
               a.nav-link(href='/stocklist') Stock List
-             li.nav-item
-               a.nav-link(href='/general') Attendants dashboard
-             li.nav-item
-               a.nav-link(href='/Addsale') Sales 
-             li.nav-item
-               a.nav-link(href='/stock') Stock
-             li.nav-item
-               a.nav-link(href='/suppliers-list') Suppliers
 
+            li.nav-item
+              a.nav-link(href='/general') Attendants Dashboard
+
+            li.nav-item
+              a.nav-link(href='/Addsale') Sales
+
+            li.nav-item
+              a.nav-link(href='/stock') Stock
+
+            li.nav-item
+              a.nav-link(href='/suppliers-list') Suppliers
 
     // Main content
-    block content               
+    block content
 
     // Footer
     footer.bg-custom.text-white.text-center.py-3.mt-5
       p.mb-0 © 2025 MWF Ltd. | All Rights Reserved
+
+    script(
+      src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js'
+    )
